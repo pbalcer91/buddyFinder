@@ -6,6 +6,7 @@ import android.os.Parcelable;
 public class User implements Parcelable {
     private String userName;
     private String email;
+    //private Byte [] image;
 
     public String getUserName() {
         return userName;
@@ -22,6 +23,7 @@ public class User implements Parcelable {
     public void setEmail(String email) {
         this.email = email;
     }
+
 
     public User(String userName, String email) {
         this.userName = userName;

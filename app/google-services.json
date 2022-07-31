@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "391007149429",
+    "project_id": "buddyfinderdevandroid",
+    "storage_bucket": "buddyfinderdevandroid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:391007149429:android:abf8eb4acdd20f14a4473c",
+        "android_client_info": {
+          "package_name": "pl.com.wfiis.android.buddyfinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "391007149429-k03qknnr4tjv3jh88nd960ag538sb0sq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRvSNp9bIeZARHUrtzRX0lrtq7bBT-uYI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "391007149429-k03qknnr4tjv3jh88nd960ag538sb0sq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
