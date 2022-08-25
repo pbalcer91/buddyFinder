@@ -6,6 +6,7 @@ import android.os.Parcelable;
 public class User implements Parcelable {
     private String userName;
     private String email;
+    private int id;
 
     public String getUserName() {
         return userName;
@@ -23,9 +24,18 @@ public class User implements Parcelable {
         this.email = email;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public User(String userName, String email) {
         this.userName = userName;
         this.email = email;
+        //TODO: generate id
     }
 
     public User(Parcel source) {
