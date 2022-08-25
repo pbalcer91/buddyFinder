@@ -3,42 +3,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:paddingHorizontal="@dimen/margin">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".views.HomeFragment"
-        android:orientation="vertical">
+        android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/welcome_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="textStart"
-            android:layout_margin="@dimen/margin"
-            android:textSize="36sp"
-            android:textColor="@color/black" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".views.HomeFragment"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nadchodzace wydarzenia"
-            android:textAlignment="textStart"
-            android:layout_margin="@dimen/margin"
-            android:textSize="28sp"
-            android:textColor="@color/black" />
+                <TextView
+                    android:id="@+id/welcome_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:layout_marginVertical="@dimen/margin"
+                    android:textSize="36sp"
+                    android:textColor="@color/black" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Twoje wydarzenia"
-            android:textAlignment="textStart"
-            android:layout_margin="@dimen/margin"
-            android:textSize="28sp"
-            android:textColor="@color/black" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nadchodzace wydarzenia"
+                android:textAlignment="textStart"
+                android:textSize="28sp"
+                android:textColor="@color/black" />
 
-    </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/joinedOffers"
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:layout_marginTop="@dimen/margin"
+                android:scrollbars="vertical"
+                android:scrollbarThumbVertical="@color/dark_gray"
+                android:scrollbarSize="2dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/dark_gray"
+                android:layout_marginVertical="@dimen/padding"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Twoje wydarzenia"
+                android:textAlignment="textStart"
+                android:textSize="28sp"
+                android:textColor="@color/black" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/createdOffersList"
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:layout_marginTop="@dimen/margin"
+                android:scrollbars="vertical"
+                android:scrollbarThumbVertical="@color/dark_gray"
+                android:scrollbarSize="2dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAddOffer"
@@ -47,6 +76,5 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="24dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="24dp"
         android:src="@drawable/ic_add_offer" />
 </RelativeLayout>

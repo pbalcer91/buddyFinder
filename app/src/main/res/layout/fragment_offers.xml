@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.OffersFragment">
+    android:paddingHorizontal="@dimen/margin">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="OffersFragment"
-        android:textAlignment="center"
-        android:textSize="36sp"
-        android:textColor="@color/black" />
+        tools:context=".views.HomeFragment"
+        android:orientation="vertical" >
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search offer title (to remove?)"
+            android:textSize="28sp"
+            android:textColor="@color/black"
+            android:layout_marginVertical="@dimen/padding"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/offersList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:scrollbars="vertical"
+            android:scrollbarThumbVertical="@color/dark_gray"
+            android:scrollbarSize="2dp"/>
+
+    </LinearLayout>
+</RelativeLayout>

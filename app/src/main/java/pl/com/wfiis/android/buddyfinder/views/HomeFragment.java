@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,15 +14,20 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+
 import pl.com.wfiis.android.buddyfinder.R;
+import pl.com.wfiis.android.buddyfinder.adapters.OfferAdapter;
+import pl.com.wfiis.android.buddyfinder.models.Offer;
 import pl.com.wfiis.android.buddyfinder.models.User;
 
 public class HomeFragment extends Fragment {
 
     private User user;
+    private ArrayList<Offer> joinedOffersList = new ArrayList<>();
+    private ArrayList<Offer> createdOffersList = new ArrayList<>();
 
     public HomeFragment() {
-
     }
 
     @Override
@@ -44,6 +51,30 @@ public class HomeFragment extends Fragment {
         FloatingActionButton addOfferButton = view.findViewById(R.id.btnAddOffer);
         addOfferButton.setOnClickListener(tempView -> startActivity(new Intent(getActivity(), AddOfferActivity.class)));
 
+        RecyclerView joinedOffersListView = view.findViewById(R.id.joinedOffers);
+        RecyclerView createdOffersListView = view.findViewById(R.id.createdOffersList);
+
+        setupOffersList();
+
+        OfferAdapter joinedOfferAdapter = new OfferAdapter(this.getContext(), joinedOffersList);
+        OfferAdapter createdOfferAdapter = new OfferAdapter(this.getContext(), createdOffersList);
+
+        joinedOffersListView.setAdapter(joinedOfferAdapter);
+        joinedOffersListView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+        createdOffersListView.setAdapter(createdOfferAdapter);
+        createdOffersListView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
         return view;
+    }
+
+    private void setupOffersList() {
+        for (int i = 0; i < 15; i++) {
+            if (i % 2 == 0)
+                joinedOffersList.add(new Offer("Offer numero " + i, new User("Smith", "some_email")));
+            else
+                createdOffersList.add(new Offer("Offer numero " + i, user));
+        }
+        // TODO: implement setup offersList from database
     }
 }
