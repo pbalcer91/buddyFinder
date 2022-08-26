@@ -196,11 +196,7 @@ public class ProfileFragment extends Fragment {
         EditText oldPasswordField = bottomSheetDialog.findViewById(R.id.oldPasswordEdit);
         EditText newPasswordField = bottomSheetDialog.findViewById(R.id.newPasswordEdit);
         EditText repeatNewPasswordField = bottomSheetDialog.findViewById(R.id.repeatNewPasswordEdit);
-
-        System.out.println("DEBUG");
-        System.out.println(oldPasswordField.getText());
-        System.out.println("END DEBUG");
-
+        
         if (oldPasswordField.getText().length() == 0
             || newPasswordField.getText().length() == 0
             || repeatNewPasswordField.getText().length() == 0) {
