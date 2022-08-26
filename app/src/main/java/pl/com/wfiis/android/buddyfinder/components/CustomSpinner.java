@@ -1,8 +1,6 @@
 package pl.com.wfiis.android.buddyfinder.components;
 
-
 import android.content.Context;
-import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.widget.Spinner;
 
@@ -24,24 +22,12 @@ public class CustomSpinner extends AppCompatSpinner {
         super(context);
     }
 
-    public CustomSpinner(@NonNull Context context, int mode) {
-        super(context, mode);
-    }
-
     public CustomSpinner(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
     public CustomSpinner(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
-
-    public CustomSpinner(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int mode) {
-        super(context, attrs, defStyleAttr, mode);
-    }
-
-    public CustomSpinner(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int mode, Resources.Theme popupTheme) {
-        super(context, attrs, defStyleAttr, mode, popupTheme);
     }
 
     @Override

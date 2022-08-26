@@ -4,9 +4,6 @@ import java.util.ArrayList;
 
 
 public class Offer {
-    public Offer() {
-
-    }
 
     public Offer(String title, User author) {
         this.title = title;
@@ -25,10 +22,6 @@ public class Offer {
         return author;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
     public ArrayList<User> getParticipants() {
         return participants;
     }
@@ -43,6 +36,6 @@ public class Offer {
     //private int minParticipants;
     //private int maxParticipants;
     //private location
-    private User author;
+    final private User author;
     private ArrayList<User> participants;
 }
