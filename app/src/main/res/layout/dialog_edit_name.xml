@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottom_sheet_background"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="50dp"
+        android:layout_height="3dp"
+        android:layout_gravity="center"
+        android:background="@color/dark_gray"
+        android:layout_marginBottom="@dimen/padding"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="@string/edit_profile_title"
+        android:textColor="@color/dark_gray"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/mini_padding"
+            android:paddingLeft="@dimen/padding"
+            android:paddingRight="@dimen/padding"
+            android:orientation="vertical"
+            android:background="@drawable/component_edit_text"
+            android:layout_marginTop="@dimen/margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_name"
+                android:textSize="@dimen/text_info"
+                android:textColor="@color/primary"/>
+
+            <EditText
+                android:id="@+id/newNameEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="password"
+                android:background="@color/transparent"
+                android:hint="@string/new_name"
+                android:textColorHint="@color/text_hint"
+                android:textAlignment="textStart"
+                android:padding="@dimen/padding"
+                android:maxLines="1"
+                android:inputType="textPassword"
+
+                android:textSize="@dimen/text_input"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/mini_padding"
+            android:paddingLeft="@dimen/padding"
+            android:paddingRight="@dimen/padding"
+            android:orientation="vertical"
+            android:background="@drawable/component_edit_text"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_marginBottom="@dimen/margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_email"
+                android:textSize="@dimen/text_info"
+                android:textColor="@color/primary"/>
+
+            <EditText
+                android:id="@+id/newEmailEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="password"
+                android:background="@color/transparent"
+                android:hint="@string/new_email"
+                android:textColorHint="@color/text_hint"
+                android:textAlignment="textStart"
+                android:padding="@dimen/padding"
+                android:maxLines="1"
+                android:inputType="textEmailAddress"
+
+                android:textSize="@dimen/text_input"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/passwordChangeConfirmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/component_regular_button"
+            android:text="Confirm"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/padding"/>
+
+        <Button
+            android:id="@+id/passwordChangeRejectButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/component_flat_button"
+            android:text="Cancel"
+            android:textSize="12sp"
+            android:textColor="@color/primary"
+            android:layout_gravity="center" />
+
+    </LinearLayout>
+
+</LinearLayout>
