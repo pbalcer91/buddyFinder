@@ -2,10 +2,14 @@
 <resources>
     <dimen name="text_info">10sp</dimen>
     <dimen name="text_input">18sp</dimen>
+    <dimen name="text_header">24sp</dimen>
+    <dimen name="text_regular">18sp</dimen>
 
     <dimen name="bar_height">60dp</dimen>
     <dimen name="margin">24dp</dimen>
     <dimen name="mini_padding">4dp</dimen>
     <dimen name="padding">10dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="icon_size">24dp</dimen>
 </resources>

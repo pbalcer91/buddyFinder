@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background"
+    android:paddingHorizontal="@dimen/margin"
+    android:paddingVertical="@dimen/padding">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/margin"
+        tools:ignore="UselessParent">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:focusable="true"
+            android:clickable="true"
+            android:padding="@dimen/padding"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@drawable/component_image_button">
+
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:src="@drawable/ic_arrow_left"
+                android:focusable="true" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/offer_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Offer tittle"
+            android:textColor="@color/text"
+            android:textSize="@dimen/text_header"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:focusable="true"
+            android:clickable="true"
+            android:padding="@dimen/padding"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@drawable/component_image_button">
+
+            <ImageView
+                android:id="@+id/btn_offer_edit"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:src="@drawable/ic_edit"
+                android:focusable="true" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textColor="@color/text"
+        android:textSize="@dimen/text_regular"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textColor="@color/text"
+        android:textSize="@dimen/text_regular"/>
+
+</LinearLayout>

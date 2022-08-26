@@ -1,6 +1,5 @@
 package pl.com.wfiis.android.buddyfinder.views;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -48,8 +47,13 @@ public class HomeFragment extends Fragment {
         TextView welcomeLabel = view.findViewById(R.id.welcome_label);
         welcomeLabel.setText("Hello, " + user.getUserName());
 
+        //TODO: usunac po testach
+        OfferDetailsDialog dialog = new OfferDetailsDialog(requireContext(), R.style.Dialog);
+        dialog.setContentView(R.layout.dialog_offer_details);
+
         FloatingActionButton addOfferButton = view.findViewById(R.id.btnAddOffer);
-        addOfferButton.setOnClickListener(tempView -> startActivity(new Intent(getActivity(), AddOfferActivity.class)));
+        //addOfferButton.setOnClickListener(tempView -> startActivity(new Intent(getActivity(), AddOfferActivity.class)));
+        addOfferButton.setOnClickListener(tempView -> dialog.show());
 
         RecyclerView joinedOffersListView = view.findViewById(R.id.joinedOffers);
         RecyclerView createdOffersListView = view.findViewById(R.id.createdOffersList);
