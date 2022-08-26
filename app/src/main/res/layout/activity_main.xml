@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".views.MainActivity"
-    android:background="@color/background">
+    android:background="@drawable/background">
 
     <LinearLayout
         android:id="@+id/fragment_layout"
@@ -22,7 +22,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/bar_height"
         android:layout_gravity="bottom"
-        app:menu="@menu/navigation_menu">
+        app:menu="@menu/navigation_menu"
+        android:background="#b8c2b6"
+        app:itemIconTint="@drawable/bottom_navigation_colors"
+        app:itemTextColor="@drawable/bottom_navigation_colors">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

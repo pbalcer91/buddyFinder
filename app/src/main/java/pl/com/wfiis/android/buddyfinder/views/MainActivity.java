@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         profileFragment.setArguments(fragmentBundle);
 
         OffersFragment offersFragment = new OffersFragment();
+        offersFragment.setArguments(fragmentBundle);
 
         BottomNavigationView bottomNavigation = findViewById(R.id.bottomNavigationBar);
 

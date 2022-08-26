@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottom_sheet_background"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="50dp"
+        android:layout_height="3dp"
+        android:layout_gravity="center"
+        android:background="@color/dark_gray"
+        android:layout_marginBottom="@dimen/padding"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="@string/logout_info"
+        android:textColor="@color/dark_gray"
+        android:layout_marginTop="@dimen/padding"
+        android:textSize="16sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_marginBottom="@dimen/padding"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/passwordChangeConfirmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/component_regular_button"
+            android:text="@string/logout"
+            android:textColor="@color/white"
+            android:layout_marginRight="@dimen/margin"/>
+
+        <Button
+            android:id="@+id/passwordChangeRejectButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/component_flat_button"
+            android:text="@string/reject"
+            android:textSize="12sp"
+            android:textColor="@color/primary"
+            android:layout_marginLeft="@dimen/margin"/>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
