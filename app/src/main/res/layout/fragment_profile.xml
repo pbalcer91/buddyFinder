@@ -56,14 +56,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/margin">
+        android:layout_marginTop="@dimen/margin"
+        android:layout_marginBottom="@dimen/margin">
 
         <Button
-            android:id="@+id/btn_edit_profile"
+            android:id="@+id/btn_edit_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/component_flat_button"
-            android:text="Edit Profile"
+            android:text="@string/change_name_title"
+            android:textColor="@color/primary"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/padding"/>
+
+        <Button
+            android:id="@+id/btn_edit_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/component_flat_button"
+            android:text="@string/change_email_title"
             android:textColor="@color/primary"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/padding"/>
@@ -73,15 +84,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/component_flat_button"
-            android:text="Change Password"
+            android:text="@string/change_password_title"
             android:textColor="@color/primary"
             android:layout_gravity="center" />
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/dark_gray"
+        android:layout_marginHorizontal="@dimen/margin"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
+
+
 
         <Button
             android:id="@+id/btn_logout"
@@ -91,7 +110,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/margin"
             android:background="@drawable/component_flat_button"
-            android:text="Logout"
+            android:text="@string/logout"
             android:textColor="@color/dark_gray" />
 
     </RelativeLayout>
