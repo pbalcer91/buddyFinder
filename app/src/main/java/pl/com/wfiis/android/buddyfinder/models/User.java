@@ -7,6 +7,7 @@ public class User implements Parcelable {
     private String userName;
     private String email;
     private int id;
+    //private Byte [] image;
 
     public String getUserName() {
         return userName;
