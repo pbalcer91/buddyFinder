@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:text="@string/edit_profile_title"
+        android:text="@string/change_name_title"
         android:textColor="@color/dark_gray"
         android:textSize="18sp"
         android:textStyle="bold"/>
@@ -36,7 +36,8 @@
             android:paddingRight="@dimen/padding"
             android:orientation="vertical"
             android:background="@drawable/component_edit_text"
-            android:layout_marginTop="@dimen/margin">
+            android:layout_marginTop="@dimen/margin"
+            android:layout_marginBottom="@dimen/margin">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,42 +57,7 @@
                 android:textAlignment="textStart"
                 android:padding="@dimen/padding"
                 android:maxLines="1"
-                android:inputType="textPassword"
-
-                android:textSize="@dimen/text_input"
-                android:textColor="@color/black" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/mini_padding"
-            android:paddingLeft="@dimen/padding"
-            android:paddingRight="@dimen/padding"
-            android:orientation="vertical"
-            android:background="@drawable/component_edit_text"
-            android:layout_marginTop="@dimen/margin"
-            android:layout_marginBottom="@dimen/margin">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/new_email"
-                android:textSize="@dimen/text_info"
-                android:textColor="@color/primary"/>
-
-            <EditText
-                android:id="@+id/newEmailEdit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofillHints="password"
-                android:background="@color/transparent"
-                android:hint="@string/new_email"
-                android:textColorHint="@color/text_hint"
-                android:textAlignment="textStart"
-                android:padding="@dimen/padding"
-                android:maxLines="1"
-                android:inputType="textEmailAddress"
+                android:inputType="textCapSentences"
 
                 android:textSize="@dimen/text_input"
                 android:textColor="@color/black" />
