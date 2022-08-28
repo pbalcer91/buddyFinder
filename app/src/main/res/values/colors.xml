@@ -10,6 +10,8 @@
     <color name="primary_50">#77008c54</color>
     <color name="primary_30">#44008c54</color>
     <color name="primary_10">#11008c54</color>
+    <color name="error">#C21414</color>
     <color name="background">#E4E4E4</color>
+    <color name="background_70">#40E4E4E4</color>
 <!--    <color name="secondary">#FF07a3b8</color>-->
 </resources>

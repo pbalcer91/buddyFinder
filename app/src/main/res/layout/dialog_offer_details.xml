@@ -4,22 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/background"
     android:paddingHorizontal="@dimen/margin"
     android:paddingVertical="@dimen/padding">
 
     <RelativeLayout
+        android:id="@+id/offer_details_title_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginBottom="@dimen/margin"
         tools:ignore="UselessParent">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:focusable="true"
             android:clickable="true"
@@ -38,7 +39,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/offer_title"
+            android:id="@+id/tv_offer_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Offer tittle"
@@ -48,41 +49,267 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"/>
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:focusable="true"
+            android:background="@drawable/component_image_button"
             android:clickable="true"
-            android:padding="@dimen/padding"
+            android:focusable="true"
             android:gravity="center"
             android:orientation="vertical"
-            android:background="@drawable/component_image_button">
+            android:padding="@dimen/padding">
 
             <ImageView
                 android:id="@+id/btn_offer_edit"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
-                android:src="@drawable/ic_edit"
-                android:focusable="true" />
+                android:focusable="true"
+                android:src="@drawable/ic_edit" />
 
         </LinearLayout>
 
     </RelativeLayout>
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Date"
-        android:textColor="@color/text"
-        android:textSize="@dimen/text_regular"/>
+        app:layout_constraintTop_toBottomOf="@id/offer_details_title_row"
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical">
 
-    <TextView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/component_label"
+                android:layout_marginBottom="@dimen/margin"
+                android:layout_marginTop="@dimen/padding"
+                tools:ignore="UselessParent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:focusable="true"
+                        android:src="@drawable/ic_calendar"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/padding"/>
+
+                    <TextView
+                        android:id="@+id/tv_offer_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="12/12/2012"
+                        android:textColor="@color/text"
+                        android:textSize="14sp"
+                        android:gravity="center_vertical"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:focusable="true"
+                        android:src="@drawable/ic_time"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/padding"/>
+
+                    <TextView
+                        android:id="@+id/tv_offer_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="18:00"
+                        android:textColor="@color/text"
+                        android:textSize="14sp"
+                        android:gravity="center_vertical"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/btn_offer_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/margin"
+                android:background="@drawable/component_label_button"
+                android:clickable="true"
+                tools:ignore="UselessParent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:focusable="true"
+                        android:src="@drawable/ic_location"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/padding"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Lodz, Dabrowskiego 48"
+                        android:textColor="@color/primary"
+                        android:textSize="14sp"
+                        android:gravity="center_vertical"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_arrow_right" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/component_label"
+                android:layout_marginBottom="@dimen/margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="There will be offer's description, where author can put some details about this event."
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/text_regular"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/btn_offer_members"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/margin"
+                android:background="@drawable/component_label_button"
+                android:clickable="true"
+                tools:ignore="UselessParent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:focusable="true"
+                        android:src="@drawable/ic_members"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/padding"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Members"
+                        android:textAllCaps="true"
+                        android:textColor="@color/primary"
+                        android:textSize="18sp"
+                        android:gravity="center_vertical"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_arrow_right" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/component_label"
+                android:layout_marginBottom="@dimen/margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Organizer: "
+                    android:textStyle="bold"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/text_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_offer_details_organizer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="John"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/text_regular"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Description"
-        android:textColor="@color/text"
-        android:textSize="@dimen/text_regular"/>
+        android:layout_marginBottom="@dimen/margin">
 
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/component_flat_button"
+            android:textColor="@color/error"
+            android:layout_marginBottom="@dimen/margin"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin"
+                android:layout_marginRight="@dimen/padding"
+                android:src="@drawable/ic_chat"
+                app:background="@color/primary"
+                app:tint="@color/background"
+                />
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
 </LinearLayout>

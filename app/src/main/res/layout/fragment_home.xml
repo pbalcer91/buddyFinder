@@ -73,8 +73,8 @@
         android:id="@+id/btnAddOffer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="24dp"
-        android:layout_alignParentRight="true"
         android:src="@drawable/ic_add_offer" />
 </RelativeLayout>
