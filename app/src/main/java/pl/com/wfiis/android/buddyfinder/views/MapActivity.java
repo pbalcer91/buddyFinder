@@ -9,6 +9,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -123,6 +124,10 @@ public class MapActivity extends AppCompatActivity {
         if (list.size() > 0) {
             Address address = list.get(0);
             moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), address.getAddressLine(0));
+
+            searchText.setText(address.getAddressLine(0));
+
+            hideKeyboard();
         }
     }
 
@@ -141,6 +146,7 @@ public class MapActivity extends AppCompatActivity {
                                 currentLocation.getLongitude());
                         moveCamera(new LatLng(currentLocation.getLatitude(),
                                 currentLocation.getLongitude()), "Current location");
+
                     } else {
                         Log.d(TAG, "getCurrentLocation: null");
                     }
