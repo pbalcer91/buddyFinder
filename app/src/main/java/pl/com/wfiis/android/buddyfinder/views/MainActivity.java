@@ -6,9 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -39,27 +43,27 @@ public class MainActivity extends AppCompatActivity {
         ProfileFragment profileFragment = new ProfileFragment();
         profileFragment.setArguments(fragmentBundle);
 
-        OffersFragment offersFragment = new OffersFragment();
-        offersFragment.setArguments(fragmentBundle);
+        EventsFragment eventsFragment = new EventsFragment();
+        eventsFragment.setArguments(fragmentBundle);
 
         BottomNavigationView bottomNavigation = findViewById(R.id.bottomNavigationBar);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_layout, homeFragment).commit();
-        bottomNavigation.setSelectedItemId(R.id.homeItem);
+        bottomNavigation.setSelectedItemId(R.id.menu_item_home);
 
         bottomNavigation.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
 
             switch (item.getItemId()) {
-                case R.id.homeItem:
+                case R.id.menu_item_home:
                     selectedFragment = homeFragment;
                     break;
-                case R.id.profileItem:
+                case R.id.menu_item_profile:
                     selectedFragment = profileFragment;
                     break;
-                case R.id.offersItem:
-                    selectedFragment = offersFragment;
+                case R.id.menu_item_events:
+                    selectedFragment = eventsFragment;
                     break;
             }
 

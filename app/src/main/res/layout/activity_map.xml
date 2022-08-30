@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/root_map">
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MapsActivity" />
+
+    <RelativeLayout
+        android:id="@+id/map_title_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding"
+        android:background="@color/background_30">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:focusable="true"
+            android:clickable="true"
+            android:padding="@dimen/padding"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@drawable/component_image_button">
+
+            <ImageView
+                android:id="@+id/btn_map_back"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:src="@drawable/ic_arrow_left"
+                android:focusable="true" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_map_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Event tittle"
+            android:textColor="@color/text"
+            android:textSize="@dimen/text_header"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/component_image_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/padding">
+
+            <ImageView
+                android:id="@+id/btn_current_location"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:focusable="true"
+                android:src="@drawable/ic_current_location" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/btn_map_search_field"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/map_title_row"
+        android:paddingHorizontal="@dimen/padding"
+        android:paddingVertical="@dimen/padding"
+        android:layout_marginTop="@dimen/padding"
+        android:layout_marginHorizontal="@dimen/padding"
+        android:background="@drawable/component_edit_text">
+
+        <ImageView
+            android:id="@+id/search_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search"
+            android:layout_centerVertical="true"/>
+
+        <EditText
+            android:id="@+id/et_search_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/search_icon"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:background="@null"
+            android:hint="Search here"
+            android:textColor="@color/text"
+            android:textColorHint="@color/text_hint"
+            android:layout_marginHorizontal="@dimen/padding"
+            android:imeOptions="actionSearch"
+            android:inputType="text"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

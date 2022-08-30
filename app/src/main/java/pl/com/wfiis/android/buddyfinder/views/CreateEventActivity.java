@@ -15,7 +15,7 @@ import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.adapters.CategoryAdapter;
 import pl.com.wfiis.android.buddyfinder.components.CustomSpinner;
 
-public class AddOfferActivity extends AppCompatActivity implements CustomSpinner.OnSpinnerEventsListener {
+public class CreateEventActivity extends AppCompatActivity implements CustomSpinner.OnSpinnerEventsListener {
 
     private ImageView toolBarBackButton;
     private ImageView toolBarAcceptButton;
@@ -30,7 +30,7 @@ public class AddOfferActivity extends AppCompatActivity implements CustomSpinner
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_offer);
+        setContentView(R.layout.activity_add_event);
 
         toolBarBackButton = findViewById(R.id.tool_bar_back);
         toolBarAcceptButton = findViewById(R.id.tool_bar_accept);
@@ -45,16 +45,16 @@ public class AddOfferActivity extends AppCompatActivity implements CustomSpinner
         categoriesList.add("Category 3");
         categoriesList.add("Category 4");
 
-        categoryAdapter = new CategoryAdapter(AddOfferActivity.this, categoriesList);
+        categoryAdapter = new CategoryAdapter(CreateEventActivity.this, categoriesList);
         categorySpinner.setAdapter(categoryAdapter);
 
-        toolBarTitle.setText("Add new offer");
+        toolBarTitle.setText("Add new event");
 
         toolBarAcceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO
-                // create and add offer
+                // create and add event
 
                 finish();
             }

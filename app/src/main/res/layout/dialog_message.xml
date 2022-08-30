@@ -14,10 +14,10 @@
         android:layout_marginBottom="@dimen/padding"/>
 
     <TextView
+        android:id="@+id/tv_dialog_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:text="@string/logout_info"
         android:textColor="@color/dark_gray"
         android:layout_marginTop="@dimen/padding"
         android:textSize="16sp"/>
@@ -31,20 +31,18 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/passwordChangeConfirmButton"
+            android:id="@+id/btn_dialog_accept"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/component_regular_button"
-            android:text="@string/logout"
             android:textColor="@color/white"
             android:layout_marginRight="@dimen/margin"/>
 
         <Button
-            android:id="@+id/passwordChangeRejectButton"
+            android:id="@+id/btn_dialog_reject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/component_flat_button"
-            android:text="@string/reject"
             android:textSize="12sp"
             android:textColor="@color/primary"
             android:layout_marginLeft="@dimen/margin"/>

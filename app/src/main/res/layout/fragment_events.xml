@@ -15,13 +15,13 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Search offer title (to remove?)"
+            android:text="Search event title (to remove?)"
             android:textSize="28sp"
             android:textColor="@color/black"
             android:layout_marginVertical="@dimen/padding"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/offersList"
+            android:id="@+id/rv_events_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin"

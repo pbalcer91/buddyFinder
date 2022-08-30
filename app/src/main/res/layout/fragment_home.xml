@@ -33,7 +33,7 @@
                 android:textColor="@color/black" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/joinedOffers"
+                android:id="@+id/rv_joined_events_list"
                 android:layout_width="match_parent"
                 android:layout_height="210dp"
                 android:layout_marginTop="@dimen/margin"
@@ -57,7 +57,7 @@
                 android:textColor="@color/black" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/createdOffersList"
+                android:id="@+id/rv_created_events_list"
                 android:layout_width="match_parent"
                 android:layout_height="210dp"
                 android:layout_marginTop="@dimen/margin"
@@ -70,11 +70,11 @@
     </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnAddOffer"
+        android:id="@+id/btn_create_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="24dp"
-        android:src="@drawable/ic_add_offer" />
+        android:src="@drawable/ic_create_event" />
 </RelativeLayout>

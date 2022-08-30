@@ -73,8 +73,8 @@ public class ProfileFragment extends Fragment {
 
         EditText newNameField = bottomSheetDialog.findViewById(R.id.newNameEdit);
 
-        Button acceptButton = bottomSheetDialog.findViewById(R.id.passwordChangeConfirmButton);
-        Button rejectButton = bottomSheetDialog.findViewById(R.id.passwordChangeRejectButton);
+        Button acceptButton = bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
+        Button rejectButton = bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
 
         Objects.requireNonNull(acceptButton).setOnClickListener(
                 tempView -> changeUserName(Objects.requireNonNull(newNameField)
@@ -91,8 +91,8 @@ public class ProfileFragment extends Fragment {
 
         EditText newEmailField = bottomSheetDialog.findViewById(R.id.newEmailEdit);
 
-        Button acceptButton = bottomSheetDialog.findViewById(R.id.passwordChangeConfirmButton);
-        Button rejectButton = bottomSheetDialog.findViewById(R.id.passwordChangeRejectButton);
+        Button acceptButton = bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
+        Button rejectButton = bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
 
         Objects.requireNonNull(acceptButton).setOnClickListener(
                 tempView -> changeUserEmail(Objects.requireNonNull(newEmailField)
@@ -107,8 +107,8 @@ public class ProfileFragment extends Fragment {
         bottomSheetDialog = new BottomSheetDialog(requireContext(), R.style.BottomSheet);
         bottomSheetDialog.setContentView(R.layout.dialog_change_password);
 
-        Button acceptButton = bottomSheetDialog.findViewById(R.id.passwordChangeConfirmButton);
-        Button rejectButton = bottomSheetDialog.findViewById(R.id.passwordChangeRejectButton);
+        Button acceptButton = bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
+        Button rejectButton = bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
 
         Objects.requireNonNull(acceptButton).setOnClickListener(
                 tempView -> changePassword());
@@ -120,10 +120,16 @@ public class ProfileFragment extends Fragment {
 
     private void showLogoutDialog() {
         bottomSheetDialog = new BottomSheetDialog(requireContext(), R.style.BottomSheet);
-        bottomSheetDialog.setContentView(R.layout.dialog_logout);
+        bottomSheetDialog.setContentView(R.layout.dialog_message);
 
-        Button acceptButton = bottomSheetDialog.findViewById(R.id.passwordChangeConfirmButton);
-        Button rejectButton = bottomSheetDialog.findViewById(R.id.passwordChangeRejectButton);
+        TextView message = bottomSheetDialog.findViewById(R.id.tv_dialog_message);
+        message.setText(R.string.logout_info);
+
+        Button acceptButton = bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
+        acceptButton.setText(R.string.logout);
+
+        Button rejectButton = bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
+        rejectButton.setText(R.string.reject);
 
         Objects.requireNonNull(acceptButton).setOnClickListener(
                 tempView -> logout());

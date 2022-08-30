@@ -11,7 +11,7 @@
     android:paddingVertical="@dimen/padding">
 
     <RelativeLayout
-        android:id="@+id/offer_details_title_row"
+        android:id="@+id/event_details_title_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin"
@@ -39,10 +39,10 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_offer_title"
+            android:id="@+id/tv_event_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Offer tittle"
+            android:text="Event tittle"
             android:textColor="@color/text"
             android:textSize="@dimen/text_header"
             android:textStyle="bold"
@@ -62,7 +62,7 @@
             android:padding="@dimen/padding">
 
             <ImageView
-                android:id="@+id/btn_offer_edit"
+                android:id="@+id/btn_event_edit"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
                 android:focusable="true"
@@ -75,7 +75,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/offer_details_title_row"
+        app:layout_constraintTop_toBottomOf="@id/event_details_title_row"
         app:layout_constraintStart_toStartOf="parent"
         android:orientation="vertical">
 
@@ -108,7 +108,7 @@
                         android:layout_marginRight="@dimen/padding"/>
 
                     <TextView
-                        android:id="@+id/tv_offer_date"
+                        android:id="@+id/tv_event_date"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="12/12/2012"
@@ -133,7 +133,7 @@
                         android:layout_marginRight="@dimen/padding"/>
 
                     <TextView
-                        android:id="@+id/tv_offer_time"
+                        android:id="@+id/tv_event_time"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="18:00"
@@ -145,7 +145,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/btn_offer_location"
+                android:id="@+id/btn_event_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -198,13 +198,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="There will be offer's description, where author can put some details about this event."
+                    android:text="There will be event's description, where author can put some details about this event."
                     android:textColor="@color/text"
                     android:textSize="@dimen/text_regular"/>
             </LinearLayout>
 
             <RelativeLayout
-                android:id="@+id/btn_offer_members"
+                android:id="@+id/btn_event_members"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -251,7 +251,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@drawable/component_label"
                 android:layout_marginBottom="@dimen/margin">
 
                 <TextView
@@ -263,13 +262,22 @@
                     android:textSize="@dimen/text_regular"/>
 
                 <TextView
-                    android:id="@+id/tv_offer_details_organizer"
+                    android:id="@+id/tv_event_details_organizer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="John"
                     android:textColor="@color/text"
                     android:textSize="@dimen/text_regular"/>
-            </LinearLayout>
+            </LinearLayout>\
+
+            <Button
+                android:id="@+id/btn_event_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/component_regular_button"
+                android:text="Join"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin"/>
 
         </LinearLayout>
     </ScrollView>
@@ -280,15 +288,15 @@
         android:layout_marginBottom="@dimen/margin">
 
         <Button
-            android:id="@+id/btn_delete"
+            android:id="@+id/btn_event_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/margin"
             android:background="@drawable/component_flat_button"
-            android:textColor="@color/error"
-            android:layout_marginBottom="@dimen/margin"/>
+            android:text="Delete"
+            android:textColor="@color/error" />
 
         <LinearLayout
             android:layout_width="wrap_content"
