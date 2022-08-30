@@ -13,16 +13,16 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import pl.com.wfiis.android.buddyfinder.R;
-import pl.com.wfiis.android.buddyfinder.adapters.OfferAdapter;
-import pl.com.wfiis.android.buddyfinder.models.Offer;
+import pl.com.wfiis.android.buddyfinder.adapters.EventAdapter;
+import pl.com.wfiis.android.buddyfinder.models.Event;
 import pl.com.wfiis.android.buddyfinder.models.User;
 
-public class OffersFragment extends Fragment {
+public class EventsFragment extends Fragment {
 
-    private ArrayList<Offer> offers = new ArrayList<>();
+    private ArrayList<Event> events = new ArrayList<>();
     private User user;
 
-    public OffersFragment() {
+    public EventsFragment() {
     }
 
     @Override
@@ -38,26 +38,26 @@ public class OffersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_offers, container, false);
+        View view = inflater.inflate(R.layout.fragment_events, container, false);
 
-        RecyclerView offersList = view.findViewById(R.id.offersList);
+        RecyclerView eventsList = view.findViewById(R.id.rv_events_list);
 
-        setupOffersList();
+        setupEventsList();
 
-        OfferAdapter offerAdapter = new OfferAdapter(this.getContext(), offers);
-        offersList.setAdapter(offerAdapter);
-        offersList.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        EventAdapter eventAdapter = new EventAdapter(this.getContext(), events);
+        eventsList.setAdapter(eventAdapter);
+        eventsList.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         return view;
     }
 
-    private void setupOffersList() {
+    private void setupEventsList() {
         for (int i = 0; i < 15; i++) {
             if (i % 2 == 0)
-                offers.add(new Offer("Offer numero " + i, new User("Smith", "some_email")));
+                events.add(new Event("Event numero " + i, new User("Smith", "some_email")));
             else
-                offers.add(new Offer("Offer numero " + i, user));
+                events.add(new Event("Event numero " + i, user));
         }
-        // TODO: implement setup offersList from database
+        // TODO: implement setup eventsList from database
     }
 }

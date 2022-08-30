@@ -4,9 +4,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class User implements Parcelable {
+    private int id;
     private String userName;
     private String email;
-    private int id;
     //private Byte [] image;
 
     public String getUserName() {
@@ -34,9 +34,9 @@ public class User implements Parcelable {
     }
 
     public User(String userName, String email) {
+        //TODO: generate id
         this.userName = userName;
         this.email = email;
-        //TODO: generate id
     }
 
     public User(Parcel source) {

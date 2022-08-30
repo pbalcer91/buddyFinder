@@ -1,5 +1,6 @@
 package pl.com.wfiis.android.buddyfinder.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,7 @@ public class CategoryAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        View rootView = LayoutInflater.from(context)
+        @SuppressLint("ViewHolder") View rootView = LayoutInflater.from(context)
                 .inflate(R.layout.item_category, viewGroup, false);
 
         TextView categoryName = rootView.findViewById(R.id.category_name);

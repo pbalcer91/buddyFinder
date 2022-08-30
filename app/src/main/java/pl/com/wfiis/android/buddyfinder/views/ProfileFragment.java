@@ -2,6 +2,7 @@ package pl.com.wfiis.android.buddyfinder.views;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import pl.com.wfiis.android.buddyfinder.R;
@@ -66,62 +68,78 @@ public class ProfileFragment extends Fragment {
     }
 
     private void showEditNameDialog() {
-        bottomSheetDialog = new BottomSheetDialog(this.getContext(), R.style.BottomSheet);
+        bottomSheetDialog = new BottomSheetDialog(requireContext(), R.style.BottomSheet);
         bottomSheetDialog.setContentView(R.layout.dialog_edit_name);
 
         EditText newNameField = bottomSheetDialog.findViewById(R.id.newNameEdit);
 
-        Button acceptButton = bottomSheetDialog.findViewById(R.id.passwordChangeConfirmButton);
-        Button rejectButton = bottomSheetDialog.findViewById(R.id.passwordChangeRejectButton);
+        Button acceptButton = bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
+        Button rejectButton = bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
 
-        acceptButton.setOnClickListener(tempView -> changeUserName(newNameField.getText().toString()));
-        rejectButton.setOnClickListener(tempView -> bottomSheetDialog.cancel());
+        Objects.requireNonNull(acceptButton).setOnClickListener(
+                tempView -> changeUserName(Objects.requireNonNull(newNameField)
+                        .getText().toString()));
+        Objects.requireNonNull(rejectButton).setOnClickListener(
+                tempView -> bottomSheetDialog.cancel());
 
         bottomSheetDialog.show();
     }
 
     private void showEditEmailDialog() {
-        bottomSheetDialog = new BottomSheetDialog(this.getContext(), R.style.BottomSheet);
+        bottomSheetDialog = new BottomSheetDialog(requireContext(), R.style.BottomSheet);
         bottomSheetDialog.setContentView(R.layout.dialog_edit_email);
 
         EditText newEmailField = bottomSheetDialog.findViewById(R.id.newEmailEdit);
 
-        Button acceptButton = bottomSheetDialog.findViewById(R.id.passwordChangeConfirmButton);
-        Button rejectButton = bottomSheetDialog.findViewById(R.id.passwordChangeRejectButton);
+        Button acceptButton = bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
+        Button rejectButton = bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
 
-        acceptButton.setOnClickListener(tempView -> changeUserEmail(newEmailField.getText().toString()));
-        rejectButton.setOnClickListener(tempView -> bottomSheetDialog.cancel());
+        Objects.requireNonNull(acceptButton).setOnClickListener(
+                tempView -> changeUserEmail(Objects.requireNonNull(newEmailField)
+                        .getText().toString()));
+        Objects.requireNonNull(rejectButton).setOnClickListener(
+                tempView -> bottomSheetDialog.cancel());
 
         bottomSheetDialog.show();
     }
 
     private void showChangePasswordDialog() {
-        bottomSheetDialog = new BottomSheetDialog(this.getContext(), R.style.BottomSheet);
+        bottomSheetDialog = new BottomSheetDialog(requireContext(), R.style.BottomSheet);
         bottomSheetDialog.setContentView(R.layout.dialog_change_password);
 
-        Button acceptButton = bottomSheetDialog.findViewById(R.id.passwordChangeConfirmButton);
-        Button rejectButton = bottomSheetDialog.findViewById(R.id.passwordChangeRejectButton);
+        Button acceptButton = bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
+        Button rejectButton = bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
 
-        acceptButton.setOnClickListener(tempView -> changePassword());
-        rejectButton.setOnClickListener(tempView -> bottomSheetDialog.cancel());
+        Objects.requireNonNull(acceptButton).setOnClickListener(
+                tempView -> changePassword());
+        Objects.requireNonNull(rejectButton).setOnClickListener(
+                tempView -> bottomSheetDialog.cancel());
 
         bottomSheetDialog.show();
     }
 
     private void showLogoutDialog() {
-        bottomSheetDialog = new BottomSheetDialog(this.getContext(), R.style.BottomSheet);
-        bottomSheetDialog.setContentView(R.layout.dialog_logout);
+        bottomSheetDialog = new BottomSheetDialog(requireContext(), R.style.BottomSheet);
+        bottomSheetDialog.setContentView(R.layout.dialog_message);
 
-        Button acceptButton = bottomSheetDialog.findViewById(R.id.passwordChangeConfirmButton);
-        Button rejectButton = bottomSheetDialog.findViewById(R.id.passwordChangeRejectButton);
+        TextView message = bottomSheetDialog.findViewById(R.id.tv_dialog_message);
+        message.setText(R.string.logout_info);
 
-        acceptButton.setOnClickListener(tempView -> logout());
-        rejectButton.setOnClickListener(tempView -> bottomSheetDialog.cancel());
+        Button acceptButton = bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
+        acceptButton.setText(R.string.logout);
+
+        Button rejectButton = bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
+        rejectButton.setText(R.string.reject);
+
+        Objects.requireNonNull(acceptButton).setOnClickListener(
+                tempView -> logout());
+        Objects.requireNonNull(rejectButton).setOnClickListener(
+                tempView -> bottomSheetDialog.cancel());
 
         bottomSheetDialog.show();
     }
 
-    private boolean changeUserName(String name) {
+    private boolean changeUserName(@NonNull String name) {
         if (name.length() == 0) {
             Toast.makeText(this.getContext(), "Name field is empty", Toast.LENGTH_SHORT).show();
             return (false);
@@ -139,7 +157,7 @@ public class ProfileFragment extends Fragment {
         return (true);
     }
 
-    private boolean changeUserEmail(String email) {
+    private boolean changeUserEmail(@NonNull String email) {
         if (email.length() == 0) {
             Toast.makeText(this.getContext(), "Email field is empty", Toast.LENGTH_SHORT).show();
             return (false);
@@ -187,9 +205,9 @@ public class ProfileFragment extends Fragment {
         EditText newPasswordField = bottomSheetDialog.findViewById(R.id.newPasswordEdit);
         EditText repeatNewPasswordField = bottomSheetDialog.findViewById(R.id.repeatNewPasswordEdit);
 
-        oldPasswordField.setText("");
-        newPasswordField.setText("");
-        repeatNewPasswordField.setText("");
+        Objects.requireNonNull(oldPasswordField).setText("");
+        Objects.requireNonNull(newPasswordField).setText("");
+        Objects.requireNonNull(repeatNewPasswordField).setText("");
     }
 
     private boolean changePasswordValidation() {
@@ -197,13 +215,9 @@ public class ProfileFragment extends Fragment {
         EditText newPasswordField = bottomSheetDialog.findViewById(R.id.newPasswordEdit);
         EditText repeatNewPasswordField = bottomSheetDialog.findViewById(R.id.repeatNewPasswordEdit);
 
-        System.out.println("DEBUG");
-        System.out.println(oldPasswordField.getText());
-        System.out.println("END DEBUG");
-
-        if (oldPasswordField.getText().length() == 0
-            || newPasswordField.getText().length() == 0
-            || repeatNewPasswordField.getText().length() == 0) {
+        if (Objects.requireNonNull(oldPasswordField).getText().length() == 0
+            || Objects.requireNonNull(newPasswordField).getText().length() == 0
+            || Objects.requireNonNull(repeatNewPasswordField).getText().length() == 0) {
             Toast.makeText(this.getContext(), "All of fields need to be filled", Toast.LENGTH_SHORT).show();
             return (false);
         }

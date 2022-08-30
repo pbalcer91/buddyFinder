@@ -1,23 +1,23 @@
 <resources>
     <string name="app_name">BuddyFinder</string>
-<!--    <string name="hello_blank_fragment">Hello blank fragment</string>-->
-    <string name="title_activity_add_offer">AddOfferActivity</string>
+    <!--    <string name="hello_blank_fragment">Hello blank fragment</string>-->
+    <string name="title_activity_add_event">AddEventActivity</string>
     <!-- Strings used for fragments for navigation -->
-<!--    <string name="first_fragment_label">First Fragment</string>-->
-<!--    <string name="second_fragment_label">Second Fragment</string>-->
+    <!--    <string name="first_fragment_label">First Fragment</string>-->
+    <!--    <string name="second_fragment_label">Second Fragment</string>-->
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="confirm">Confirm</string>
     <string name="reject">cancel</string>
 
-<!--    <string name="hello_first_fragment">Hello first fragment</string>-->
-<!--    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>-->
+    <!--    <string name="hello_first_fragment">Hello first fragment</string>-->
+    <!--    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>-->
 
-    <string name="offer_friendly_name">Offer\'s name</string>
-    <string name="offer_friendly_name_placeholder">Enter name</string>
+    <string name="event_friendly_name">Event\'s name</string>
+    <string name="event_friendly_name_placeholder">Enter name</string>
 
-    <string name="offer_description">Offer\'s description</string>
-    <string name="offer_description_placeholder">Enter description</string>
+    <string name="event_description">Event\'s description</string>
+    <string name="event_description_placeholder">Enter description</string>
 
     <string name="change_password_title">Change password</string>
     <string name="change_name_title">Change name</string>
@@ -34,4 +34,5 @@
 
     <string name="logout_info">Are you sure to close the app?</string>
     <string name="logout">Logout</string>
+    <string name="title_activity_map">MapActivity</string>
 </resources>

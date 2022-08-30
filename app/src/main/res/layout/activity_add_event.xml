@@ -33,7 +33,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/offer_friendly_name"
+                android:text="@string/event_friendly_name"
                 android:textSize="@dimen/text_info"
                 android:textColor="@color/primary"/>
 
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="name"
                 android:background="@color/transparent"
-                android:hint="@string/offer_friendly_name_placeholder"
+                android:hint="@string/event_friendly_name_placeholder"
                 android:textColorHint="@color/dark_gray"
                 android:textAlignment="textStart"
                 android:padding="@dimen/padding"
@@ -248,14 +248,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/offer_description"
+                android:text="@string/event_description"
                 android:textSize="@dimen/text_info"
                 android:textColor="@color/primary"/>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:hint="@string/offer_description_placeholder"
+                android:hint="@string/event_description_placeholder"
                 android:background="@color/transparent"
                 android:textColorHint="@color/dark_gray"
                 android:gravity="top"

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/component_label"
+    android:layout_marginBottom="@dimen/padding"
+    android:paddingVertical="@dimen/padding"
+    android:paddingHorizontal="@dimen/margin">
+
+    <TextView
+        android:id="@+id/tv_member_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+</LinearLayout>

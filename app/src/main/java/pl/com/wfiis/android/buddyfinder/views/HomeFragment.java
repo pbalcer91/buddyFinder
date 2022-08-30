@@ -1,6 +1,5 @@
 package pl.com.wfiis.android.buddyfinder.views;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,15 +16,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 import pl.com.wfiis.android.buddyfinder.R;
-import pl.com.wfiis.android.buddyfinder.adapters.OfferAdapter;
-import pl.com.wfiis.android.buddyfinder.models.Offer;
+import pl.com.wfiis.android.buddyfinder.adapters.EventAdapter;
+import pl.com.wfiis.android.buddyfinder.models.Event;
 import pl.com.wfiis.android.buddyfinder.models.User;
 
 public class HomeFragment extends Fragment {
 
     private User user;
-    private ArrayList<Offer> joinedOffersList = new ArrayList<>();
-    private ArrayList<Offer> createdOffersList = new ArrayList<>();
+    private ArrayList<Event> joinedEventsList = new ArrayList<>();
+    private ArrayList<Event> createdEventsList = new ArrayList<>();
 
     public HomeFragment() {
     }
@@ -48,33 +47,38 @@ public class HomeFragment extends Fragment {
         TextView welcomeLabel = view.findViewById(R.id.welcome_label);
         welcomeLabel.setText("Hello, " + user.getUserName());
 
-        FloatingActionButton addOfferButton = view.findViewById(R.id.btnAddOffer);
-        addOfferButton.setOnClickListener(tempView -> startActivity(new Intent(getActivity(), AddOfferActivity.class)));
+        //TODO: usunac po testach
+        EventDetailsDialog dialog = new EventDetailsDialog(requireContext(), new Event("Test", new User("Tommy", "email"),"Test description"), user, R.style.Dialog);
+        dialog.setContentView(R.layout.dialog_event_details);
 
-        RecyclerView joinedOffersListView = view.findViewById(R.id.joinedOffers);
-        RecyclerView createdOffersListView = view.findViewById(R.id.createdOffersList);
+        FloatingActionButton createEventButton = view.findViewById(R.id.btn_create_event);
+        //createEventButton.setOnClickListener(tempView -> startActivity(new Intent(getActivity(), CreateEventActivity.class)));
+        createEventButton.setOnClickListener(tempView -> dialog.show());
 
-        setupOffersList();
+        RecyclerView joinedEventsListView = view.findViewById(R.id.rv_joined_events_list);
+        RecyclerView createdEventsListView = view.findViewById(R.id.rv_created_events_list);
 
-        OfferAdapter joinedOfferAdapter = new OfferAdapter(this.getContext(), joinedOffersList);
-        OfferAdapter createdOfferAdapter = new OfferAdapter(this.getContext(), createdOffersList);
+        setupEventsList();
 
-        joinedOffersListView.setAdapter(joinedOfferAdapter);
-        joinedOffersListView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        EventAdapter joinedEventAdapter = new EventAdapter(this.getContext(), joinedEventsList);
+        EventAdapter createdEventAdapter = new EventAdapter(this.getContext(), createdEventsList);
 
-        createdOffersListView.setAdapter(createdOfferAdapter);
-        createdOffersListView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        joinedEventsListView.setAdapter(joinedEventAdapter);
+        joinedEventsListView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+        createdEventsListView.setAdapter(createdEventAdapter);
+        createdEventsListView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         return view;
     }
 
-    private void setupOffersList() {
+    private void setupEventsList() {
         for (int i = 0; i < 15; i++) {
             if (i % 2 == 0)
-                joinedOffersList.add(new Offer("Offer numero " + i, new User("Smith", "some_email")));
+                joinedEventsList.add(new Event("Event numero " + i, new User("Smith", "some_email")));
             else
-                createdOffersList.add(new Offer("Offer numero " + i, user));
+                createdEventsList.add(new Event("Event numero " + i, user));
         }
-        // TODO: implement setup offersList from database
+        // TODO: implement setup eventList from database
     }
 }
