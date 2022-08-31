@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/background"
+    android:paddingHorizontal="@dimen/margin"
+    android:paddingVertical="@dimen/padding">
+
+    <RelativeLayout
+        android:id="@+id/event_details_title_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:focusable="true"
+            android:clickable="true"
+            android:padding="@dimen/padding"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@drawable/component_image_button">
+
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:src="@drawable/ic_arrow_left"
+                android:focusable="true" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_event_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="New Event"
+            android:textColor="@color/text"
+            android:textSize="@dimen/text_header"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/event_details_title_row"
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_event_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/margin"
+                android:layout_marginTop="@dimen/padding"
+                android:background="@drawable/component_edit_text"
+                android:hint="Event name"
+                android:inputType="textCapSentences|text"
+                android:maxLength="50"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/margin"
+                android:paddingVertical="@dimen/padding"
+                android:textColor="@color/text"
+                android:textColorHint="@color/text_hint"
+                android:textSize="18sp" />
+
+            <RelativeLayout
+                android:id="@+id/btn_event_create_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/margin"
+                android:background="@drawable/component_label_button"
+                android:clickable="true"
+                tools:ignore="UselessParent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:focusable="true"
+                        android:src="@drawable/ic_calendar_primary"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/padding"/>
+
+                    <TextView
+                        android:id="@+id/tv_event_create_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Set date"
+                        android:textColor="@color/primary"
+                        android:textSize="14sp"
+                        android:gravity="center_vertical"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_arrow_right" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/btn_event_create_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/margin"
+                android:background="@drawable/component_label_button"
+                android:clickable="true"
+                tools:ignore="UselessParent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:focusable="true"
+                        android:src="@drawable/ic_time_primary"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/padding"/>
+
+                    <TextView
+                        android:id="@+id/tv_event_create_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Set time"
+                        android:textColor="@color/primary"
+                        android:textSize="14sp"
+                        android:gravity="center_vertical"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_arrow_right" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/btn_event_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/margin"
+                android:background="@drawable/component_label_button"
+                android:clickable="true"
+                tools:ignore="UselessParent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:focusable="true"
+                        android:src="@drawable/ic_location"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/padding"/>
+
+                    <TextView
+                        android:id="@+id/event_create_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Set location"
+                        android:textColor="@color/primary"
+                        android:textSize="14sp"
+                        android:gravity="center_vertical"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_arrow_right" />
+
+            </RelativeLayout>
+
+
+            <EditText
+                android:id="@+id/et_event_description"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="@dimen/margin"
+                android:background="@drawable/component_edit_text"
+                android:gravity="top"
+                android:hint="Event description"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLength="200"
+                android:paddingHorizontal="@dimen/margin"
+                android:paddingVertical="@dimen/padding"
+                android:scrollHorizontally="false"
+                android:textColor="@color/text"
+                android:textColorHint="@color/text_hint"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin">
+
+        <Button
+            android:id="@+id/btn_event_creator_accept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_marginBottom="@dimen/margin"
+            android:background="@drawable/component_regular_button"
+            android:text="Create"
+            android:textColor="@color/white" />
+
+
+
+
+    </RelativeLayout>
+</LinearLayout>

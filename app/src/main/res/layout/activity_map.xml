@@ -95,16 +95,16 @@
             android:id="@+id/et_search_map"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@+id/search_icon"
             android:layout_centerVertical="true"
-            android:textSize="18sp"
+            android:layout_marginHorizontal="@dimen/padding"
+            android:layout_toRightOf="@+id/search_icon"
             android:background="@null"
             android:hint="Search here"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
             android:textColor="@color/text"
             android:textColorHint="@color/text_hint"
-            android:layout_marginHorizontal="@dimen/padding"
-            android:imeOptions="actionSearch"
-            android:inputType="text"/>
+            android:textSize="18sp" />
 
     </RelativeLayout>
 

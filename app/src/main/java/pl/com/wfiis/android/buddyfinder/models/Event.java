@@ -4,13 +4,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class Event implements Parcelable {
     private int id;
     private String title;
     private String description;
-    //private Date date;
+
+    private Date date;
     //private location
     final private User author;
     private ArrayList<User> members;
@@ -20,6 +23,7 @@ public class Event implements Parcelable {
         this.title = title;
         this.author = author;
         this.members = new ArrayList<>();
+        this.date = Calendar.getInstance().getTime();
     }
 
     public Event(String title, User author, String description) {
@@ -57,6 +61,14 @@ public class Event implements Parcelable {
 
     public User getAuthor() {
         return author;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public ArrayList<User> getMembers() {
@@ -123,4 +135,5 @@ public class Event implements Parcelable {
         parcel.writeParcelable(author, i);
         parcel.writeTypedList(members);
     }
+
 }

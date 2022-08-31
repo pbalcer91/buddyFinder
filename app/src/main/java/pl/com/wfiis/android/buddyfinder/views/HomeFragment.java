@@ -48,12 +48,14 @@ public class HomeFragment extends Fragment {
         welcomeLabel.setText("Hello, " + user.getUserName());
 
         //TODO: usunac po testach
-        EventDetailsDialog dialog = new EventDetailsDialog(requireContext(), new Event("Test", new User("Tommy", "email"),"Test description"), user, R.style.Dialog);
-        dialog.setContentView(R.layout.dialog_event_details);
+//        EventDetailsDialog dialog = new EventDetailsDialog(requireContext(), new Event("Test", new User("Tommy", "email"),"Test description"), user, R.style.Dialog);
+//        dialog.setContentView(R.layout.dialog_event_details);
+
+        EventCreatorDialog eventCreatorDialog = new EventCreatorDialog(requireContext(), user, R.style.Dialog);
+        eventCreatorDialog.setContentView(R.layout.dialog_event_creator);
 
         FloatingActionButton createEventButton = view.findViewById(R.id.btn_create_event);
-        //createEventButton.setOnClickListener(tempView -> startActivity(new Intent(getActivity(), CreateEventActivity.class)));
-        createEventButton.setOnClickListener(tempView -> dialog.show());
+        createEventButton.setOnClickListener(tempView -> eventCreatorDialog.show());
 
         RecyclerView joinedEventsListView = view.findViewById(R.id.rv_joined_events_list);
         RecyclerView createdEventsListView = view.findViewById(R.id.rv_created_events_list);
