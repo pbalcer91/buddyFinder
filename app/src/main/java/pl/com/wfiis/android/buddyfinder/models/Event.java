@@ -1,25 +1,30 @@
 package pl.com.wfiis.android.buddyfinder.models;
 
+import android.location.Address;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class Event implements Parcelable {
     private int id;
     private String title;
     private String description;
-    //private Date date;
-    //private location
+    private Date date;
+    private Address location;
     final private User author;
     private ArrayList<User> members;
 
     public Event(String title, User author) {
         this.id = 0;
-        this.title = title;
         this.author = author;
         this.members = new ArrayList<>();
+        this.title = title;
+        this.date = Calendar.getInstance().getTime();
+        this.location = null;
     }
 
     public Event(String title, User author, String description) {
@@ -59,12 +64,24 @@ public class Event implements Parcelable {
         return author;
     }
 
-    public ArrayList<User> getMembers() {
-        return members;
+    public Date getDate() {
+        return date;
     }
 
-    public void setMembers(ArrayList<User> members) {
-        this.members = members;
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Address getLocation() {
+        return location;
+    }
+
+    public void setLocation(Address location) {
+        this.location = location;
+    }
+
+    public ArrayList<User> getMembers() {
+        return members;
     }
 
     public boolean addMember(User member) {
@@ -123,4 +140,5 @@ public class Event implements Parcelable {
         parcel.writeParcelable(author, i);
         parcel.writeTypedList(members);
     }
+
 }

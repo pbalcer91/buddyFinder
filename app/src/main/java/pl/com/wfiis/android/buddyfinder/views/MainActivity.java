@@ -22,6 +22,9 @@ import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.models.User;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final int RESULT_DATA_OK = 123;
+
     FirebaseFirestore db;
 
     @SuppressLint("NonConstantResourceId")
