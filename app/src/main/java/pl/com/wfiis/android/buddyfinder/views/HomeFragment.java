@@ -1,8 +1,13 @@
 package pl.com.wfiis.android.buddyfinder.views;
 
+import android.content.Intent;
+import android.location.Address;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +29,8 @@ public class HomeFragment extends Fragment {
 
     private User user;
     private ArrayList<Event> joinedEventsList = new ArrayList<>();
-    private ArrayList<Event> createdEventsList = new ArrayList<>();
+
+    private ActivityResultLauncher<Intent> activityResultLauncher;
 
     public HomeFragment() {
     }
@@ -47,15 +53,12 @@ public class HomeFragment extends Fragment {
         TextView welcomeLabel = view.findViewById(R.id.welcome_label);
         welcomeLabel.setText("Hello, " + user.getUserName());
 
-        //TODO: usunac po testach
-//        EventDetailsDialog dialog = new EventDetailsDialog(requireContext(), new Event("Test", new User("Tommy", "email"),"Test description"), user, R.style.Dialog);
-//        dialog.setContentView(R.layout.dialog_event_details);
-
-        EventCreatorDialog eventCreatorDialog = new EventCreatorDialog(requireContext(), user, R.style.Dialog);
-        eventCreatorDialog.setContentView(R.layout.dialog_event_creator);
-
         FloatingActionButton createEventButton = view.findViewById(R.id.btn_create_event);
-        createEventButton.setOnClickListener(tempView -> eventCreatorDialog.show());
+        createEventButton.setOnClickListener(tempView -> {
+            Intent intent = new Intent(this.getContext(), EventCreatorDialog.class);
+            intent.putExtra("user", user);
+            activityResultLauncher.launch(intent);
+        });
 
         RecyclerView joinedEventsListView = view.findViewById(R.id.rv_joined_events_list);
         RecyclerView createdEventsListView = view.findViewById(R.id.rv_created_events_list);
@@ -63,7 +66,7 @@ public class HomeFragment extends Fragment {
         setupEventsList();
 
         EventAdapter joinedEventAdapter = new EventAdapter(this.getContext(), joinedEventsList);
-        EventAdapter createdEventAdapter = new EventAdapter(this.getContext(), createdEventsList);
+        EventAdapter createdEventAdapter = new EventAdapter(this.getContext(), user.getCreatedEvents());
 
         joinedEventsListView.setAdapter(joinedEventAdapter);
         joinedEventsListView.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -71,15 +74,29 @@ public class HomeFragment extends Fragment {
         createdEventsListView.setAdapter(createdEventAdapter);
         createdEventsListView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
+        activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == MainActivity.RESULT_DATA_OK) {
+                        Intent data = result.getData();
+
+                        if (data != null) {
+                            Event newEvent = data.getParcelableExtra("newEvent");
+                            user.addCreatedEvent(newEvent);
+
+                            EventAdapter newCreatedEventAdapter = new EventAdapter(this.getContext(), user.getCreatedEvents());
+                            createdEventsListView.setAdapter(newCreatedEventAdapter);
+                            createdEventsListView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+                        }
+                    }
+                });
+
         return view;
     }
 
     private void setupEventsList() {
-        for (int i = 0; i < 15; i++) {
-            if (i % 2 == 0)
+        for (int i = 0; i < 3; i++) {
                 joinedEventsList.add(new Event("Event numero " + i, new User("Smith", "some_email")));
-            else
-                createdEventsList.add(new Event("Event numero " + i, user));
         }
         // TODO: implement setup eventList from database
     }

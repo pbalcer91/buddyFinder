@@ -63,11 +63,11 @@
             android:padding="@dimen/padding">
 
             <ImageView
-                android:id="@+id/btn_current_location"
+                android:id="@+id/btn_accept_location"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
                 android:focusable="true"
-                android:src="@drawable/ic_current_location" />
+                android:src="@drawable/ic_check" />
 
         </LinearLayout>
 
@@ -78,18 +78,18 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_below="@+id/map_title_row"
-        android:paddingHorizontal="@dimen/padding"
-        android:paddingVertical="@dimen/padding"
-        android:layout_marginTop="@dimen/padding"
         android:layout_marginHorizontal="@dimen/padding"
-        android:background="@drawable/component_edit_text">
+        android:layout_marginTop="@dimen/padding"
+        android:background="@drawable/component_edit_text"
+        android:paddingHorizontal="@dimen/padding"
+        android:paddingVertical="@dimen/padding">
 
         <ImageView
             android:id="@+id/search_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_search"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_search" />
 
         <EditText
             android:id="@+id/et_search_map"
@@ -108,4 +108,26 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/btn_map_search_field"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_marginRight="@dimen/padding"
+        android:background="@drawable/component_edit_text"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/padding">
+
+        <ImageView
+            android:id="@+id/btn_current_location"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:focusable="true"
+            android:src="@drawable/ic_current_location" />
+
+    </LinearLayout>
 </RelativeLayout>

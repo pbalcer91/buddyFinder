@@ -3,10 +3,14 @@ package pl.com.wfiis.android.buddyfinder.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User implements Parcelable {
     private int id;
     private String userName;
     private String email;
+    private ArrayList<Event> createdEvents;
     //private Byte [] image;
 
     public String getUserName() {
@@ -33,15 +37,30 @@ public class User implements Parcelable {
         this.id = id;
     }
 
+    public ArrayList<Event> getCreatedEvents() {
+        return createdEvents;
+    }
+
+    public void addCreatedEvent(Event event) {
+        createdEvents.add(event);
+    }
+
+    public void removeCreatedEvent(Event event) {
+        createdEvents.remove(event);
+    }
+
     public User(String userName, String email) {
         //TODO: generate id
         this.userName = userName;
         this.email = email;
+        this.createdEvents = new ArrayList<>();
     }
 
     public User(Parcel source) {
+        id = source.readInt();
         userName = source.readString();
         email = source.readString();
+        createdEvents = source.createTypedArrayList(Event.CREATOR);
     }
 
     @Override
@@ -51,8 +70,10 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
         parcel.writeString(userName);
         parcel.writeString(email);
+        parcel.writeTypedList(createdEvents);
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {

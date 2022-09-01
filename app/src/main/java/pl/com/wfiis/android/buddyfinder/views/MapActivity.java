@@ -2,6 +2,7 @@ package pl.com.wfiis.android.buddyfinder.views;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -52,19 +53,19 @@ public class MapActivity extends AppCompatActivity {
 
     private static final float DEFAULT_ZOOM = 15f;
 
-    private LatLng userLocation;
-
     private boolean isLocationPermissionGranted = false;
     private GoogleMap mMap;
 
     private ImageView backButton;
     private TextView title;
+    private ImageView saveLocationButton;
     private ImageView currentLocationButton;
 
     private RelativeLayout searchRow;
     private EditText searchText;
 
     private Event event;
+    private Address newAddress = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,12 +80,23 @@ public class MapActivity extends AppCompatActivity {
         title = findViewById(R.id.tv_map_title);
         title.setText(event.getTitle());
 
+        saveLocationButton = findViewById(R.id.btn_accept_location);
+        saveLocationButton.setVisibility(View.INVISIBLE);
+        saveLocationButton.setOnClickListener(task -> {
+            Intent intent = new Intent();
+            intent.putExtra("location", newAddress);
+            setResult(MainActivity.RESULT_DATA_OK, intent);
+
+            this.finish();
+        });
+
         currentLocationButton = findViewById(R.id.btn_current_location);
         currentLocationButton.setOnClickListener(event -> getCurrentLocation());
 
         searchText = findViewById(R.id.et_search_map);
 
-//        searchRow = findViewById(R.id.btn_map_search_field);
+        searchRow = findViewById(R.id.btn_map_search_field);
+
 //        searchRow.setOnClickListener(event -> {
 //            SearchMapAnimation animation = new SearchMapAnimation(searchRow, 400);
 //            animation.setDuration(500);
@@ -95,6 +107,11 @@ public class MapActivity extends AppCompatActivity {
     }
 
     private void initSearchField() {
+        if (event.getLocation() != null) {
+            searchRow.setVisibility(View.INVISIBLE);
+            return;
+        }
+
         searchText.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH
                 || actionId == EditorInfo.IME_ACTION_DONE
@@ -123,11 +140,26 @@ public class MapActivity extends AppCompatActivity {
 
         if (list.size() > 0) {
             Address address = list.get(0);
+            newAddress = list.get(0);
             moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), address.getAddressLine(0));
+
+            if (newAddress != null)
+                saveLocationButton.setVisibility(View.VISIBLE);
 
             searchText.setText(address.getAddressLine(0));
 
             hideKeyboard();
+        }
+    }
+
+    public void getEventLocation(Event event) {
+        try {
+            if (isLocationPermissionGranted) {
+                moveCamera(new LatLng(event.getLocation().getLatitude(),
+                        event.getLocation().getLongitude()), event.getLocation().getAddressLine(0));
+            }
+        } catch(SecurityException e) {
+            Log.d(TAG, "getDeviceLocation: SecurityException: " + e.getMessage());
         }
     }
 
@@ -142,8 +174,6 @@ public class MapActivity extends AppCompatActivity {
                 location.addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Location currentLocation = (Location) task.getResult();
-                        userLocation = new LatLng(currentLocation.getLatitude(),
-                                currentLocation.getLongitude());
                         moveCamera(new LatLng(currentLocation.getLatitude(),
                                 currentLocation.getLongitude()), "Current location");
 
@@ -182,16 +212,20 @@ public class MapActivity extends AppCompatActivity {
             return;
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+            Objects.requireNonNull(mapFragment).getMapAsync(googleMap -> {
+                mMap = googleMap;
 
-        Objects.requireNonNull(mapFragment).getMapAsync(googleMap -> {
-            mMap = googleMap;
-            getCurrentLocation();
-            mMap.setMyLocationEnabled(true);
-            mMap.getUiSettings().setMyLocationButtonEnabled(false);
-            mMap.getUiSettings().setZoomControlsEnabled(true);
+                if (event.getLocation() != null)
+                    getEventLocation(event);
+                else
+                    getCurrentLocation();
 
-            initSearchField();
-        });
+                mMap.setMyLocationEnabled(true);
+                mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                mMap.getUiSettings().setZoomControlsEnabled(true);
+
+                initSearchField();
+            });
     }
 
     private void getLocationPermission() {

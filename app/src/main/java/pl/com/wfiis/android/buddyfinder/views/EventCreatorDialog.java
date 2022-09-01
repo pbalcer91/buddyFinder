@@ -4,10 +4,9 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -16,14 +15,19 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 
@@ -33,13 +37,14 @@ import java.util.Date;
 import java.util.Objects;
 
 import pl.com.wfiis.android.buddyfinder.R;
-import pl.com.wfiis.android.buddyfinder.adapters.EventMemberAdapter;
 import pl.com.wfiis.android.buddyfinder.models.Event;
 import pl.com.wfiis.android.buddyfinder.models.User;
 
-public class EventCreatorDialog extends Dialog {
+public class EventCreatorDialog extends AppCompatActivity {
     private Event newEvent;
     private User currentUser;
+
+    ActivityResultLauncher<Intent> activityResultLauncher;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -53,6 +58,7 @@ public class EventCreatorDialog extends Dialog {
     private TextView timeTextView;
 
     private RelativeLayout locationButton;
+    private TextView locationTextView;
 
     private EditText titleField;
     private EditText descriptionField;
@@ -67,36 +73,67 @@ public class EventCreatorDialog extends Dialog {
     private boolean isTimeSelected = false;
 
     public boolean isServicesOk() {
-        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this.getContext());
+        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
 
         if (available == ConnectionResult.SUCCESS)
             return true;
         else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
-            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog((Activity) this.getContext(), available, ERROR_DIALOG_REQUEST);
+            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog((Activity) this, available, ERROR_DIALOG_REQUEST);
             dialog.show();
         }
 
         return false;
     }
 
-    public EventCreatorDialog(@NonNull Context context,
-                              User currentUser,
-                              int themeResId) {
-        super(context, themeResId);
-        this.currentUser = currentUser;
+    private void validateCreator() {
+        if (titleField.getText().length() > 0
+                && newEvent.getDate().getTime() > Calendar.getInstance().getTimeInMillis()
+                && newEvent.getLocation() != null) {
+            createButton.setEnabled(true);
+            return;
+        }
+
+        createButton.setEnabled(false);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.dialog_event_creator);
+
+        this.currentUser = getIntent().getParcelableExtra("user");
 
         newEvent = new Event("New Event", currentUser);
 
+        activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == MainActivity.RESULT_DATA_OK) {
+                        Intent data = result.getData();
+
+                        if (data != null) {
+                            Address address = data.getParcelableExtra("location");
+                            newEvent.setLocation(address);
+
+                            validateCreator();
+
+                            locationTextView.setText(newEvent.getLocation() != null ?
+                                    newEvent.getLocation().getAddressLine(0)
+                                    : "Set location");
+                        }
+                    }
+                });
+
         backButton = this.findViewById(R.id.btn_back);
-        backButton.setOnClickListener(event -> this.cancel());
+        backButton.setOnClickListener(event -> this.finish());
 
         locationButton = this.findViewById(R.id.btn_event_location);
         locationButton.setOnClickListener(event -> showMap());
+
+        locationTextView = this.findViewById(R.id.tv_event_create_location);
+        locationTextView.setText(newEvent.getLocation() != null ?
+                newEvent.getLocation().getAddressLine(0)
+                : "Set location");
 
         dateButton = this.findViewById(R.id.btn_event_create_date);
         dateButton.setOnClickListener(event -> showCalendarDialog(newEvent.getDate()));
@@ -115,14 +152,12 @@ public class EventCreatorDialog extends Dialog {
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 newEvent.setTitle(titleField.getText().toString());
 
-                createButton.setEnabled(titleField.getText().length() > 0
-                                && isDateSelected
-                                && isTimeSelected);
+                validateCreator();
 
                 titleField.clearFocus();
 
                 InputMethodManager inputManager = (InputMethodManager)
-                        getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputManager.toggleSoftInput(0, 0);
                 return true;
             }
@@ -134,14 +169,12 @@ public class EventCreatorDialog extends Dialog {
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 newEvent.setDescription(descriptionField.getText().toString());
 
-                createButton.setEnabled(titleField.getText().length() > 0
-                                && isDateSelected
-                                && isTimeSelected);
+                validateCreator();
 
                 descriptionField.clearFocus();
 
                 InputMethodManager inputManager = (InputMethodManager)
-                        getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputManager.toggleSoftInput(0, 0);
                 return true;
             }
@@ -149,7 +182,14 @@ public class EventCreatorDialog extends Dialog {
         });
 
         createButton = this.findViewById(R.id.btn_event_creator_accept);
-        createButton.setOnClickListener(event -> System.out.println("CREATED"));
+        createButton.setOnClickListener(event -> {
+            Intent intent = new Intent();
+            intent.putExtra("newEvent", newEvent);
+            setResult(MainActivity.RESULT_DATA_OK, intent);
+            //TODO: add event to database
+
+            this.finish();
+        });
         createButton.setEnabled(false);
     }
 
@@ -157,20 +197,16 @@ public class EventCreatorDialog extends Dialog {
         if (!isServicesOk())
             return;
 
-        Intent intent = new Intent(this.getContext(), MapActivity.class);
+        Intent intent = new Intent(this, MapActivity.class);
         intent.putExtra("event", newEvent);
-        this.getContext().startActivity(intent);
+        activityResultLauncher.launch(intent);
     }
 
     private void showCalendarDialog(Date selectedDate) {
-        bottomSheetDialog = new BottomSheetDialog(this.getContext(), R.style.BottomSheet);
+        bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheet);
         bottomSheetDialog.setContentView(R.layout.dialog_date_picker);
 
-        bottomSheetDialog.setOnDismissListener(event -> createButton.setEnabled(
-                    titleField.getText().length() > 0
-                    && isDateSelected
-                    && isTimeSelected
-        ));
+        bottomSheetDialog.setOnDismissListener(event -> validateCreator());
 
         final Date newDate = selectedDate;
 
@@ -202,27 +238,16 @@ public class EventCreatorDialog extends Dialog {
                     calendarDate.get(Calendar.MINUTE));
 
             newDate.setTime(calendarDate.getTimeInMillis());
-
-            if (acceptButton.isEnabled() && newDate.getTime() < Calendar.getInstance().getTimeInMillis())
-                acceptButton.setEnabled(false);
-
-            if (!acceptButton.isEnabled() && newDate.getTime() >= Calendar.getInstance().getTimeInMillis())
-                acceptButton.setEnabled(true);
-
         });
 
         bottomSheetDialog.show();
     }
 
     private void showTimeDialog(Date selectedDate) {
-        bottomSheetDialog = new BottomSheetDialog(this.getContext(), R.style.BottomSheet);
+        bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheet);
         bottomSheetDialog.setContentView(R.layout.dialog_time_picker);
 
-        bottomSheetDialog.setOnDismissListener(event -> createButton.setEnabled(
-                        titleField.getText().length() > 0
-                        && isDateSelected
-                        && isTimeSelected
-        ));
+        bottomSheetDialog.setOnDismissListener(event -> validateCreator());
 
         final Date newTime = selectedDate;
 
@@ -257,12 +282,6 @@ public class EventCreatorDialog extends Dialog {
                     minute);
 
             newTime.setTime(calendarTime.getTimeInMillis());
-
-            if (acceptButton.isEnabled() && newTime.getTime() < Calendar.getInstance().getTimeInMillis())
-                acceptButton.setEnabled(false);
-
-            if (!acceptButton.isEnabled() && newTime.getTime() >= Calendar.getInstance().getTimeInMillis())
-                acceptButton.setEnabled(true);
         });
 
         bottomSheetDialog.show();
