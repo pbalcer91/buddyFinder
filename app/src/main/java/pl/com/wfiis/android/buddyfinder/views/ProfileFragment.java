@@ -51,52 +51,42 @@ public class ProfileFragment extends Fragment {
 
         userName = view.findViewById(R.id.user_name);
         userEmail = view.findViewById(R.id.user_email);
-        Button editNameButton = view.findViewById(R.id.btn_edit_name);
-        Button editEmailButton = view.findViewById(R.id.btn_edit_email);
+        Button editUser = view.findViewById(R.id.btn_edit_user);
         Button changePasswordButton = view.findViewById(R.id.btn_edit_password);
         Button logoutButton = view.findViewById(R.id.btn_logout);
 
         userName.setText(user.getUserName());
         userEmail.setText(user.getEmail());
 
-        editNameButton.setOnClickListener(tempView -> showEditNameDialog());
-        editEmailButton.setOnClickListener(tempView -> showEditEmailDialog());
+        editUser.setOnClickListener(tempView -> showEditUserDialog());
         changePasswordButton.setOnClickListener(tempView -> showChangePasswordDialog());
         logoutButton.setOnClickListener(tempView -> showLogoutDialog());
 
         return view;
     }
 
-    private void showEditNameDialog() {
+    private void showEditUserDialog() {
         bottomSheetDialog = new BottomSheetDialog(requireContext(), R.style.BottomSheet);
-        bottomSheetDialog.setContentView(R.layout.dialog_edit_name);
+        bottomSheetDialog.setContentView(R.layout.dialog_edit_user);
 
-        EditText newNameField = bottomSheetDialog.findViewById(R.id.newNameEdit);
+        EditText newNameField = bottomSheetDialog.findViewById(R.id.et_new_name);
+        newNameField.setText(user.getUserName());
+
+        EditText newEmailField = bottomSheetDialog.findViewById(R.id.et_new_email);
+        newEmailField.setText(user.getEmail());
 
         Button acceptButton = bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
         Button rejectButton = bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
 
         Objects.requireNonNull(acceptButton).setOnClickListener(
-                tempView -> changeUserName(Objects.requireNonNull(newNameField)
-                        .getText().toString()));
-        Objects.requireNonNull(rejectButton).setOnClickListener(
-                tempView -> bottomSheetDialog.cancel());
+                tempView -> {
+                    changeUserName(Objects.requireNonNull(newNameField)
+                            .getText().toString());
+                    changeUserEmail(Objects.requireNonNull(newEmailField)
+                            .getText().toString());
 
-        bottomSheetDialog.show();
-    }
-
-    private void showEditEmailDialog() {
-        bottomSheetDialog = new BottomSheetDialog(requireContext(), R.style.BottomSheet);
-        bottomSheetDialog.setContentView(R.layout.dialog_edit_email);
-
-        EditText newEmailField = bottomSheetDialog.findViewById(R.id.newEmailEdit);
-
-        Button acceptButton = bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
-        Button rejectButton = bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
-
-        Objects.requireNonNull(acceptButton).setOnClickListener(
-                tempView -> changeUserEmail(Objects.requireNonNull(newEmailField)
-                        .getText().toString()));
+                    Toast.makeText(this.getContext(), "User updated", Toast.LENGTH_SHORT).show();
+                });
         Objects.requireNonNull(rejectButton).setOnClickListener(
                 tempView -> bottomSheetDialog.cancel());
 
@@ -152,7 +142,7 @@ public class ProfileFragment extends Fragment {
 
         user.setUserName(name);
         userName.setText(user.getUserName());
-        Toast.makeText(this.getContext(), "Name changed", Toast.LENGTH_SHORT).show();
+
         bottomSheetDialog.cancel();
         return (true);
     }
@@ -176,7 +166,6 @@ public class ProfileFragment extends Fragment {
 
         user.setEmail(email);
         userEmail.setText(user.getEmail());
-        Toast.makeText(this.getContext(), "Email changed", Toast.LENGTH_SHORT).show();
         bottomSheetDialog.cancel();
         return (true);
     }
