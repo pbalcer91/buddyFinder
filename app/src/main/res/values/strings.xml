@@ -35,4 +35,5 @@
     <string name="logout_info">Are you sure to close the app?</string>
     <string name="logout">Logout</string>
     <string name="title_activity_map">MapActivity</string>
+    <string name="edit_user">Edit user</string>
 </resources>

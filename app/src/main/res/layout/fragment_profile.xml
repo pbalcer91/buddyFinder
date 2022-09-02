@@ -60,21 +60,11 @@
         android:layout_marginBottom="@dimen/margin">
 
         <Button
-            android:id="@+id/btn_edit_name"
+            android:id="@+id/btn_edit_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/component_flat_button"
-            android:text="@string/change_name_title"
-            android:textColor="@color/primary"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/padding"/>
-
-        <Button
-            android:id="@+id/btn_edit_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/component_flat_button"
-            android:text="@string/change_email_title"
+            android:text="@string/edit_user"
             android:textColor="@color/primary"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/padding"/>

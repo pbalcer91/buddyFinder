@@ -47,7 +47,7 @@
                 android:textColor="@color/primary"/>
 
             <EditText
-                android:id="@+id/newEmailEdit"
+                android:id="@+id/et_new_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="password"
