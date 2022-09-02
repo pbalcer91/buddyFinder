@@ -35,7 +35,7 @@
                 android:id="@+id/btn_map_back"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
-                android:src="@drawable/ic_arrow_left"
+                android:src="@drawable/ic_arrow_left_primary"
                 android:focusable="true" />
 
         </LinearLayout>
@@ -67,7 +67,7 @@
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
                 android:focusable="true"
-                android:src="@drawable/ic_check" />
+                android:src="@drawable/ic_check_primary" />
 
         </LinearLayout>
 
@@ -89,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_search" />
+            android:src="@drawable/ic_search_primary" />
 
         <EditText
             android:id="@+id/et_search_map"
@@ -127,7 +127,7 @@
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:focusable="true"
-            android:src="@drawable/ic_current_location" />
+            android:src="@drawable/ic_current_location_primary" />
 
     </LinearLayout>
 </RelativeLayout>

@@ -25,6 +25,7 @@ public class Event implements Parcelable {
         this.title = title;
         this.date = Calendar.getInstance().getTime();
         this.location = null;
+        this.description = "";
     }
 
     public Event(String title, User author, String description) {

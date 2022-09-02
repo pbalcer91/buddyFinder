@@ -15,15 +15,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -38,11 +32,9 @@ import java.util.Objects;
 
 import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.models.Event;
-import pl.com.wfiis.android.buddyfinder.models.User;
 
 public class EventCreatorDialog extends AppCompatActivity {
     private Event newEvent;
-    private User currentUser;
 
     ActivityResultLauncher<Intent> activityResultLauncher;
 
@@ -71,6 +63,8 @@ public class EventCreatorDialog extends AppCompatActivity {
 
     private boolean isDateSelected = false;
     private boolean isTimeSelected = false;
+
+    private boolean editMode = false;
 
     public boolean isServicesOk() {
         int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
@@ -101,9 +95,9 @@ public class EventCreatorDialog extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_event_creator);
 
-        this.currentUser = getIntent().getParcelableExtra("user");
+        this.newEvent = getIntent().getParcelableExtra("newEvent");
 
-        newEvent = new Event("New Event", currentUser);
+        editMode = (this.newEvent.getLocation() != null);
 
         activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -148,6 +142,7 @@ public class EventCreatorDialog extends AppCompatActivity {
         timeTextView.setText(timeFormat.format(newEvent.getDate()));
 
         titleField = this.findViewById(R.id.et_event_title);
+        titleField.setText(newEvent.getTitle());
         titleField.setOnKeyListener((view, keyCode, keyEvent) -> {
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 newEvent.setTitle(titleField.getText().toString());
@@ -165,6 +160,7 @@ public class EventCreatorDialog extends AppCompatActivity {
         });
 
         descriptionField = this.findViewById(R.id.et_event_description);
+        descriptionField.setText(newEvent.getDescription());
         descriptionField.setOnKeyListener((view, keyCode, keyEvent) -> {
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 newEvent.setDescription(descriptionField.getText().toString());
@@ -182,6 +178,11 @@ public class EventCreatorDialog extends AppCompatActivity {
         });
 
         createButton = this.findViewById(R.id.btn_event_creator_accept);
+        if (editMode)
+            createButton.setText(R.string.confirm);
+        else
+            createButton.setText("Create");
+
         createButton.setOnClickListener(event -> {
             Intent intent = new Intent();
             intent.putExtra("newEvent", newEvent);
@@ -190,7 +191,8 @@ public class EventCreatorDialog extends AppCompatActivity {
 
             this.finish();
         });
-        createButton.setEnabled(false);
+
+        validateCreator();
     }
 
     private void showMap() {

@@ -11,6 +11,7 @@ public class User implements Parcelable {
     private String userName;
     private String email;
     private ArrayList<Event> createdEvents;
+    private ArrayList<Event> joinedEvents;
     //private Byte [] image;
 
     public String getUserName() {
@@ -37,6 +38,18 @@ public class User implements Parcelable {
         this.id = id;
     }
 
+    public ArrayList<Event> getJoinedEvents() {
+        return joinedEvents;
+    }
+
+    public void addJoinedEvent(Event event) {
+        joinedEvents.add(event);
+    }
+
+    public void removeJoinedEvent(Event event) {
+        joinedEvents.remove(event);
+    }
+
     public ArrayList<Event> getCreatedEvents() {
         return createdEvents;
     }
@@ -54,6 +67,7 @@ public class User implements Parcelable {
         this.userName = userName;
         this.email = email;
         this.createdEvents = new ArrayList<>();
+        this.joinedEvents = new ArrayList<>();
     }
 
     public User(Parcel source) {
@@ -61,6 +75,7 @@ public class User implements Parcelable {
         userName = source.readString();
         email = source.readString();
         createdEvents = source.createTypedArrayList(Event.CREATOR);
+        joinedEvents = source.createTypedArrayList(Event.CREATOR);
     }
 
     @Override
@@ -74,6 +89,7 @@ public class User implements Parcelable {
         parcel.writeString(userName);
         parcel.writeString(email);
         parcel.writeTypedList(createdEvents);
+        parcel.writeTypedList(joinedEvents);
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {

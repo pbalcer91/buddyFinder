@@ -33,7 +33,7 @@
                 android:id="@+id/btn_back"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
-                android:src="@drawable/ic_arrow_left"
+                android:src="@drawable/ic_arrow_left_primary"
                 android:focusable="true" />
 
         </LinearLayout>
@@ -120,7 +120,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:focusable="true"
-                    android:src="@drawable/ic_arrow_right" />
+                    android:src="@drawable/ic_arrow_right_primary" />
 
             </RelativeLayout>
 
@@ -165,7 +165,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:focusable="true"
-                    android:src="@drawable/ic_arrow_right" />
+                    android:src="@drawable/ic_arrow_right_primary" />
 
             </RelativeLayout>
 
@@ -189,7 +189,7 @@
                         android:layout_width="@dimen/icon_size"
                         android:layout_height="@dimen/icon_size"
                         android:focusable="true"
-                        android:src="@drawable/ic_location"
+                        android:src="@drawable/ic_location_primary"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/padding"/>
 
@@ -209,7 +209,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:focusable="true"
-                    android:src="@drawable/ic_arrow_right" />
+                    android:src="@drawable/ic_arrow_right_primary" />
 
             </RelativeLayout>
 
@@ -244,11 +244,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/margin"
             android:layout_marginBottom="@dimen/margin"
             android:background="@drawable/component_regular_button"
-            android:text="Create"
             android:textColor="@color/white" />
 
 
