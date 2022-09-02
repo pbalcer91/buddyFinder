@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -22,13 +23,16 @@ import java.util.ArrayList;
 
 import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.adapters.EventAdapter;
+import pl.com.wfiis.android.buddyfinder.interfaces.RecyclerViewInterface;
 import pl.com.wfiis.android.buddyfinder.models.Event;
 import pl.com.wfiis.android.buddyfinder.models.User;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements RecyclerViewInterface {
 
     private User user;
     private ArrayList<Event> joinedEventsList = new ArrayList<>();
+
+    private TextView welcomeLabel;
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
 
@@ -50,13 +54,15 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        TextView welcomeLabel = view.findViewById(R.id.welcome_label);
+        welcomeLabel = view.findViewById(R.id.welcome_label);
         welcomeLabel.setText("Hello, " + user.getUserName());
 
         FloatingActionButton createEventButton = view.findViewById(R.id.btn_create_event);
         createEventButton.setOnClickListener(tempView -> {
+            Event emptyEvent = new Event("New Event", user);
+
             Intent intent = new Intent(this.getContext(), EventCreatorDialog.class);
-            intent.putExtra("user", user);
+            intent.putExtra("newEvent", emptyEvent);
             activityResultLauncher.launch(intent);
         });
 
@@ -65,8 +71,8 @@ public class HomeFragment extends Fragment {
 
         setupEventsList();
 
-        EventAdapter joinedEventAdapter = new EventAdapter(this.getContext(), joinedEventsList);
-        EventAdapter createdEventAdapter = new EventAdapter(this.getContext(), user.getCreatedEvents());
+        EventAdapter joinedEventAdapter = new EventAdapter(this.getContext(), joinedEventsList, this);
+        EventAdapter createdEventAdapter = new EventAdapter(this.getContext(), user.getCreatedEvents(), this);
 
         joinedEventsListView.setAdapter(joinedEventAdapter);
         joinedEventsListView.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -84,7 +90,7 @@ public class HomeFragment extends Fragment {
                             Event newEvent = data.getParcelableExtra("newEvent");
                             user.addCreatedEvent(newEvent);
 
-                            EventAdapter newCreatedEventAdapter = new EventAdapter(this.getContext(), user.getCreatedEvents());
+                            EventAdapter newCreatedEventAdapter = new EventAdapter(this.getContext(), user.getCreatedEvents(), this);
                             createdEventsListView.setAdapter(newCreatedEventAdapter);
                             createdEventsListView.setLayoutManager(new LinearLayoutManager(this.getContext()));
                         }
@@ -99,5 +105,14 @@ public class HomeFragment extends Fragment {
                 joinedEventsList.add(new Event("Event numero " + i, new User("Smith", "some_email")));
         }
         // TODO: implement setup eventList from database
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(this.getContext(), EventDetailsDialog.class);
+        intent.putExtra("currentUser", user);
+        intent.putExtra("event", joinedEventsList.get(position));
+        intent.putExtra("date", joinedEventsList.get(position).getDate().getTime());
+        activityResultLauncher.launch(intent);
     }
 }

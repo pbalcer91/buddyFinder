@@ -1,7 +1,10 @@
 package pl.com.wfiis.android.buddyfinder.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,13 +17,16 @@ import java.util.ArrayList;
 
 import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.adapters.EventAdapter;
+import pl.com.wfiis.android.buddyfinder.interfaces.RecyclerViewInterface;
 import pl.com.wfiis.android.buddyfinder.models.Event;
 import pl.com.wfiis.android.buddyfinder.models.User;
 
-public class EventsFragment extends Fragment {
+public class EventsFragment extends Fragment implements RecyclerViewInterface {
 
     private ArrayList<Event> events = new ArrayList<>();
     private User user;
+
+    private ActivityResultLauncher<Intent> activityResultLauncher;
 
     public EventsFragment() {
     }
@@ -44,9 +50,26 @@ public class EventsFragment extends Fragment {
 
         setupEventsList();
 
-        EventAdapter eventAdapter = new EventAdapter(this.getContext(), events);
+        EventAdapter eventAdapter = new EventAdapter(this.getContext(), events, this);
         eventsList.setAdapter(eventAdapter);
         eventsList.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+        activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == MainActivity.RESULT_DATA_OK) {
+                        Intent data = result.getData();
+
+                        if (data != null) {
+//                            Event newEvent = data.getParcelableExtra("newEvent");
+//                            user.addCreatedEvent(newEvent);
+
+                            EventAdapter newCreatedEventAdapter = new EventAdapter(this.getContext(), user.getCreatedEvents(), this);
+                            eventsList.setAdapter(newCreatedEventAdapter);
+                            eventsList.setLayoutManager(new LinearLayoutManager(this.getContext()));
+                        }
+                    }
+                });
 
         return view;
     }
@@ -59,5 +82,12 @@ public class EventsFragment extends Fragment {
                 events.add(new Event("Event numero " + i, user));
         }
         // TODO: implement setup eventsList from database
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(this.getContext(), EventDetailsDialog.class);
+        intent.putExtra("event", events.get(position));
+        activityResultLauncher.launch(intent);
     }
 }
