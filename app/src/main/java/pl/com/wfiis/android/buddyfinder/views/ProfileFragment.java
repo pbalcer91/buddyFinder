@@ -1,5 +1,6 @@
 package pl.com.wfiis.android.buddyfinder.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,10 +14,14 @@ import android.widget.TextView;
 import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.models.User;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class ProfileFragment extends Fragment {
 
     private User user;
-
+    FirebaseFirestore db;
     public ProfileFragment() {
 
     }
@@ -28,6 +33,10 @@ public class ProfileFragment extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             user = bundle.getParcelable("user");
+        }
+        else{
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -50,6 +59,13 @@ public class ProfileFragment extends Fragment {
         changePasswordButton.setOnClickListener(tempView -> System.out.println("Edit Password"));
 
         logoutButton.setOnClickListener(tempView -> System.out.println("Logout"));
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null) {
+            //pobieranie uzytkownika do wyrzucenia potem
+            //db.collection("Users").document(user.getUid())
+        }
+
 
         return view;
     }

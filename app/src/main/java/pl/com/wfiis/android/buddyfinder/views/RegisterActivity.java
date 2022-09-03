@@ -43,10 +43,10 @@ public class RegisterActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
 
-        if (firebaseAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-            finish();
-        }
+//        if (firebaseAuth.getCurrentUser() != null){
+//            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+//            finish();
+//        }
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(RegisterActivity.this,"User Created",Toast.LENGTH_SHORT).show();
                             userID = firebaseAuth.getCurrentUser().getUid();
 
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                         }
 
                         else {
@@ -102,11 +102,11 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        registerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-            }
-        });
+//        registerBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
     }
 }

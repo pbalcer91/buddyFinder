@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         TextView welcomeLabel = view.findViewById(R.id.welcome_label);
-        welcomeLabel.setText("Hello, " + user.getUserName());
+      //  welcomeLabel.setText("Hello, " + user.getUserName());
 
         FloatingActionButton addOfferButton = view.findViewById(R.id.btnAddOffer);
         addOfferButton.setOnClickListener(tempView -> startActivity(new Intent(getActivity(), AddOfferActivity.class)));
