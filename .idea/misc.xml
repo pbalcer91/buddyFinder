@@ -65,12 +65,15 @@
         <entry key="app/src/main/res/layout/dialog_edit_email.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/dialog_edit_name.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/dialog_edit_profile.xml" value="0.3619791666666667" />
+        <entry key="app/src/main/res/layout/dialog_edit_user.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/dialog_event_creator.xml" value="0.23645833333333333" />
         <entry key="app/src/main/res/layout/dialog_event_details.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/dialog_event_members.xml" value="0.3619791666666667" />
+        <entry key="app/src/main/res/layout/dialog_login.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/dialog_logout.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/dialog_map.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/dialog_offer_details.xml" value="0.253125" />
+        <entry key="app/src/main/res/layout/dialog_register.xml" value="0.2" />
         <entry key="app/src/main/res/layout/dialog_time_picker.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/event_row_item.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.25052083333333336" />

@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +35,8 @@ public class ProfileFragment extends Fragment {
     private TextView userName;
     private TextView userEmail;
 
-    private BottomSheetDialog bottomSheetDialog;
+    LinearLayout profileViewLogged;
+    RelativeLayout profileViewNotLogged;
 
     FirebaseFirestore db;
 
@@ -60,8 +63,26 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        profileViewLogged = view.findViewById(R.id.view_profile_logged);
+        profileViewNotLogged = view.findViewById(R.id.view_profile_notlogged);
+
+        if (user == null) {
+            profileViewNotLogged.setVisibility(View.VISIBLE);
+
+            Button signIn = view.findViewById(R.id.btn_sign_in);
+            signIn.setOnClickListener(event -> MainActivity.showLoginDialog(this.getContext()));
+
+            Button signUp = view.findViewById(R.id.btn_sign_up);
+            signUp.setOnClickListener(event -> MainActivity.showRegisterDialog(this.getContext()));
+
+            return view;
+        }
+
+        profileViewLogged.setVisibility(View.VISIBLE);
+
         userName = view.findViewById(R.id.user_name);
         userEmail = view.findViewById(R.id.user_email);
+
         Button editUser = view.findViewById(R.id.btn_edit_user);
         Button changePasswordButton = view.findViewById(R.id.btn_edit_password);
         Button logoutButton = view.findViewById(R.id.btn_logout);
@@ -84,17 +105,17 @@ public class ProfileFragment extends Fragment {
     }
 
     private void showEditUserDialog() {
-        bottomSheetDialog = new BottomSheetDialog(requireContext(), R.style.BottomSheet);
-        bottomSheetDialog.setContentView(R.layout.dialog_edit_user);
+        MainActivity.bottomSheetDialog = new BottomSheetDialog(requireContext(), R.style.BottomSheet);
+        MainActivity.bottomSheetDialog.setContentView(R.layout.dialog_edit_user);
 
-        EditText newNameField = bottomSheetDialog.findViewById(R.id.et_new_name);
+        EditText newNameField = MainActivity.bottomSheetDialog.findViewById(R.id.et_new_name);
         newNameField.setText(user.getUserName());
 
-        EditText newEmailField = bottomSheetDialog.findViewById(R.id.et_new_email);
+        EditText newEmailField = MainActivity.bottomSheetDialog.findViewById(R.id.et_new_email);
         newEmailField.setText(user.getEmail());
 
-        Button acceptButton = bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
-        Button rejectButton = bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
+        Button acceptButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
+        Button rejectButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
 
         Objects.requireNonNull(acceptButton).setOnClickListener(
                 tempView -> {
@@ -106,45 +127,45 @@ public class ProfileFragment extends Fragment {
                     Toast.makeText(this.getContext(), "User updated", Toast.LENGTH_SHORT).show();
                 });
         Objects.requireNonNull(rejectButton).setOnClickListener(
-                tempView -> bottomSheetDialog.cancel());
+                tempView -> MainActivity.bottomSheetDialog.cancel());
 
-        bottomSheetDialog.show();
+        MainActivity.bottomSheetDialog.show();
     }
 
     private void showChangePasswordDialog() {
-        bottomSheetDialog = new BottomSheetDialog(requireContext(), R.style.BottomSheet);
-        bottomSheetDialog.setContentView(R.layout.dialog_change_password);
+        MainActivity.bottomSheetDialog = new BottomSheetDialog(requireContext(), R.style.BottomSheet);
+        MainActivity.bottomSheetDialog.setContentView(R.layout.dialog_change_password);
 
-        Button acceptButton = bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
-        Button rejectButton = bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
+        Button acceptButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
+        Button rejectButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
 
         Objects.requireNonNull(acceptButton).setOnClickListener(
                 tempView -> changePassword());
         Objects.requireNonNull(rejectButton).setOnClickListener(
-                tempView -> bottomSheetDialog.cancel());
+                tempView -> MainActivity.bottomSheetDialog.cancel());
 
-        bottomSheetDialog.show();
+        MainActivity.bottomSheetDialog.show();
     }
 
     private void showLogoutDialog() {
-        bottomSheetDialog = new BottomSheetDialog(requireContext(), R.style.BottomSheet);
-        bottomSheetDialog.setContentView(R.layout.dialog_message);
+        MainActivity.bottomSheetDialog = new BottomSheetDialog(requireContext(), R.style.BottomSheet);
+        MainActivity.bottomSheetDialog.setContentView(R.layout.dialog_message);
 
-        TextView message = bottomSheetDialog.findViewById(R.id.tv_dialog_message);
+        TextView message = MainActivity.bottomSheetDialog.findViewById(R.id.tv_dialog_message);
         message.setText(R.string.logout_info);
 
-        Button acceptButton = bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
+        Button acceptButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
         acceptButton.setText(R.string.logout);
 
-        Button rejectButton = bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
+        Button rejectButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
         rejectButton.setText(R.string.reject);
 
         Objects.requireNonNull(acceptButton).setOnClickListener(
                 tempView -> logout());
         Objects.requireNonNull(rejectButton).setOnClickListener(
-                tempView -> bottomSheetDialog.cancel());
+                tempView -> MainActivity.bottomSheetDialog.cancel());
 
-        bottomSheetDialog.show();
+        MainActivity.bottomSheetDialog.show();
     }
 
     private boolean changeUserName(@NonNull String name) {
@@ -161,7 +182,7 @@ public class ProfileFragment extends Fragment {
         user.setUserName(name);
         userName.setText(user.getUserName());
 
-        bottomSheetDialog.cancel();
+        MainActivity.bottomSheetDialog.cancel();
         return (true);
     }
 
@@ -184,7 +205,7 @@ public class ProfileFragment extends Fragment {
 
         user.setEmail(email);
         userEmail.setText(user.getEmail());
-        bottomSheetDialog.cancel();
+        MainActivity.bottomSheetDialog.cancel();
         return (true);
     }
 
@@ -203,14 +224,14 @@ public class ProfileFragment extends Fragment {
         //TODO: check old password and change password in database
 
         Toast.makeText(this.getContext(), "Password changed", Toast.LENGTH_SHORT).show();
-        bottomSheetDialog.cancel();
+        MainActivity.bottomSheetDialog.cancel();
         return (true);
     }
 
     private void clearPasswordsFields() {
-        EditText oldPasswordField = bottomSheetDialog.findViewById(R.id.oldPasswordEdit);
-        EditText newPasswordField = bottomSheetDialog.findViewById(R.id.newPasswordEdit);
-        EditText repeatNewPasswordField = bottomSheetDialog.findViewById(R.id.repeatNewPasswordEdit);
+        EditText oldPasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.oldPasswordEdit);
+        EditText newPasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.newPasswordEdit);
+        EditText repeatNewPasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.repeatNewPasswordEdit);
 
         Objects.requireNonNull(oldPasswordField).setText("");
         Objects.requireNonNull(newPasswordField).setText("");
@@ -218,9 +239,9 @@ public class ProfileFragment extends Fragment {
     }
 
     private boolean changePasswordValidation() {
-        EditText oldPasswordField = bottomSheetDialog.findViewById(R.id.oldPasswordEdit);
-        EditText newPasswordField = bottomSheetDialog.findViewById(R.id.newPasswordEdit);
-        EditText repeatNewPasswordField = bottomSheetDialog.findViewById(R.id.repeatNewPasswordEdit);
+        EditText oldPasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.oldPasswordEdit);
+        EditText newPasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.newPasswordEdit);
+        EditText repeatNewPasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.repeatNewPasswordEdit);
 
         if (Objects.requireNonNull(oldPasswordField).getText().length() == 0
             || Objects.requireNonNull(newPasswordField).getText().length() == 0
@@ -240,7 +261,7 @@ public class ProfileFragment extends Fragment {
     private boolean logout() {
         //TODO: logout
         Toast.makeText(this.getContext(), "Logged out", Toast.LENGTH_SHORT).show();
-        bottomSheetDialog.cancel();
+        MainActivity.bottomSheetDialog.cancel();
         return (true);
     }
 }
