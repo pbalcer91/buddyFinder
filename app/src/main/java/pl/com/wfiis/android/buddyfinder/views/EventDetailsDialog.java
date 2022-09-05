@@ -129,7 +129,7 @@ public class EventDetailsDialog extends AppCompatActivity {
         deleteButton.setVisibility(isOrganizer ? View.VISIBLE : View.INVISIBLE);
 
         for (int i = 0; i < 5; i++) {
-            event.addMember(new User("John", "someemail"));
+            event.addMember(new User("John", "someemail","pass"));
         }
 
         activityResultLauncher = registerForActivityResult(

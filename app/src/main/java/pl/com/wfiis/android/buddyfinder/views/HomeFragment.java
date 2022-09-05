@@ -102,7 +102,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
 
     private void setupEventsList() {
         for (int i = 0; i < 3; i++) {
-                joinedEventsList.add(new Event("Event numero " + i, new User("Smith", "some_email")));
+                joinedEventsList.add(new Event("Event numero " + i, new User("Smith", "some_email","passw")));
         }
         // TODO: implement setup eventList from database
     }

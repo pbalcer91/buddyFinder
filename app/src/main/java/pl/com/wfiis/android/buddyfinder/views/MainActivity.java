@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         //User user = null;
-        User user = new User("John", "john@mail.com");
+        User user = new User("John", "john@mail.com","asd");
 
         Bundle fragmentBundle = new Bundle();
         fragmentBundle.putParcelable("user", user);
