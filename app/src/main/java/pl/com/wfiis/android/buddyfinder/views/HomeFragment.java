@@ -63,6 +63,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
 
             Intent intent = new Intent(this.getContext(), EventCreatorDialog.class);
             intent.putExtra("newEvent", emptyEvent);
+            intent.putExtra("date", emptyEvent.getDate().getTime());
             activityResultLauncher.launch(intent);
         });
 
