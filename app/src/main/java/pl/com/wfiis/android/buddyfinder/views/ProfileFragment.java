@@ -1,5 +1,6 @@
 package pl.com.wfiis.android.buddyfinder.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,10 @@ import java.util.regex.Pattern;
 import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.models.User;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class ProfileFragment extends Fragment {
 
     private User user;
@@ -29,6 +34,8 @@ public class ProfileFragment extends Fragment {
     private TextView userEmail;
 
     private BottomSheetDialog bottomSheetDialog;
+
+    FirebaseFirestore db;
 
     public ProfileFragment() {
 
@@ -41,6 +48,10 @@ public class ProfileFragment extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             user = bundle.getParcelable("user");
+        }
+        else{
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -61,6 +72,13 @@ public class ProfileFragment extends Fragment {
         editUser.setOnClickListener(tempView -> showEditUserDialog());
         changePasswordButton.setOnClickListener(tempView -> showChangePasswordDialog());
         logoutButton.setOnClickListener(tempView -> showLogoutDialog());
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null) {
+            //pobieranie uzytkownika do wyrzucenia potem
+            //db.collection("Users").document(user.getUid())
+        }
 
         return view;
     }

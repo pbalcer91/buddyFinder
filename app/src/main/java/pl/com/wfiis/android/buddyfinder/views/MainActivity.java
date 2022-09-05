@@ -1,22 +1,13 @@
 package pl.com.wfiis.android.buddyfinder.views;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Source;
 
 import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.models.User;
@@ -49,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         EventsFragment eventsFragment = new EventsFragment();
         eventsFragment.setArguments(fragmentBundle);
 
+        RegisterActivity registerFragment = new RegisterActivity();
+
         BottomNavigationView bottomNavigation = findViewById(R.id.bottomNavigationBar);
 
         getSupportFragmentManager().beginTransaction()
@@ -77,20 +70,6 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.fragment_layout,
                             selectedFragment).commit();
             return true;
-        });
-
-        db.collection("Users").document("AddUserTest").set(user);
-        db.collection("Users").document("qSOKYAYQTfqBl6KhCNP0").get(Source.SERVER).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DocumentSnapshot document = task.getResult();
-                if (document.exists()) {
-                    Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                } else {
-                    Log.d(TAG, "No such document");
-                }
-            } else {
-                Log.d(TAG, "get failed with ", task.getException());
-            }
         });
     }
 }

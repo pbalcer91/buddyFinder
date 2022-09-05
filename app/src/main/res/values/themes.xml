@@ -14,11 +14,14 @@
         <item name="android:navigationBarColor">@color/transparent</item>
         <!-- Customize your theme here. -->
     </style>
+
     <style name="Theme.BuddyFinder.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="Theme.BuddyFinder.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="Theme.BuddyFinder.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="BottomSheet" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
