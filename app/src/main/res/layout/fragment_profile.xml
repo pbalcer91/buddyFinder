@@ -6,103 +6,187 @@
     tools:context=".views.ProfileFragment"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/profile_info"
+    <RelativeLayout
+        android:id="@+id/view_profile_notlogged"
+        android:visibility="invisible"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:layout_margin="@dimen/margin"
-            android:src="@drawable/ic_person"/>
+        android:layout_height="match_parent"
+        android:background="@drawable/logo_background">
 
         <LinearLayout
+            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/margin">
+            android:layout_marginBottom="48dp">
 
             <TextView
-                android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="User Name"
-                android:textSize="28sp"
-                android:textColor="@color/black"
+                android:textSize="@dimen/text_header"
+                android:textColor="@color/text"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin"
+                android:text="Welcome to Buddy Finder"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_regular"
+                android:textColor="@color/text"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin"
+                android:layout_marginBottom="@dimen/padding"
+                android:text="Sign in to find new buddies!"/>
+
+            <Button
+                android:id="@+id/btn_sign_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/component_regular_button"
+                android:text="Sign in"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/dark_gray"
+                android:layout_marginHorizontal="@dimen/margin"
+                android:layout_marginVertical="@dimen/margin"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_regular"
+                android:textColor="@color/text"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin"
+                android:layout_marginBottom="@dimen/padding"
+                android:text="Or create new account"/>
+
+            <Button
+                android:id="@+id/btn_sign_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/component_flat_button"
+                android:text="Sign up"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/padding"/>
+        </LinearLayout>
+    </RelativeLayout>
 
-            <TextView
-                android:id="@+id/user_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="userName@email.com"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
+    <LinearLayout
+        android:id="@+id/view_profile_logged"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <LinearLayout
+            android:id="@+id/profile_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_margin="@dimen/margin"
+                android:src="@drawable/ic_person"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/margin">
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="User Name"
+                    android:textSize="28sp"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="@dimen/padding"/>
+
+                <TextView
+                    android:id="@+id/user_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="userName@email.com"
+                    android:textSize="16sp"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/dark_gray"
+            android:layout_marginHorizontal="@dimen/margin"/>
+
+        <LinearLayout
+            android:id="@+id/profile_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_marginBottom="@dimen/margin">
+
+            <Button
+                android:id="@+id/btn_edit_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/component_flat_button"
+                android:text="@string/edit_user"
+                android:textColor="@color/primary"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/padding"/>
+
+            <Button
+                android:id="@+id/btn_edit_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/component_flat_button"
+                android:text="@string/change_password_title"
+                android:textColor="@color/primary"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/dark_gray"
+            android:layout_marginHorizontal="@dimen/margin"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+
+            <Button
+                android:id="@+id/btn_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/margin"
+                android:background="@drawable/component_flat_button"
+                android:text="@string/logout"
+                android:textColor="@color/dark_gray" />
+
+        </RelativeLayout>
+
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/dark_gray"
-        android:layout_marginHorizontal="@dimen/margin"/>
 
-    <LinearLayout
-        android:id="@+id/profile_edit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/margin"
-        android:layout_marginBottom="@dimen/margin">
-
-        <Button
-            android:id="@+id/btn_edit_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/component_flat_button"
-            android:text="@string/edit_user"
-            android:textColor="@color/primary"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/padding"/>
-
-        <Button
-            android:id="@+id/btn_edit_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/component_flat_button"
-            android:text="@string/change_password_title"
-            android:textColor="@color/primary"
-            android:layout_gravity="center" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/dark_gray"
-        android:layout_marginHorizontal="@dimen/margin"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-
-        <Button
-            android:id="@+id/btn_logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/margin"
-            android:background="@drawable/component_flat_button"
-            android:text="@string/logout"
-            android:textColor="@color/dark_gray" />
-
-    </RelativeLayout>
 
 
 

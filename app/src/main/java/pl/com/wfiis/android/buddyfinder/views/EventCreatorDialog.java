@@ -57,8 +57,6 @@ public class EventCreatorDialog extends AppCompatActivity {
 
     private Button createButton;
 
-    private BottomSheetDialog bottomSheetDialog;
-
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
     private boolean isDateSelected = false;
@@ -207,20 +205,20 @@ public class EventCreatorDialog extends AppCompatActivity {
     }
 
     private void showCalendarDialog(Date selectedDate) {
-        bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheet);
-        bottomSheetDialog.setContentView(R.layout.dialog_date_picker);
+        MainActivity.bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheet);
+        MainActivity.bottomSheetDialog.setContentView(R.layout.dialog_date_picker);
 
-        bottomSheetDialog.setOnDismissListener(event -> validateCreator());
+        MainActivity.bottomSheetDialog.setOnDismissListener(event -> validateCreator());
 
         final Date newDate = selectedDate;
 
         Calendar calendarDate = Calendar.getInstance();
         calendarDate.setTime(selectedDate);
 
-        Button closeButton = bottomSheetDialog.findViewById(R.id.btn_calendar_close);
-        closeButton.setOnClickListener(event -> bottomSheetDialog.cancel());
+        Button closeButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_calendar_close);
+        closeButton.setOnClickListener(event -> MainActivity.bottomSheetDialog.cancel());
 
-        Button acceptButton = bottomSheetDialog.findViewById(R.id.btn_calendar_accept);
+        Button acceptButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_calendar_accept);
         acceptButton.setOnClickListener(event -> {
             newEvent.setDate(newDate);
             dateTextView.setText(dateFormat.format(newEvent.getDate()));
@@ -228,10 +226,10 @@ public class EventCreatorDialog extends AppCompatActivity {
             if (!isDateSelected)
                 isDateSelected = true;
 
-            bottomSheetDialog.dismiss();
+            MainActivity.bottomSheetDialog.dismiss();
         });
 
-        CalendarView calendar = bottomSheetDialog.findViewById(R.id.calendar_picker);
+        CalendarView calendar = MainActivity.bottomSheetDialog.findViewById(R.id.calendar_picker);
         calendar.setDate(selectedDate.getTime(),false,true);
 
         calendar.setOnDateChangeListener((calendarView, year, month, day) -> {
@@ -244,18 +242,18 @@ public class EventCreatorDialog extends AppCompatActivity {
             newDate.setTime(calendarDate.getTimeInMillis());
         });
 
-        bottomSheetDialog.show();
+        MainActivity.bottomSheetDialog.show();
     }
 
     private void showTimeDialog(Date selectedDate) {
-        bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheet);
-        bottomSheetDialog.setContentView(R.layout.dialog_time_picker);
+        MainActivity.bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheet);
+        MainActivity.bottomSheetDialog.setContentView(R.layout.dialog_time_picker);
 
-        bottomSheetDialog.setOnDismissListener(event -> validateCreator());
+        MainActivity.bottomSheetDialog.setOnDismissListener(event -> validateCreator());
 
         final Date newTime = selectedDate;
 
-        TimePicker timePicker = bottomSheetDialog.findViewById(R.id.time_picker);
+        TimePicker timePicker = MainActivity.bottomSheetDialog.findViewById(R.id.time_picker);
         Objects.requireNonNull(timePicker).setIs24HourView(true);
 
         Calendar calendarTime = Calendar.getInstance();
@@ -264,10 +262,10 @@ public class EventCreatorDialog extends AppCompatActivity {
         timePicker.setHour(calendarTime.get(Calendar.HOUR_OF_DAY));
         timePicker.setMinute(calendarTime.get(Calendar.MINUTE));
 
-        Button closeButton = bottomSheetDialog.findViewById(R.id.btn_time_close);
-        closeButton.setOnClickListener(event -> bottomSheetDialog.cancel());
+        Button closeButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_time_close);
+        closeButton.setOnClickListener(event -> MainActivity.bottomSheetDialog.cancel());
 
-        Button acceptButton = bottomSheetDialog.findViewById(R.id.btn_time_accept);
+        Button acceptButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_time_accept);
         acceptButton.setOnClickListener(event -> {
             newEvent.setDate(newTime);
             timeTextView.setText(timeFormat.format(newEvent.getDate()));
@@ -275,7 +273,7 @@ public class EventCreatorDialog extends AppCompatActivity {
             if (!isTimeSelected)
                 isTimeSelected = true;
 
-            bottomSheetDialog.dismiss();
+            MainActivity.bottomSheetDialog.dismiss();
         });
 
         timePicker.setOnTimeChangedListener((timePicker1, hour, minute) -> {
@@ -288,6 +286,6 @@ public class EventCreatorDialog extends AppCompatActivity {
             newTime.setTime(calendarTime.getTimeInMillis());
         });
 
-        bottomSheetDialog.show();
+        MainActivity.bottomSheetDialog.show();
     }
 }

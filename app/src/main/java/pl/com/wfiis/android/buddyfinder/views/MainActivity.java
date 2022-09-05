@@ -4,10 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Objects;
 
 import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.models.User;
@@ -15,6 +21,50 @@ import pl.com.wfiis.android.buddyfinder.models.User;
 public class MainActivity extends AppCompatActivity {
 
     public static final int RESULT_DATA_OK = 123;
+
+    public static User currentUser = null;
+
+    public static BottomSheetDialog bottomSheetDialog;
+
+    public static void showLoginDialog(Context context) {
+        MainActivity.bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheet);
+        MainActivity.bottomSheetDialog.setContentView(R.layout.dialog_login);
+
+        Button acceptButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
+        Button rejectButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
+
+        //TODO: implement login
+
+        Objects.requireNonNull(acceptButton).setOnClickListener(
+                tempView -> {
+                    Toast.makeText(context, "Sign in attempt", Toast.LENGTH_SHORT).show();
+                    MainActivity.bottomSheetDialog.cancel();
+                });
+        Objects.requireNonNull(rejectButton).setOnClickListener(
+                tempView -> MainActivity.bottomSheetDialog.cancel());
+
+        MainActivity.bottomSheetDialog.show();
+    }
+
+    public static void showRegisterDialog(Context context) {
+        MainActivity.bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheet);
+        MainActivity.bottomSheetDialog.setContentView(R.layout.dialog_register);
+
+        Button acceptButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
+        Button rejectButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
+
+        //TODO: implement register
+
+        Objects.requireNonNull(acceptButton).setOnClickListener(
+                tempView -> {
+                    Toast.makeText(context, "Sign up attempt", Toast.LENGTH_SHORT).show();
+                    MainActivity.bottomSheetDialog.cancel();
+                });
+        Objects.requireNonNull(rejectButton).setOnClickListener(
+                tempView -> MainActivity.bottomSheetDialog.cancel());
+
+        MainActivity.bottomSheetDialog.show();
+    }
 
     FirebaseFirestore db;
 
@@ -25,11 +75,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         db = FirebaseFirestore.getInstance();
 
-        //User user = null;
-        User user = new User("John", "john@mail.com");
+        //User user = new User("John", "john@mail.com");
 
         Bundle fragmentBundle = new Bundle();
-        fragmentBundle.putParcelable("user", user);
+        fragmentBundle.putParcelable("user", currentUser);
 
         HomeFragment homeFragment = new HomeFragment();
         homeFragment.setArguments(fragmentBundle);

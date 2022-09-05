@@ -14,12 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.adapters.EventAdapter;
@@ -33,6 +38,9 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
     private ArrayList<Event> joinedEventsList = new ArrayList<>();
 
     private TextView welcomeLabel;
+
+    RelativeLayout homeViewLogged;
+    RelativeLayout homeViewNotLogged;
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
 
@@ -53,6 +61,21 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        homeViewLogged = view.findViewById(R.id.view_home_logged);
+        homeViewNotLogged = view.findViewById(R.id.view_home_notlogged);
+
+        if (user == null) {
+            homeViewNotLogged.setVisibility(View.VISIBLE);
+
+            Button signIn = view.findViewById(R.id.btn_sign_in);
+            signIn.setOnClickListener(event -> MainActivity.showLoginDialog(this.getContext()));
+
+            Button signUp = view.findViewById(R.id.btn_sign_up);
+            signUp.setOnClickListener(event -> MainActivity.showRegisterDialog(this.getContext()));
+
+            return view;
+        }
 
         welcomeLabel = view.findViewById(R.id.welcome_label);
         welcomeLabel.setText("Hello, " + user.getUserName());

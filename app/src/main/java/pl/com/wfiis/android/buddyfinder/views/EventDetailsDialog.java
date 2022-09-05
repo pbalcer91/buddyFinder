@@ -58,8 +58,6 @@ public class EventDetailsDialog extends AppCompatActivity {
     private Button actionButton;
     private Button deleteButton;
 
-    private BottomSheetDialog bottomSheetDialog;
-
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
     public boolean isServicesOk() {
@@ -166,12 +164,12 @@ public class EventDetailsDialog extends AppCompatActivity {
     }
 
     private void showMembersDialog() {
-        bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheet);
-        bottomSheetDialog.setContentView(R.layout.dialog_event_members);
+        MainActivity.bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheet);
+        MainActivity.bottomSheetDialog.setContentView(R.layout.dialog_event_members);
 
-        RecyclerView membersListView = bottomSheetDialog.findViewById(R.id.rv_event_members);
-        Button closeButton = bottomSheetDialog.findViewById(R.id.btn_members_close);
-        closeButton.setOnClickListener(event -> bottomSheetDialog.cancel());
+        RecyclerView membersListView = MainActivity.bottomSheetDialog.findViewById(R.id.rv_event_members);
+        Button closeButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_members_close);
+        closeButton.setOnClickListener(event -> MainActivity.bottomSheetDialog.cancel());
 
         membersListView.getLayoutManager();
 
@@ -180,25 +178,25 @@ public class EventDetailsDialog extends AppCompatActivity {
         membersListView.setAdapter(eventMemberAdapter);
         membersListView.setLayoutManager(new LinearLayoutManager(this));
 
-        bottomSheetDialog.show();
+        MainActivity.bottomSheetDialog.show();
     }
 
     private void showDeleteMessage() {
-        bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheet);
-        bottomSheetDialog.setContentView(R.layout.dialog_message);
+        MainActivity.bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheet);
+        MainActivity.bottomSheetDialog.setContentView(R.layout.dialog_message);
 
-        TextView message = bottomSheetDialog.findViewById(R.id.tv_dialog_message);
+        TextView message = MainActivity.bottomSheetDialog.findViewById(R.id.tv_dialog_message);
         message.setText("Are you sure to delete this event?");
 
-        Button acceptButton = bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
+        Button acceptButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
         acceptButton.setText("Delete");
         acceptButton.setOnClickListener(event -> deleteEvent());
 
-        Button rejectButton = bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
+        Button rejectButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
         rejectButton.setText(R.string.reject);
-        rejectButton.setOnClickListener(event -> bottomSheetDialog.cancel());
+        rejectButton.setOnClickListener(event -> MainActivity.bottomSheetDialog.cancel());
 
-        bottomSheetDialog.show();
+        MainActivity.bottomSheetDialog.show();
     }
 
     private boolean joinEvent() {
@@ -232,8 +230,8 @@ public class EventDetailsDialog extends AppCompatActivity {
 
         Toast.makeText(this, "Event deleted", Toast.LENGTH_SHORT).show();
 
-        if (bottomSheetDialog != null)
-            bottomSheetDialog.cancel();
+        if (MainActivity.bottomSheetDialog != null)
+            MainActivity.bottomSheetDialog.cancel();
 
         this.finish();
 

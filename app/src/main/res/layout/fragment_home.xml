@@ -2,18 +2,97 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingHorizontal="@dimen/margin">
+    android:layout_height="match_parent">
 
-    <ScrollView
+    <RelativeLayout
+        android:id="@+id/view_home_notlogged"
+        android:visibility="invisible"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="match_parent"
+        android:background="@drawable/logo_background">
 
         <LinearLayout
+            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".views.HomeFragment"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="48dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_header"
+                android:textColor="@color/text"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin"
+                android:text="Welcome to Buddy Finder"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_regular"
+                android:textColor="@color/text"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin"
+                android:layout_marginBottom="@dimen/padding"
+                android:text="Sign in to find new buddies!"/>
+
+            <Button
+                android:id="@+id/btn_sign_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/component_regular_button"
+                android:text="Sign in"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/dark_gray"
+                android:layout_marginHorizontal="@dimen/margin"
+                android:layout_marginVertical="@dimen/margin"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_regular"
+                android:textColor="@color/text"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin"
+                android:layout_marginBottom="@dimen/padding"
+                android:text="Or create new account"/>
+
+            <Button
+                android:id="@+id/btn_sign_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/component_flat_button"
+                android:text="Sign up"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/padding"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/view_home_logged"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/margin">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".views.HomeFragment"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/welcome_label"
@@ -24,57 +103,61 @@
                     android:textSize="36sp"
                     android:textColor="@color/black" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nadchodzace wydarzenia"
-                android:textAlignment="textStart"
-                android:textSize="28sp"
-                android:textColor="@color/black" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nadchodzace wydarzenia"
+                    android:textAlignment="textStart"
+                    android:textSize="28sp"
+                    android:textColor="@color/black" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_joined_events_list"
-                android:layout_width="match_parent"
-                android:layout_height="210dp"
-                android:layout_marginTop="@dimen/margin"
-                android:scrollbars="vertical"
-                android:scrollbarThumbVertical="@color/dark_gray"
-                android:scrollbarSize="2dp"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_joined_events_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="210dp"
+                    android:layout_marginTop="@dimen/margin"
+                    android:scrollbars="vertical"
+                    android:scrollbarThumbVertical="@color/dark_gray"
+                    android:scrollbarSize="2dp"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/dark_gray"
-                android:layout_marginVertical="@dimen/padding"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/dark_gray"
+                    android:layout_marginVertical="@dimen/padding"/>
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Twoje wydarzenia"
-                android:textAlignment="textStart"
-                android:textSize="28sp"
-                android:textColor="@color/black" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Twoje wydarzenia"
+                    android:textAlignment="textStart"
+                    android:textSize="28sp"
+                    android:textColor="@color/black" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_created_events_list"
-                android:layout_width="match_parent"
-                android:layout_height="210dp"
-                android:layout_marginTop="@dimen/margin"
-                android:scrollbars="vertical"
-                android:scrollbarThumbVertical="@color/dark_gray"
-                android:scrollbarSize="2dp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_created_events_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="210dp"
+                    android:layout_marginTop="@dimen/margin"
+                    android:scrollbars="vertical"
+                    android:scrollbarThumbVertical="@color/dark_gray"
+                    android:scrollbarSize="2dp" />
 
-        </LinearLayout>
+            </LinearLayout>
 
-    </ScrollView>
+        </ScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_create_event"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="24dp"
-        android:src="@drawable/ic_create_event" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_create_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/ic_create_event" />
+
+    </RelativeLayout>
+
+
 </RelativeLayout>
