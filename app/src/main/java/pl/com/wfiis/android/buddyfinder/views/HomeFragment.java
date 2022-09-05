@@ -77,6 +77,8 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
             return view;
         }
 
+        homeViewLogged.setVisibility(View.VISIBLE);
+
         welcomeLabel = view.findViewById(R.id.welcome_label);
         welcomeLabel.setText("Hello, " + user.getUserName());
 
