@@ -96,6 +96,8 @@ public class EventCreatorDialog extends AppCompatActivity {
         setContentView(R.layout.dialog_event_creator);
 
         this.newEvent = getIntent().getParcelableExtra("newEvent");
+        this.newEvent.setDate(new Date());
+        this.newEvent.getDate().setTime(getIntent().getLongExtra("date", -1));
 
         editMode = (this.newEvent.getLocation() != null);
 
