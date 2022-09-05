@@ -26,6 +26,14 @@ public class MainActivity extends AppCompatActivity {
 
     public static BottomSheetDialog bottomSheetDialog;
 
+    private short prevFragmentIndex = 1;
+    private short nextFragmentIndex = 1;
+
+    @Override
+    public void onBackPressed() {
+        return;
+    }
+
     public static void showLoginDialog(Context context) {
         MainActivity.bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheet);
         MainActivity.bottomSheetDialog.setContentView(R.layout.dialog_login);
@@ -103,21 +111,33 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.menu_item_home:
                     selectedFragment = homeFragment;
+                    nextFragmentIndex = 1;
                     break;
                 case R.id.menu_item_profile:
                     selectedFragment = profileFragment;
+                    nextFragmentIndex = 0;
                     break;
                 case R.id.menu_item_events:
                     selectedFragment = eventsFragment;
+                    nextFragmentIndex = 2;
                     break;
             }
 
             if (selectedFragment == null)
                 return false;
 
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_layout,
-                            selectedFragment).commit();
+            if (prevFragmentIndex > nextFragmentIndex)
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.animation_from_left, R.anim.animation_to_right)
+                        .replace(R.id.fragment_layout,
+                                selectedFragment).commit();
+            else
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.animation_from_right, R.anim.animation_to_left)
+                        .replace(R.id.fragment_layout,
+                                selectedFragment).commit();
+
+
+            prevFragmentIndex = nextFragmentIndex;
+
             return true;
         });
     }
