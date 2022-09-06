@@ -26,8 +26,14 @@ public class MainActivity extends AppCompatActivity {
 
     public static BottomSheetDialog bottomSheetDialog;
 
-    private short prevFragmentIndex = 1;
+    public static short prevFragmentIndex = 1;
     private short nextFragmentIndex = 1;
+
+    public static BottomNavigationView bottomNavigation;
+
+    public static HomeFragment homeFragment;
+    public static ProfileFragment profileFragment;
+    public static EventsFragment eventsFragment;
 
     @Override
     public void onBackPressed() {
@@ -84,21 +90,21 @@ public class MainActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         //TODO: for logged user tests
-        //currentUser = new User("John", "john@mail.com");
+        currentUser = new User("John", "john@mail.com");
 
         Bundle fragmentBundle = new Bundle();
         fragmentBundle.putParcelable("user", currentUser);
 
-        HomeFragment homeFragment = new HomeFragment();
+        homeFragment = new HomeFragment();
         homeFragment.setArguments(fragmentBundle);
 
-        ProfileFragment profileFragment = new ProfileFragment();
+        profileFragment = new ProfileFragment();
         profileFragment.setArguments(fragmentBundle);
 
-        EventsFragment eventsFragment = new EventsFragment();
+        eventsFragment = new EventsFragment();
         eventsFragment.setArguments(fragmentBundle);
 
-        BottomNavigationView bottomNavigation = findViewById(R.id.bottomNavigationBar);
+        bottomNavigation = findViewById(R.id.bottomNavigationBar);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_layout, homeFragment).commit();
