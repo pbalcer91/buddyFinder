@@ -78,6 +78,7 @@ public class ProfileFragment extends Fragment {
             return view;
         }
 
+
         profileViewLogged.setVisibility(View.VISIBLE);
 
         userName = view.findViewById(R.id.user_name);

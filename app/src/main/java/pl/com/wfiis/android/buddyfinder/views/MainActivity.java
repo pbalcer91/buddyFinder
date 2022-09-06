@@ -83,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         db = FirebaseFirestore.getInstance();
 
-        //User user = new User("John", "john@mail.com");
+        //TODO: for logged user tests
+        //currentUser = new User("John", "john@mail.com");
 
         Bundle fragmentBundle = new Bundle();
         fragmentBundle.putParcelable("user", currentUser);
@@ -96,8 +97,6 @@ public class MainActivity extends AppCompatActivity {
 
         EventsFragment eventsFragment = new EventsFragment();
         eventsFragment.setArguments(fragmentBundle);
-
-        RegisterActivity registerFragment = new RegisterActivity();
 
         BottomNavigationView bottomNavigation = findViewById(R.id.bottomNavigationBar);
 
