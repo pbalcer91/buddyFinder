@@ -32,10 +32,11 @@
 
             <ImageView
                 android:id="@+id/btn_back"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
+                android:layout_width="@dimen/icon"
+                android:layout_height="@dimen/icon"
                 android:src="@drawable/ic_arrow_left_primary"
-                android:focusable="true" />
+                android:focusable="true"
+                tools:ignore="ContentDescription" />
 
         </LinearLayout>
 
@@ -44,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Event tittle"
+            android:text=""
             android:textColor="@color/text"
             android:textSize="@dimen/text_header"
             android:textStyle="bold" />
@@ -72,7 +73,7 @@
         android:background="@drawable/component_edit_text"
         tools:ignore="UselessParent"
         android:paddingHorizontal="@dimen/padding"
-        android:paddingVertical="5dp">
+        android:paddingVertical="@dimen/spacing">
 
         <EditText
             android:id="@+id/et_message_field"
@@ -82,14 +83,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/send_item"
-            android:hint="Message"
+            android:hint="@string/message"
             android:textColorHint="@color/text_hint"
             android:imeOptions="actionSend"
             android:inputType="textCapSentences|textMultiLine"
             android:maxLines="4"
             android:background="@null"
             android:textColor="@color/text"
-            android:textSize="@dimen/text_regular"/>
+            android:textSize="@dimen/text_regular"
+            android:importantForAutofill="no" />
 
         <LinearLayout
             android:id="@+id/send_item"
@@ -107,10 +109,11 @@
 
             <ImageView
                 android:id="@+id/btn_send"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
+                android:layout_width="@dimen/icon"
+                android:layout_height="@dimen/icon"
                 android:src="@drawable/ic_send"
-                android:focusable="true" />
+                android:focusable="true"
+                tools:ignore="ContentDescription" />
 
         </LinearLayout>
 

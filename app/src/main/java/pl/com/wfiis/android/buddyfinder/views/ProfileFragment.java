@@ -24,10 +24,6 @@ import java.util.regex.Pattern;
 import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.models.User;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-
 public class ProfileFragment extends Fragment {
 
     private User user;
@@ -37,8 +33,6 @@ public class ProfileFragment extends Fragment {
 
     LinearLayout profileViewLogged;
     RelativeLayout profileViewNotLogged;
-
-    FirebaseFirestore db;
 
     public ProfileFragment() {
 
@@ -64,7 +58,7 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         profileViewLogged = view.findViewById(R.id.view_profile_logged);
-        profileViewNotLogged = view.findViewById(R.id.view_profile_notlogged);
+        profileViewNotLogged = view.findViewById(R.id.view_profile_not_logged);
 
         if (user == null) {
             profileViewNotLogged.setVisibility(View.VISIBLE);
@@ -95,13 +89,6 @@ public class ProfileFragment extends Fragment {
         changePasswordButton.setOnClickListener(tempView -> showChangePasswordDialog());
         logoutButton.setOnClickListener(tempView -> showLogoutDialog());
 
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user != null) {
-            //pobieranie uzytkownika do wyrzucenia potem
-            //db.collection("Users").document(user.getUid())
-        }
-
         return view;
     }
 
@@ -110,10 +97,10 @@ public class ProfileFragment extends Fragment {
         MainActivity.bottomSheetDialog.setContentView(R.layout.dialog_edit_user);
 
         EditText newNameField = MainActivity.bottomSheetDialog.findViewById(R.id.et_new_name);
-        newNameField.setText(user.getUserName());
+        Objects.requireNonNull(newNameField).setText(user.getUserName());
 
         EditText newEmailField = MainActivity.bottomSheetDialog.findViewById(R.id.et_new_email);
-        newEmailField.setText(user.getEmail());
+        Objects.requireNonNull(newEmailField).setText(user.getEmail());
 
         Button acceptButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
         Button rejectButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
@@ -125,7 +112,7 @@ public class ProfileFragment extends Fragment {
                     changeUserEmail(Objects.requireNonNull(newEmailField)
                             .getText().toString());
 
-                    Toast.makeText(this.getContext(), "User updated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this.getContext(), R.string.user_updated, Toast.LENGTH_SHORT).show();
                 });
         Objects.requireNonNull(rejectButton).setOnClickListener(
                 tempView -> MainActivity.bottomSheetDialog.cancel());
@@ -153,13 +140,13 @@ public class ProfileFragment extends Fragment {
         MainActivity.bottomSheetDialog.setContentView(R.layout.dialog_message);
 
         TextView message = MainActivity.bottomSheetDialog.findViewById(R.id.tv_dialog_message);
-        message.setText(R.string.logout_info);
+        Objects.requireNonNull(message).setText(R.string.logout_info);
 
         Button acceptButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
-        acceptButton.setText(R.string.logout);
+        Objects.requireNonNull(acceptButton).setText(R.string.logout);
 
         Button rejectButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
-        rejectButton.setText(R.string.reject);
+        Objects.requireNonNull(rejectButton).setText(R.string.reject);
 
         Objects.requireNonNull(acceptButton).setOnClickListener(
                 tempView -> logout());
@@ -169,14 +156,14 @@ public class ProfileFragment extends Fragment {
         MainActivity.bottomSheetDialog.show();
     }
 
-    private boolean changeUserName(@NonNull String name) {
+    private void changeUserName(@NonNull String name) {
         if (name.length() == 0) {
-            Toast.makeText(this.getContext(), "Name field is empty", Toast.LENGTH_SHORT).show();
-            return (false);
+            Toast.makeText(this.getContext(), R.string.name_field_required, Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if (name.equals(user.getUserName()))
-            return (false);
+            return;
 
         //TODO: change user name in database
 
@@ -184,22 +171,21 @@ public class ProfileFragment extends Fragment {
         userName.setText(user.getUserName());
 
         MainActivity.bottomSheetDialog.cancel();
-        return (true);
     }
 
-    private boolean changeUserEmail(@NonNull String email) {
+    private void changeUserEmail(@NonNull String email) {
         if (email.length() == 0) {
-            Toast.makeText(this.getContext(), "Email field is empty", Toast.LENGTH_SHORT).show();
-            return (false);
+            Toast.makeText(this.getContext(), R.string.email_field_required, Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if (!changeEmailValidation(email)) {
-            Toast.makeText(this.getContext(), "Wrong email format", Toast.LENGTH_SHORT).show();
-            return (false);
+            Toast.makeText(this.getContext(), R.string.email_format_error, Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if (email.equals(user.getUserName()))
-            return (false);
+            return;
 
         //TODO: change user email in database
         //TODO: check if email exists in database
@@ -207,7 +193,6 @@ public class ProfileFragment extends Fragment {
         user.setEmail(email);
         userEmail.setText(user.getEmail());
         MainActivity.bottomSheetDialog.cancel();
-        return (true);
     }
 
     private boolean changeEmailValidation(String email) {
@@ -216,17 +201,16 @@ public class ProfileFragment extends Fragment {
         return (Pattern.compile(regex).matcher(email).matches());
     }
 
-    private boolean changePassword() {
+    private void changePassword() {
         if (!changePasswordValidation()) {
             clearPasswordsFields();
-            return (false);
+            return;
         }
 
         //TODO: check old password and change password in database
 
-        Toast.makeText(this.getContext(), "Password changed", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getContext(), R.string.password_changed, Toast.LENGTH_SHORT).show();
         MainActivity.bottomSheetDialog.cancel();
-        return (true);
     }
 
     private void clearPasswordsFields() {
@@ -247,22 +231,21 @@ public class ProfileFragment extends Fragment {
         if (Objects.requireNonNull(oldPasswordField).getText().length() == 0
             || Objects.requireNonNull(newPasswordField).getText().length() == 0
             || Objects.requireNonNull(repeatNewPasswordField).getText().length() == 0) {
-            Toast.makeText(this.getContext(), "All of fields need to be filled", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getContext(), R.string.all_fields_required, Toast.LENGTH_SHORT).show();
             return (false);
         }
 
         if (!newPasswordField.getText().equals(repeatNewPasswordField.getText())) {
-            Toast.makeText(this.getContext(), "Wrong password confirmation", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getContext(), R.string.wrong_re_password, Toast.LENGTH_SHORT).show();
             return (false);
         }
 
         return (true);
     }
 
-    private boolean logout() {
+    private void logout() {
         //TODO: logout
-        Toast.makeText(this.getContext(), "Logged out", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getContext(), R.string.logged_out, Toast.LENGTH_SHORT).show();
         MainActivity.bottomSheetDialog.cancel();
-        return (true);
     }
 }

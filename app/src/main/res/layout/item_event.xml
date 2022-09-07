@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingVertical="@dimen/padding"
@@ -16,8 +17,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="Title"
-                android:textSize="18sp"
+                android:text=""
+                android:textSize="@dimen/text_regular"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,20 +30,20 @@
                 android:layout_marginTop="@dimen/padding">
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="@dimen/icon_small"
+                    android:layout_height="@dimen/icon_small"
                     android:focusable="true"
                     android:src="@drawable/ic_location"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/padding"/>
+                    android:layout_marginRight="@dimen/padding"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/tv_event_list_item_location"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/text"
-                    android:text="Location"
-                    android:textSize="12sp"
+                    android:text=""
+                    android:textSize="@dimen/text_info"
                     android:gravity="center_vertical"/>
 
             </LinearLayout>
@@ -56,20 +57,20 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="@dimen/icon_small"
+                    android:layout_height="@dimen/icon_small"
                     android:focusable="true"
                     android:src="@drawable/ic_calendar"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/padding"/>
+                    android:layout_marginRight="@dimen/padding"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/tv_event_list_item_date"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/text"
-                    android:text="09/10/2022"
-                    android:textSize="12sp"
+                    android:text=""
+                    android:textSize="@dimen/text_info"
                     android:gravity="center_vertical"/>
 
             </LinearLayout>
@@ -80,23 +81,23 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/date_layout"
                 app:layout_constraintStart_toStartOf="@id/date_layout"
-                android:layout_marginTop="@dimen/mini_padding">
+                android:layout_marginTop="@dimen/spacing">
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="@dimen/icon_small"
+                    android:layout_height="@dimen/icon_small"
                     android:focusable="true"
                     android:src="@drawable/ic_time"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/padding"/>
+                    android:layout_marginRight="@dimen/padding"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/tv_event_list_item_time"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/text"
-                    android:text="18:00"
-                    android:textSize="12sp"
+                    android:text=""
+                    android:textSize="@dimen/text_info"
                     android:gravity="center_vertical"/>
 
             </LinearLayout>

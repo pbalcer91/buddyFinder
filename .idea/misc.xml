@@ -38,7 +38,9 @@
         <entry key="app/src/main/res/drawable/component_text_box.xml" value="0.199" />
         <entry key="app/src/main/res/drawable/header_bar.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/ic_arrow_left.xml" value="0.2425" />
+        <entry key="app/src/main/res/drawable/ic_arrow_left_primary.xml" value="0.172" />
         <entry key="app/src/main/res/drawable/ic_arrow_right.xml" value="0.2425" />
+        <entry key="app/src/main/res/drawable/ic_arrow_right_primary.xml" value="0.172" />
         <entry key="app/src/main/res/drawable/ic_base_icon.xml" value="0.175" />
         <entry key="app/src/main/res/drawable/ic_calendar.xml" value="0.243" />
         <entry key="app/src/main/res/drawable/ic_calendar_primary.xml" value="0.199" />
@@ -46,6 +48,7 @@
         <entry key="app/src/main/res/drawable/ic_check.xml" value="0.199" />
         <entry key="app/src/main/res/drawable/ic_chevronleft.xml" value="0.215" />
         <entry key="app/src/main/res/drawable/ic_current_location.xml" value="0.199" />
+        <entry key="app/src/main/res/drawable/ic_current_location_primary.xml" value="0.172" />
         <entry key="app/src/main/res/drawable/ic_edit.xml" value="0.215" />
         <entry key="app/src/main/res/drawable/ic_filter.xml" value="0.194" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.363" />
@@ -73,9 +76,11 @@
         <entry key="app/src/main/res/layout/dialog_event_creator.xml" value="0.23645833333333333" />
         <entry key="app/src/main/res/layout/dialog_event_details.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/dialog_event_members.xml" value="0.3619791666666667" />
+        <entry key="app/src/main/res/layout/dialog_language_selector.xml" value="0.23489583333333333" />
         <entry key="app/src/main/res/layout/dialog_login.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/dialog_logout.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/dialog_map.xml" value="0.3619791666666667" />
+        <entry key="app/src/main/res/layout/dialog_message.xml" value="0.1859375" />
         <entry key="app/src/main/res/layout/dialog_offer_details.xml" value="0.253125" />
         <entry key="app/src/main/res/layout/dialog_register.xml" value="0.2" />
         <entry key="app/src/main/res/layout/dialog_time_picker.xml" value="0.3619791666666667" />
@@ -85,6 +90,7 @@
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25052083333333336" />
         <entry key="app/src/main/res/layout/fragment_offers.xml" value="0.25052083333333336" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.25052083333333336" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.25416666666666665" />
         <entry key="app/src/main/res/layout/item_category.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/item_event.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/item_member.xml" value="0.3619791666666667" />

@@ -7,8 +7,8 @@
     android:orientation="vertical">
 
     <View
-        android:layout_width="50dp"
-        android:layout_height="3dp"
+        android:layout_width="@dimen/dialog_bar_width"
+        android:layout_height="@dimen/dialog_bar_height"
         android:layout_gravity="center"
         android:background="@color/dark_gray"
         android:layout_marginBottom="@dimen/padding"/>
@@ -17,9 +17,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:text="Select day"
+        android:text="@string/select_day"
         android:textColor="@color/dark_gray"
-        android:textSize="18sp"
+        android:textSize="@dimen/text_regular"
         android:textStyle="bold"/>
 
     <CalendarView
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/component_regular_button"
-        android:text="Confirm"
+        android:text="@string/confirm"
         android:textColor="@color/white"
         android:layout_gravity="center"
         android:layout_marginBottom="@dimen/padding"/>
@@ -45,8 +45,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/component_flat_button"
-        android:text="Close"
-        android:textSize="12sp"
+        android:text="@string/close"
+        android:textSize="@dimen/text_info"
         android:textColor="@color/primary"
         android:layout_gravity="center"/>
 

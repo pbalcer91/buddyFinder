@@ -15,8 +15,8 @@ import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.models.User;
 
 public class EventMemberAdapter extends RecyclerView.Adapter<EventMemberAdapter.MemberViewHolder> {
-    private Context context;
-    private ArrayList<User> membersModels;
+    private final Context context;
+    private final ArrayList<User> membersModels;
 
     public EventMemberAdapter(Context context, ArrayList<User> membersModels) {
         this.context = context;
@@ -43,7 +43,7 @@ public class EventMemberAdapter extends RecyclerView.Adapter<EventMemberAdapter.
     }
 
     public static class MemberViewHolder extends RecyclerView.ViewHolder {
-        private TextView eventMember;
+        private final TextView eventMember;
 
         public MemberViewHolder(@NonNull View itemView) {
             super(itemView);

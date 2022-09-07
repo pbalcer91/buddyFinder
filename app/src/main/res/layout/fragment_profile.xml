@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/view_profile_notlogged"
+        android:id="@+id/view_profile_not_logged"
         android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,7 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="48dp">
+            android:layout_marginBottom="48dp"
+            tools:ignore="UselessParent">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -28,7 +29,7 @@
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/margin"
-                android:text="Welcome to Buddy Finder"/>
+                android:text="@string/not_logged_title"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -38,21 +39,21 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/margin"
                 android:layout_marginBottom="@dimen/padding"
-                android:text="Sign in to find new buddies!"/>
+                android:text="@string/not_logged_sign_in_info"/>
 
             <Button
                 android:id="@+id/btn_sign_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/component_regular_button"
-                android:text="Sign in"
+                android:text="@string/sign_in"
                 android:textColor="@color/white"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/margin"/>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1px"
+                android:layout_height="@dimen/divider"
                 android:background="@color/dark_gray"
                 android:layout_marginHorizontal="@dimen/margin"
                 android:layout_marginVertical="@dimen/margin"/>
@@ -65,14 +66,14 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/margin"
                 android:layout_marginBottom="@dimen/padding"
-                android:text="Or create new account"/>
+                android:text="@string/not_logged_sign_up_info"/>
 
             <Button
                 android:id="@+id/btn_sign_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/component_flat_button"
-                android:text="Sign up"
+                android:text="@string/sign_up"
                 android:textColor="@color/white"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/padding"/>
@@ -93,10 +94,11 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="96dp"
-                android:layout_height="96dp"
+                android:layout_width="@dimen/avatar"
+                android:layout_height="@dimen/avatar"
                 android:layout_margin="@dimen/margin"
-                android:src="@drawable/ic_person"/>
+                android:src="@drawable/ic_person"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -108,8 +110,8 @@
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="User Name"
-                    android:textSize="28sp"
+                    android:text=""
+                    android:textSize="@dimen/text_title"
                     android:textColor="@color/black"
                     android:layout_marginBottom="@dimen/padding"/>
 
@@ -117,8 +119,8 @@
                     android:id="@+id/user_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="userName@email.com"
-                    android:textSize="16sp"
+                    android:text=""
+                    android:textSize="@dimen/text_regular"
                     android:textColor="@color/black" />
 
             </LinearLayout>
@@ -127,7 +129,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1px"
+            android:layout_height="@dimen/divider"
             android:background="@color/dark_gray"
             android:layout_marginHorizontal="@dimen/margin"/>
 
@@ -162,7 +164,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1px"
+            android:layout_height="@dimen/divider"
             android:background="@color/dark_gray"
             android:layout_marginHorizontal="@dimen/margin"/>
 
@@ -183,11 +185,5 @@
                 android:textColor="@color/dark_gray" />
 
         </RelativeLayout>
-
     </LinearLayout>
-
-
-
-
-
 </RelativeLayout>

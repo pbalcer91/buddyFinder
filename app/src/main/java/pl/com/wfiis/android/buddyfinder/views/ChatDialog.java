@@ -14,33 +14,25 @@ import pl.com.wfiis.android.buddyfinder.models.Event;
 
 public class ChatDialog extends AppCompatActivity {
 
-    private Event event;
-
-    private ImageView backButton;
-    private TextView title;
-
-    private EditText messageField;
-    private ImageView sendButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_chat);
 
-        event = getIntent().getParcelableExtra("event");
+        Event event1 = getIntent().getParcelableExtra("event");
 
-        backButton = this.findViewById(R.id.btn_back);
+        ImageView backButton = this.findViewById(R.id.btn_back);
         backButton.setOnClickListener(event -> this.finish());
 
-        title = this.findViewById(R.id.tv_event_title);
-        title.setText(event.getTitle());
+        TextView title = this.findViewById(R.id.tv_event_title);
+        title.setText(event1.getTitle());
 
-        sendButton = this.findViewById(R.id.btn_send);
+        ImageView sendButton = this.findViewById(R.id.btn_send);
         sendButton.setOnClickListener(event -> {
 
         });
 
-        messageField = this.findViewById(R.id.et_message_field);
+        EditText messageField = this.findViewById(R.id.et_message_field);
         messageField.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if (actionId == EditorInfo.IME_ACTION_SEND
                     || actionId == EditorInfo.IME_ACTION_DONE

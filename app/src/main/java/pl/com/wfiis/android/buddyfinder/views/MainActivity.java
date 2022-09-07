@@ -13,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 import pl.com.wfiis.android.buddyfinder.R;
@@ -22,22 +23,29 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int RESULT_DATA_OK = 123;
 
+    @SuppressLint("SimpleDateFormat")
+    public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    @SuppressLint("SimpleDateFormat")
+    public static SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
     public static User currentUser = null;
 
+    @SuppressLint("StaticFieldLeak")
     public static BottomSheetDialog bottomSheetDialog;
 
-    public static short prevFragmentIndex = 1;
-    private short nextFragmentIndex = 1;
+    public static short prevFragmentIndex = 2;
+    private short nextFragmentIndex = 2;
 
     public static BottomNavigationView bottomNavigation;
 
-    public static HomeFragment homeFragment;
-    public static ProfileFragment profileFragment;
+    private HomeFragment homeFragment;
+    public static SettingsFragment settingsFragment;
+    private ProfileFragment profileFragment;
+
     public static EventsFragment eventsFragment;
 
     @Override
     public void onBackPressed() {
-        return;
     }
 
     public static void showLoginDialog(Context context) {
@@ -101,6 +109,9 @@ public class MainActivity extends AppCompatActivity {
         profileFragment = new ProfileFragment();
         profileFragment.setArguments(fragmentBundle);
 
+        settingsFragment = new SettingsFragment();
+        settingsFragment.setArguments(fragmentBundle);
+
         eventsFragment = new EventsFragment();
         eventsFragment.setArguments(fragmentBundle);
 
@@ -116,15 +127,19 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.menu_item_home:
                     selectedFragment = homeFragment;
-                    nextFragmentIndex = 1;
+                    nextFragmentIndex = 2;
                     break;
                 case R.id.menu_item_profile:
                     selectedFragment = profileFragment;
+                    nextFragmentIndex = 1;
+                    break;
+                case R.id.menu_item_settings:
+                    selectedFragment = settingsFragment;
                     nextFragmentIndex = 0;
                     break;
                 case R.id.menu_item_events:
                     selectedFragment = eventsFragment;
-                    nextFragmentIndex = 2;
+                    nextFragmentIndex = 3;
                     break;
             }
 

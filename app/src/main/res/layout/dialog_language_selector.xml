@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottom_sheet_background"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="@dimen/dialog_bar_width"
+        android:layout_height="@dimen/dialog_bar_height"
+        android:layout_gravity="center"
+        android:background="@color/dark_gray"
+        android:layout_marginBottom="@dimen/padding"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="@string/select_language"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/text_regular"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/padding"
+        android:layout_marginTop="@dimen/margin">
+
+        <Button
+            android:id="@+id/btn_english"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/component_flat_button"
+            android:text="@string/english"
+            android:textColor="@color/primary"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/padding"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider"
+            android:background="@color/dark_gray"
+            android:layout_marginHorizontal="@dimen/margin"/>
+
+        <Button
+            android:id="@+id/btn_polish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/component_flat_button"
+            android:text="@string/polish"
+            android:textColor="@color/primary"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/padding"
+            android:layout_marginBottom="@dimen/padding"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider"
+            android:background="@color/dark_gray"
+            android:layout_marginHorizontal="@dimen/margin"/>
+
+        <Button
+            android:id="@+id/btn_spanish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/component_flat_button"
+            android:text="@string/spanish"
+            android:textColor="@color/primary"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/padding"
+            android:layout_marginBottom="@dimen/margin"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>
