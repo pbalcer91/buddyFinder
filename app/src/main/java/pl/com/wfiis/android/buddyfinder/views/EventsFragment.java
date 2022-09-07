@@ -88,6 +88,7 @@ public class EventsFragment extends Fragment implements RecyclerViewInterface {
     public void onItemClick(int position) {
         Intent intent = new Intent(this.getContext(), EventDetailsDialog.class);
         intent.putExtra("event", events.get(position));
+        intent.putExtra("date", events.get(position).getDate().getTime());
         activityResultLauncher.launch(intent);
     }
 }

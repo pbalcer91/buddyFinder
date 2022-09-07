@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 import java.text.SimpleDateFormat;
@@ -32,7 +33,6 @@ import pl.com.wfiis.android.buddyfinder.models.User;
 
 public class EventDetailsDialog extends AppCompatActivity {
     private Event event;
-    private User currentUser;
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
 
@@ -58,6 +58,8 @@ public class EventDetailsDialog extends AppCompatActivity {
     private Button actionButton;
     private Button deleteButton;
 
+    private FloatingActionButton chatButton;
+
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
     public boolean isServicesOk() {
@@ -66,7 +68,7 @@ public class EventDetailsDialog extends AppCompatActivity {
         if (available == ConnectionResult.SUCCESS)
             return true;
         else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
-            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog((Activity) this, available, ERROR_DIALOG_REQUEST);
+            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(this, available, ERROR_DIALOG_REQUEST);
             dialog.show();
         }
 
@@ -79,12 +81,11 @@ public class EventDetailsDialog extends AppCompatActivity {
         setContentView(R.layout.dialog_event_details);
 
         this.event = getIntent().getParcelableExtra("event");
-        this.currentUser = getIntent().getParcelableExtra("currentUser");
         this.event.setDate(new Date());
         this.event.getDate().setTime(getIntent().getLongExtra("date", -1));
 
-        isOrganizer = event.getAuthor().equals(currentUser);
-        isMember = event.getMembers().contains(currentUser);
+        isOrganizer = event.getAuthor().equals(MainActivity.currentUser);
+        isMember = event.getMembers().contains(MainActivity.currentUser);
 
         backButton = this.findViewById(R.id.btn_back);
         backButton.setOnClickListener(event -> this.finish());
@@ -117,7 +118,7 @@ public class EventDetailsDialog extends AppCompatActivity {
         organizer.setText(event.getAuthor().getUserName());
 
         actionButton = this.findViewById(R.id.btn_event_action);
-        actionButton.setOnClickListener(isMember ? event -> leaveEvent()
+        actionButton.setOnClickListener(isMember ? event -> showLeaveDialog()
                                                     : event -> joinEvent());
         actionButton.setVisibility(isOrganizer ? View.INVISIBLE : View.VISIBLE);
         actionButton.setText(isMember ? "Leave" : "Join");
@@ -126,8 +127,16 @@ public class EventDetailsDialog extends AppCompatActivity {
         deleteButton.setOnClickListener(event -> showDeleteMessage());
         deleteButton.setVisibility(isOrganizer ? View.VISIBLE : View.INVISIBLE);
 
+        chatButton = this.findViewById(R.id.btn_chat);
+        chatButton.setVisibility(isMember ? View.VISIBLE : View.INVISIBLE);
+        chatButton.setOnClickListener(tempEvent -> {
+            Intent intent = new Intent(EventDetailsDialog.this, ChatDialog.class);
+            intent.putExtra("event", event);
+            startActivity(intent);
+        });
+
         for (int i = 0; i < 5; i++) {
-            event.addMember(new User("John", "someemail"));
+            event.addMember(new User("Tommy", "someemail"));
         }
 
         activityResultLauncher = registerForActivityResult(
@@ -190,7 +199,31 @@ public class EventDetailsDialog extends AppCompatActivity {
 
         Button acceptButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
         acceptButton.setText("Delete");
-        acceptButton.setOnClickListener(event -> deleteEvent());
+        acceptButton.setOnClickListener(event -> {
+            deleteEvent();
+            MainActivity.bottomSheetDialog.dismiss();
+        });
+
+        Button rejectButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
+        rejectButton.setText(R.string.reject);
+        rejectButton.setOnClickListener(event -> MainActivity.bottomSheetDialog.cancel());
+
+        MainActivity.bottomSheetDialog.show();
+    }
+
+    private void showLeaveDialog() {
+        MainActivity.bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheet);
+        MainActivity.bottomSheetDialog.setContentView(R.layout.dialog_message);
+
+        TextView message = MainActivity.bottomSheetDialog.findViewById(R.id.tv_dialog_message);
+        message.setText("Are you sure to leave this event?");
+
+        Button acceptButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
+        acceptButton.setText("Leave");
+        acceptButton.setOnClickListener(event -> {
+            leaveEvent();
+            MainActivity.bottomSheetDialog.dismiss();
+        });
 
         Button rejectButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
         rejectButton.setText(R.string.reject);
@@ -200,11 +233,15 @@ public class EventDetailsDialog extends AppCompatActivity {
     }
 
     private boolean joinEvent() {
-        if (!event.addMember(currentUser))
+        if (!event.addMember(MainActivity.currentUser)) {
+            Toast.makeText(this, "Operation failed", Toast.LENGTH_SHORT).show();
             return (false);
+        }
 
-        actionButton.setOnClickListener(event -> leaveEvent());
+        actionButton.setOnClickListener(event -> showLeaveDialog());
         actionButton.setText("Leave");
+        isMember = event.getMembers().contains(MainActivity.currentUser);
+        chatButton.setVisibility(isMember ? View.VISIBLE : View.INVISIBLE);
 
         Toast.makeText(this, "Joined event", Toast.LENGTH_SHORT).show();
 
@@ -212,11 +249,15 @@ public class EventDetailsDialog extends AppCompatActivity {
     }
 
     private boolean leaveEvent() {
-        if (!event.removeMember(currentUser))
+        if (!event.removeMember(MainActivity.currentUser)) {
+            Toast.makeText(this, "Operation failed", Toast.LENGTH_SHORT).show();
             return (false);
+        }
 
         actionButton.setOnClickListener(event -> joinEvent());
         actionButton.setText("Join");
+        isMember = event.getMembers().contains(MainActivity.currentUser);
+        chatButton.setVisibility(isMember ? View.VISIBLE : View.INVISIBLE);
 
         Toast.makeText(this, "Left event", Toast.LENGTH_SHORT).show();
 
