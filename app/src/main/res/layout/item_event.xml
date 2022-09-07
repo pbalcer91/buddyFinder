@@ -18,7 +18,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text=""
-                android:textSize="18sp"
+                android:textSize="@dimen/text_regular"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,8 +30,8 @@
                 android:layout_marginTop="@dimen/padding">
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="@dimen/icon_small"
+                    android:layout_height="@dimen/icon_small"
                     android:focusable="true"
                     android:src="@drawable/ic_location"
                     android:layout_marginRight="@dimen/padding"
@@ -43,7 +43,7 @@
                     android:layout_height="match_parent"
                     android:textColor="@color/text"
                     android:text=""
-                    android:textSize="12sp"
+                    android:textSize="@dimen/text_info"
                     android:gravity="center_vertical"/>
 
             </LinearLayout>
@@ -57,8 +57,8 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="@dimen/icon_small"
+                    android:layout_height="@dimen/icon_small"
                     android:focusable="true"
                     android:src="@drawable/ic_calendar"
                     android:layout_marginRight="@dimen/padding"
@@ -70,7 +70,7 @@
                     android:layout_height="match_parent"
                     android:textColor="@color/text"
                     android:text=""
-                    android:textSize="12sp"
+                    android:textSize="@dimen/text_info"
                     android:gravity="center_vertical"/>
 
             </LinearLayout>
@@ -81,11 +81,11 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/date_layout"
                 app:layout_constraintStart_toStartOf="@id/date_layout"
-                android:layout_marginTop="@dimen/mini_padding">
+                android:layout_marginTop="@dimen/spacing">
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="@dimen/icon_small"
+                    android:layout_height="@dimen/icon_small"
                     android:focusable="true"
                     android:src="@drawable/ic_time"
                     android:layout_marginRight="@dimen/padding"
@@ -97,7 +97,7 @@
                     android:layout_height="match_parent"
                     android:textColor="@color/text"
                     android:text=""
-                    android:textSize="12sp"
+                    android:textSize="@dimen/text_info"
                     android:gravity="center_vertical"/>
 
             </LinearLayout>

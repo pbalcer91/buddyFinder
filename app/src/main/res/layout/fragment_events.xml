@@ -24,8 +24,8 @@
             android:textStyle="bold"
             android:text="@string/events_view_title"
             android:typeface="monospace"
-            android:lineSpacingExtra="4dp"
-            android:textSize="28sp"
+            android:lineSpacingExtra="@dimen/spacing"
+            android:textSize="@dimen/text_title"
             android:textColor="@color/primary"
             android:layout_marginLeft="@dimen/margin"
             android:layout_marginTop="@dimen/margin"
@@ -35,8 +35,8 @@
 
         <ImageView
             android:id="@+id/home_logo"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
+            android:layout_width="@dimen/logo"
+            android:layout_height="@dimen/logo"
             android:src="@drawable/logo"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -80,7 +80,7 @@
             <RelativeLayout
                 android:id="@+id/btn_map_search_field"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="@dimen/search_field_height"
                 android:background="@drawable/component_edit_text"
                 android:paddingHorizontal="@dimen/padding"
                 android:paddingVertical="@dimen/padding">
@@ -98,7 +98,7 @@
                     android:inputType="text"
                     android:textColor="@color/text"
                     android:textColorHint="@color/text_hint"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/text_regular"
                     android:importantForAutofill="no" />
 
                 <ImageView
@@ -117,7 +117,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1px"
+            android:layout_height="@dimen/divider"
             android:background="@color/dark_gray"
             android:layout_marginTop="@dimen/padding"
             android:layout_marginBottom="@dimen/padding"/>
@@ -128,7 +128,7 @@
             android:layout_height="wrap_content"
             android:scrollbars="vertical"
             android:scrollbarThumbVertical="@color/dark_gray"
-            android:scrollbarSize="2dp" />
+            android:scrollbarSize="@dimen/border_big" />
 
 
     </LinearLayout>

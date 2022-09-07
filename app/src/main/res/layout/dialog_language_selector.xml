@@ -7,8 +7,8 @@
     android:orientation="vertical">
 
     <View
-        android:layout_width="50dp"
-        android:layout_height="3dp"
+        android:layout_width="@dimen/dialog_bar_width"
+        android:layout_height="@dimen/dialog_bar_height"
         android:layout_gravity="center"
         android:background="@color/dark_gray"
         android:layout_marginBottom="@dimen/padding"/>
@@ -19,7 +19,7 @@
         android:gravity="start"
         android:text="@string/select_language"
         android:textColor="@color/dark_gray"
-        android:textSize="18sp"
+        android:textSize="@dimen/text_regular"
         android:textStyle="bold"/>
 
     <LinearLayout
@@ -41,7 +41,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1px"
+            android:layout_height="@dimen/divider"
             android:background="@color/dark_gray"
             android:layout_marginHorizontal="@dimen/margin"/>
 
@@ -58,7 +58,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1px"
+            android:layout_height="@dimen/divider"
             android:background="@color/dark_gray"
             android:layout_marginHorizontal="@dimen/margin"/>
 

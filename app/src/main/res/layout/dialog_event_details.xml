@@ -31,8 +31,8 @@
 
             <ImageView
                 android:id="@+id/btn_back"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
+                android:layout_width="@dimen/icon"
+                android:layout_height="@dimen/icon"
                 android:src="@drawable/ic_arrow_left_primary"
                 android:focusable="true"
                 tools:ignore="ContentDescription" />
@@ -65,8 +65,8 @@
 
             <ImageView
                 android:id="@+id/btn_event_edit"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
+                android:layout_width="@dimen/icon"
+                android:layout_height="@dimen/icon"
                 android:focusable="true"
                 android:src="@drawable/ic_edit_primary"
                 tools:ignore="ContentDescription" />
@@ -103,8 +103,8 @@
                     android:layout_centerVertical="true">
 
                     <ImageView
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
+                        android:layout_width="@dimen/icon"
+                        android:layout_height="@dimen/icon"
                         android:focusable="true"
                         android:src="@drawable/ic_calendar"
                         android:layout_marginRight="@dimen/padding"
@@ -116,7 +116,7 @@
                         android:layout_height="match_parent"
                         android:text=""
                         android:textColor="@color/text"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/text_message"
                         android:gravity="center_vertical"/>
 
                 </LinearLayout>
@@ -129,8 +129,8 @@
                     tools:ignore="RelativeOverlap">
 
                     <ImageView
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
+                        android:layout_width="@dimen/icon"
+                        android:layout_height="@dimen/icon"
                         android:focusable="true"
                         android:src="@drawable/ic_time"
                         android:layout_marginRight="@dimen/padding"
@@ -142,7 +142,7 @@
                         android:layout_height="match_parent"
                         android:text=""
                         android:textColor="@color/text"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/text_message"
                         android:gravity="center_vertical"/>
                 </LinearLayout>
 
@@ -166,8 +166,8 @@
                     tools:ignore="RelativeOverlap">
 
                     <ImageView
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
+                        android:layout_width="@dimen/icon"
+                        android:layout_height="@dimen/icon"
                         android:focusable="true"
                         android:src="@drawable/ic_location_primary"
                         android:layout_marginRight="@dimen/padding"
@@ -178,14 +178,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:textColor="@color/primary"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/text_message"
                         android:gravity="center_vertical"/>
 
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_width="@dimen/icon_size"
-                    android:layout_height="@dimen/icon_size"
+                    android:layout_width="@dimen/icon"
+                    android:layout_height="@dimen/icon"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:focusable="true"
@@ -227,8 +227,8 @@
                     tools:ignore="RelativeOverlap">
 
                     <ImageView
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
+                        android:layout_width="@dimen/icon"
+                        android:layout_height="@dimen/icon"
                         android:focusable="true"
                         android:src="@drawable/ic_members_primary"
                         android:layout_marginRight="@dimen/padding"
@@ -240,14 +240,14 @@
                         android:text="@string/members"
                         android:textAllCaps="true"
                         android:textColor="@color/primary"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/text_message"
                         android:gravity="center_vertical"/>
 
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_width="@dimen/icon_size"
-                    android:layout_height="@dimen/icon_size"
+                    android:layout_width="@dimen/icon"
+                    android:layout_height="@dimen/icon"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:focusable="true"
@@ -334,8 +334,5 @@
                 tools:ignore="ContentDescription" />
 
         </LinearLayout>
-
-
-
     </RelativeLayout>
 </LinearLayout>

@@ -32,8 +32,8 @@
 
             <ImageView
                 android:id="@+id/btn_back"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
+                android:layout_width="@dimen/icon"
+                android:layout_height="@dimen/icon"
                 android:src="@drawable/ic_arrow_left_primary"
                 android:focusable="true"
                 tools:ignore="ContentDescription" />
@@ -73,7 +73,7 @@
         android:background="@drawable/component_edit_text"
         tools:ignore="UselessParent"
         android:paddingHorizontal="@dimen/padding"
-        android:paddingVertical="5dp">
+        android:paddingVertical="@dimen/spacing">
 
         <EditText
             android:id="@+id/et_message_field"
@@ -109,8 +109,8 @@
 
             <ImageView
                 android:id="@+id/btn_send"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
+                android:layout_width="@dimen/icon"
+                android:layout_height="@dimen/icon"
                 android:src="@drawable/ic_send"
                 android:focusable="true"
                 tools:ignore="ContentDescription" />

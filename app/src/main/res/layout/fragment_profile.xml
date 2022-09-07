@@ -53,7 +53,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1px"
+                android:layout_height="@dimen/divider"
                 android:background="@color/dark_gray"
                 android:layout_marginHorizontal="@dimen/margin"
                 android:layout_marginVertical="@dimen/margin"/>
@@ -94,8 +94,8 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="96dp"
-                android:layout_height="96dp"
+                android:layout_width="@dimen/avatar"
+                android:layout_height="@dimen/avatar"
                 android:layout_margin="@dimen/margin"
                 android:src="@drawable/ic_person"
                 tools:ignore="ContentDescription" />
@@ -111,7 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:textSize="28sp"
+                    android:textSize="@dimen/text_title"
                     android:textColor="@color/black"
                     android:layout_marginBottom="@dimen/padding"/>
 
@@ -120,7 +120,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:textSize="16sp"
+                    android:textSize="@dimen/text_regular"
                     android:textColor="@color/black" />
 
             </LinearLayout>
@@ -129,7 +129,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1px"
+            android:layout_height="@dimen/divider"
             android:background="@color/dark_gray"
             android:layout_marginHorizontal="@dimen/margin"/>
 
@@ -164,7 +164,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1px"
+            android:layout_height="@dimen/divider"
             android:background="@color/dark_gray"
             android:layout_marginHorizontal="@dimen/margin"/>
 
@@ -185,11 +185,5 @@
                 android:textColor="@color/dark_gray" />
 
         </RelativeLayout>
-
     </LinearLayout>
-
-
-
-
-
 </RelativeLayout>

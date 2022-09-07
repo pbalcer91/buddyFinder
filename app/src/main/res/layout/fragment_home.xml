@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="48dp"
+            android:layout_marginBottom="@dimen/screen_border_margin"
             tools:ignore="UselessParent">
 
             <TextView
@@ -52,7 +52,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1px"
+                android:layout_height="@dimen/divider"
                 android:background="@color/dark_gray"
                 android:layout_marginHorizontal="@dimen/margin"
                 android:layout_marginVertical="@dimen/margin"/>
@@ -102,8 +102,8 @@
                 android:textStyle="bold"
                 android:text="@string/home_view_logged_title"
                 android:typeface="monospace"
-                android:lineSpacingExtra="4dp"
-                android:textSize="28sp"
+                android:lineSpacingExtra="@dimen/spacing"
+                android:textSize="@dimen/text_title"
                 android:textColor="@color/primary"
                 android:layout_marginLeft="@dimen/margin"
                 android:layout_marginTop="@dimen/margin"
@@ -113,8 +113,8 @@
 
             <ImageView
                 android:id="@+id/home_logo"
-                android:layout_width="140dp"
-                android:layout_height="140dp"
+                android:layout_width="@dimen/logo"
+                android:layout_height="@dimen/logo"
                 android:src="@drawable/logo"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -132,16 +132,16 @@
             tools:context=".views.HomeFragment"
             android:visibility="invisible"
             android:orientation="vertical"
-            android:layout_marginTop="36dp"
-            android:paddingTop="36dp"
+            android:layout_marginTop="@dimen/section_margin"
+            android:paddingTop="@dimen/section_margin"
             android:layout_marginBottom="@dimen/margin"
             android:paddingHorizontal="@dimen/margin">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="@dimen/text_box"
                 android:background="@drawable/component_text_box"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="@dimen/section_margin"
                 android:layout_marginBottom="@dimen/margin">
 
                 <TextView
@@ -170,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/text"
                     android:textSize="@dimen/text_regular"
-                    android:layout_marginBottom="36dp"
+                    android:layout_marginBottom="@dimen/section_margin"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:text="@string/empty_joined_event_list_tip"/>
@@ -210,7 +210,7 @@
                 tools:context=".views.HomeFragment"
                 android:visibility="invisible"
                 android:orientation="vertical"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="@dimen/section_margin"
                 android:layout_marginBottom="@dimen/margin"
                 android:paddingHorizontal="@dimen/margin">
 
@@ -224,7 +224,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1px"
+                    android:layout_height="@dimen/divider"
                     android:background="@color/dark_gray"
                     android:layout_marginRight="@dimen/margin"/>
 
@@ -235,11 +235,8 @@
                     android:layout_marginTop="@dimen/margin"
                     android:scrollbars="vertical"
                     android:scrollbarThumbVertical="@color/dark_gray"
-                    android:scrollbarSize="2dp"/>
+                    android:scrollbarSize="@dimen/border_big"/>
 
             </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </RelativeLayout>

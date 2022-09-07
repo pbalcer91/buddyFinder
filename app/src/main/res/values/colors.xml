@@ -7,6 +7,7 @@
     <color name="dark_gray">#4B4B4B</color>
     <color name="text_hint">#EE848484</color>
     <color name="text">#4B4B4B</color>
+    <color name="primary_background">#C1DDFCDC</color>
     <color name="primary">#FF008c54</color>
     <color name="primary_50">#77008c54</color>
     <color name="primary_30">#44008c54</color>
@@ -15,5 +16,6 @@
     <color name="background">#E4E4E4</color>
     <color name="background_70">#40E4E4E4</color>
     <color name="background_30">#C1E4E4E4</color>
-<!--    <color name="secondary">#FF07a3b8</color>-->
+    <color name="navigation_background">#b8c2b6</color>
+    <!--    <color name="secondary">#FF07a3b8</color>-->
 </resources>

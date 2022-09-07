@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/root_map">
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MapsActivity" />
+        tools:context=".MapsActivity"
+        tools:ignore="FragmentTagUsage" />
 
     <RelativeLayout
         android:id="@+id/map_title_row"
@@ -33,10 +34,11 @@
 
             <ImageView
                 android:id="@+id/btn_map_back"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
+                android:layout_width="@dimen/icon"
+                android:layout_height="@dimen/icon"
                 android:src="@drawable/ic_arrow_left_primary"
-                android:focusable="true" />
+                android:focusable="true"
+                tools:ignore="ContentDescription" />
 
         </LinearLayout>
 
@@ -45,10 +47,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Event tittle"
+            android:text=""
             android:textColor="@color/text"
             android:textSize="@dimen/text_header"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="RelativeOverlap" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -64,10 +67,11 @@
 
             <ImageView
                 android:id="@+id/btn_accept_location"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
+                android:layout_width="@dimen/icon"
+                android:layout_height="@dimen/icon"
                 android:focusable="true"
-                android:src="@drawable/ic_check_primary" />
+                android:src="@drawable/ic_check_primary"
+                tools:ignore="ContentDescription" />
 
         </LinearLayout>
 
@@ -76,7 +80,7 @@
     <RelativeLayout
         android:id="@+id/btn_map_search_field"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/search_field_height"
         android:layout_below="@+id/map_title_row"
         android:layout_marginHorizontal="@dimen/padding"
         android:layout_marginTop="@dimen/padding"
@@ -89,7 +93,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_search_primary" />
+            android:src="@drawable/ic_search_primary"
+            tools:ignore="ContentDescription" />
 
         <EditText
             android:id="@+id/et_search_map"
@@ -99,12 +104,13 @@
             android:layout_marginHorizontal="@dimen/padding"
             android:layout_toRightOf="@+id/search_icon"
             android:background="@null"
-            android:hint="Search here"
+            android:hint="@string/search"
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:textColor="@color/text"
             android:textColorHint="@color/text_hint"
-            android:textSize="18sp" />
+            android:textSize="@dimen/text_regular"
+            android:importantForAutofill="no" />
 
     </RelativeLayout>
 
@@ -124,10 +130,11 @@
 
         <ImageView
             android:id="@+id/btn_current_location"
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
+            android:layout_width="@dimen/icon"
+            android:layout_height="@dimen/icon"
             android:focusable="true"
-            android:src="@drawable/ic_current_location_primary" />
+            android:src="@drawable/ic_current_location_primary"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 </RelativeLayout>
