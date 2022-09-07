@@ -1,6 +1,9 @@
 package pl.com.wfiis.android.buddyfinder.views;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +19,9 @@ public class ChatDialog extends AppCompatActivity {
     private ImageView backButton;
     private TextView title;
 
+    private EditText messageField;
+    private ImageView sendButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,5 +34,22 @@ public class ChatDialog extends AppCompatActivity {
 
         title = this.findViewById(R.id.tv_event_title);
         title.setText(event.getTitle());
+
+        sendButton = this.findViewById(R.id.btn_send);
+        sendButton.setOnClickListener(event -> {
+
+        });
+
+        messageField = this.findViewById(R.id.et_message_field);
+        messageField.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEND
+                    || actionId == EditorInfo.IME_ACTION_DONE
+                    || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                    || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
+
+                //send message
+            }
+            return false;
+        });
     }
 }
