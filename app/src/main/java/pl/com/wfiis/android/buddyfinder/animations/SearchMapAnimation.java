@@ -1,4 +1,4 @@
-package pl.com.wfiis.android.buddyfinder.Animations;
+package pl.com.wfiis.android.buddyfinder.animations;
 
 import android.view.View;
 import android.view.animation.Animation;
@@ -19,9 +19,8 @@ public class SearchMapAnimation extends Animation {
 
     @Override
     protected void applyTransformation(float interpolatedTime, Transformation t) {
-        int newWidth = mStartWidth + (int) ((mWidth - mStartWidth) * interpolatedTime);
 
-        mView.getLayoutParams().width = newWidth;
+        mView.getLayoutParams().width = mStartWidth + (int) ((mWidth - mStartWidth) * interpolatedTime);
         mView.requestLayout();
     }
 

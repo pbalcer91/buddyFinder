@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:text="Sign in"
+        android:text="@string/sign_in"
         android:textColor="@color/dark_gray"
         android:textSize="18sp"
         android:textStyle="bold"/>
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/padding"
-                android:text="Email"
+                android:text="@string/email"
                 android:textSize="@dimen/text_info"
                 android:textColor="@color/primary"/>
 
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="emailAddress"
                 android:background="@color/transparent"
-                android:hint="Email"
+                android:hint="@string/email"
                 android:textColorHint="@color/text_hint"
                 android:textAlignment="textStart"
                 android:padding="@dimen/padding"
@@ -106,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/component_regular_button"
-            android:text="Sign in"
+            android:text="@string/sign_in"
             android:textColor="@color/white"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/padding"/>
@@ -116,7 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/component_flat_button"
-            android:text="Cancel"
+            android:text="@string/reject"
             android:textSize="12sp"
             android:textColor="@color/primary"
             android:layout_gravity="center" />

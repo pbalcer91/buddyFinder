@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:text="Select day"
+        android:text="@string/select_day"
         android:textColor="@color/dark_gray"
         android:textSize="18sp"
         android:textStyle="bold"/>
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/component_regular_button"
-        android:text="Confirm"
+        android:text="@string/confirm"
         android:textColor="@color/white"
         android:layout_gravity="center"
         android:layout_marginBottom="@dimen/padding"/>
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/component_flat_button"
-        android:text="Close"
+        android:text="@string/close"
         android:textSize="12sp"
         android:textColor="@color/primary"
         android:layout_gravity="center"/>

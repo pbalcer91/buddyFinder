@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottomSheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -36,7 +37,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/component_regular_button"
             android:textColor="@color/white"
-            android:layout_marginRight="@dimen/margin"/>
+            android:layout_marginRight="@dimen/margin"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/btn_dialog_reject"
@@ -45,7 +47,8 @@
             android:background="@drawable/component_flat_button"
             android:textSize="12sp"
             android:textColor="@color/primary"
-            android:layout_marginLeft="@dimen/margin"/>
+            android:layout_marginLeft="@dimen/margin"
+            tools:ignore="ButtonStyle" />
 
 
 

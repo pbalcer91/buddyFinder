@@ -76,6 +76,7 @@
         <entry key="app/src/main/res/layout/dialog_login.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/dialog_logout.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/dialog_map.xml" value="0.3619791666666667" />
+        <entry key="app/src/main/res/layout/dialog_message.xml" value="0.1859375" />
         <entry key="app/src/main/res/layout/dialog_offer_details.xml" value="0.253125" />
         <entry key="app/src/main/res/layout/dialog_register.xml" value="0.2" />
         <entry key="app/src/main/res/layout/dialog_time_picker.xml" value="0.3619791666666667" />

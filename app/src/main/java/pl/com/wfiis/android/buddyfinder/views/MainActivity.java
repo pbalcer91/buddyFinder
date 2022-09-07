@@ -13,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 import pl.com.wfiis.android.buddyfinder.R;
@@ -22,8 +23,14 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int RESULT_DATA_OK = 123;
 
+    @SuppressLint("SimpleDateFormat")
+    public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    @SuppressLint("SimpleDateFormat")
+    public static SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
     public static User currentUser = null;
 
+    @SuppressLint("StaticFieldLeak")
     public static BottomSheetDialog bottomSheetDialog;
 
     public static short prevFragmentIndex = 1;
@@ -32,12 +39,14 @@ public class MainActivity extends AppCompatActivity {
     public static BottomNavigationView bottomNavigation;
 
     public static HomeFragment homeFragment;
+
+    @SuppressLint("StaticFieldLeak")
     public static ProfileFragment profileFragment;
+
     public static EventsFragment eventsFragment;
 
     @Override
     public void onBackPressed() {
-        return;
     }
 
     public static void showLoginDialog(Context context) {

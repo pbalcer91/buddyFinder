@@ -5,27 +5,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.interfaces.RecyclerViewInterface;
 import pl.com.wfiis.android.buddyfinder.models.Event;
+import pl.com.wfiis.android.buddyfinder.views.MainActivity;
 
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
     private final RecyclerViewInterface recyclerViewInterface;
 
-    private Context context;
-    private ArrayList<Event> eventModels;
-
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    private SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+    private final Context context;
+    private final ArrayList<Event> eventModels;
 
     public EventAdapter(Context context,
                         ArrayList<Event> eventModels,
@@ -49,8 +45,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         holder.eventTitle.setText(eventModels.get(position).getTitle());
 //        holder.eventLocation.setText(eventModels.get(position).getLocation().getAddressLine(0));
         holder.eventLocation.setText("Some address will be display here");
-        holder.eventDate.setText(dateFormat.format(eventModels.get(position).getDate()));
-        holder.eventTime.setText(timeFormat.format(eventModels.get(position).getDate()));
+        holder.eventDate.setText(MainActivity.dateFormat.format(eventModels.get(position).getDate()));
+        holder.eventTime.setText(MainActivity.timeFormat.format(eventModels.get(position).getDate()));
     }
 
     @Override
@@ -59,10 +55,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     }
 
     public static class EventViewHolder extends RecyclerView.ViewHolder {
-        private TextView eventTitle;
-        private TextView eventLocation;
-        private TextView eventDate;
-        private TextView eventTime;
+        private final TextView eventTitle;
+        private final TextView eventLocation;
+        private final TextView eventDate;
+        private final TextView eventTime;
 
         public EventViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingVertical="@dimen/padding"
@@ -16,7 +17,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="Title"
+                android:text=""
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -33,15 +34,15 @@
                     android:layout_height="16dp"
                     android:focusable="true"
                     android:src="@drawable/ic_location"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/padding"/>
+                    android:layout_marginRight="@dimen/padding"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/tv_event_list_item_location"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/text"
-                    android:text="Location"
+                    android:text=""
                     android:textSize="12sp"
                     android:gravity="center_vertical"/>
 
@@ -60,15 +61,15 @@
                     android:layout_height="16dp"
                     android:focusable="true"
                     android:src="@drawable/ic_calendar"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/padding"/>
+                    android:layout_marginRight="@dimen/padding"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/tv_event_list_item_date"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/text"
-                    android:text="09/10/2022"
+                    android:text=""
                     android:textSize="12sp"
                     android:gravity="center_vertical"/>
 
@@ -87,15 +88,15 @@
                     android:layout_height="16dp"
                     android:focusable="true"
                     android:src="@drawable/ic_time"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/padding"/>
+                    android:layout_marginRight="@dimen/padding"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/tv_event_list_item_time"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/text"
-                    android:text="18:00"
+                    android:text=""
                     android:textSize="12sp"
                     android:gravity="center_vertical"/>
 

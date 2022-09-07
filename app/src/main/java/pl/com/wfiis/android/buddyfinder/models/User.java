@@ -4,14 +4,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class User implements Parcelable {
     private int id;
     private String userName;
     private String email;
-    private ArrayList<Event> createdEvents;
-    private ArrayList<Event> joinedEvents;
+    private final ArrayList<Event> createdEvents;
+    private final ArrayList<Event> joinedEvents;
     //private Byte [] image;
 
     public String getUserName() {

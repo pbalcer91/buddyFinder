@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -21,7 +22,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="textStart"
             android:textStyle="bold"
-            android:text="Search for events"
+            android:text="@string/events_view_title"
             android:typeface="monospace"
             android:lineSpacingExtra="4dp"
             android:textSize="28sp"
@@ -38,7 +39,8 @@
             android:layout_height="140dp"
             android:src="@drawable/logo"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -70,7 +72,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_filter" />
+                    android:src="@drawable/ic_filter"
+                    tools:ignore="ContentDescription" />
 
             </RelativeLayout>
 
@@ -90,12 +93,13 @@
                     android:layout_marginHorizontal="@dimen/padding"
                     android:layout_toLeftOf="@+id/search_icon"
                     android:background="@null"
-                    android:hint="Search"
+                    android:hint="@string/search"
                     android:imeOptions="actionSearch"
                     android:inputType="text"
                     android:textColor="@color/text"
                     android:textColorHint="@color/text_hint"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:importantForAutofill="no" />
 
                 <ImageView
                     android:id="@+id/search_icon"
@@ -104,7 +108,8 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/padding"
-                    android:src="@drawable/ic_search_primary" />
+                    android:src="@drawable/ic_search_primary"
+                    tools:ignore="ContentDescription" />
 
             </RelativeLayout>
 

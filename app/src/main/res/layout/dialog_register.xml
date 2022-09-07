@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:text="Create account"
+        android:text="@string/create_account"
         android:textColor="@color/dark_gray"
         android:textSize="18sp"
         android:textStyle="bold"/>
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/padding"
-                android:text="User name"
+                android:text="@string/name"
                 android:textSize="@dimen/text_info"
                 android:textColor="@color/primary"/>
 
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="username"
                 android:background="@color/transparent"
-                android:hint="User name"
+                android:hint="@string/name"
                 android:textColorHint="@color/text_hint"
                 android:textAlignment="textStart"
                 android:padding="@dimen/padding"
@@ -79,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/padding"
-                android:text="Email"
+                android:text="@string/email"
                 android:textSize="@dimen/text_info"
                 android:textColor="@color/primary"/>
 
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="emailAddress"
                 android:background="@color/transparent"
-                android:hint="Email"
+                android:hint="@string/email"
                 android:textColorHint="@color/text_hint"
                 android:textAlignment="textStart"
                 android:padding="@dimen/padding"
@@ -151,7 +151,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/padding"
-                android:text="Re-password"
+                android:text="@string/repeat_password"
                 android:textSize="@dimen/text_info"
                 android:textColor="@color/primary"/>
 
@@ -161,7 +161,7 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="password"
                 android:background="@color/transparent"
-                android:hint="Re-password"
+                android:hint="@string/repeat_password"
                 android:textColorHint="@color/text_hint"
                 android:textAlignment="textStart"
                 android:padding="@dimen/padding"
@@ -176,7 +176,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/component_regular_button"
-            android:text="Sign up"
+            android:text="@string/sign_up"
             android:textColor="@color/white"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/padding"/>
@@ -186,7 +186,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/component_flat_button"
-            android:text="Cancel"
+            android:text="@string/reject"
             android:textSize="12sp"
             android:textColor="@color/primary"
             android:layout_gravity="center" />
