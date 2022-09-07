@@ -80,7 +80,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
                         .replace(R.id.fragment_layout,
                                 MainActivity.eventsFragment).commit();
 
-                MainActivity.prevFragmentIndex = 2;
+                MainActivity.prevFragmentIndex = 3;
             });
 
             createEventButton.setOnClickListener(tempView -> {

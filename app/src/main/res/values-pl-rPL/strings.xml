@@ -1,0 +1,79 @@
+<resources>
+    <string name="app_name" translatable="false">Buddy Finder</string>
+
+    <!--###################################### GLOBAL ###########################################-->
+    <string name="confirm">Zatwierdź</string>
+    <string name="reject">Anuluj</string>
+    <string name="close">Zamknij</string>
+    <string name="message">Wiadomość</string>
+    <string name="search">Szukaj</string>
+    <string name="home">Strona główna</string>
+    <string name="settings">Ustawienia</string>
+    <string name="language">Język</string>
+    <string name="select_language">Wybierz język</string>
+    <string name="english">Angielski</string>
+    <string name="polish">Polski</string>
+    <string name="spanish">Hiszpański</string>
+
+    <!--###################################### INFO #############################################-->
+    <string name="events_view_title">Szukaj wydarzeń</string>
+    <string name="not_logged_title">Witaj w Buddy Finder</string>
+    <string name="not_logged_sign_in_info">Zaloguj się i poznawaj nowych przyjaciół!</string>
+    <string name="not_logged_sign_up_info">Lub stwórz nowe konto</string>
+    <string name="home_view_logged_title">Witaj w\nBuddy Finder</string>
+    <string name="empty_joined_events_list">Lista wydarzeń jest pusta</string>
+    <string name="empty_joined_events_list_info">Nie dołączyłeś do żadnego wydarzenia</string>
+    <string name="empty_joined_event_list_tip">Dołącz do istniejącego, lub stwórz własne</string>
+    <string name="delete_event_info">Czy na pewno chcesz usunąć wydarzenie?</string>
+    <string name="leave_event_info">Czy na pewno chcesz opuścić wydarzenie?</string>
+    <string name="operation_failed">Operacja się nie powiodła</string>
+
+    <!--###################################### USER #############################################-->
+    <string name="profile">Profil</string>
+    <string name="name">Nazwa użytkownika</string>
+    <string name="email">Email</string>
+    <string name="password">Hasło</string>
+    <string name="repeat_password">Powtórz hasło</string>
+    <string name="old_password">Stare hasło</string>
+    <string name="new_password">Nowe hasło</string>
+    <string name="new_name">Nowa nazwa użytwkonika</string>
+    <string name="new_email">Nowy email</string>
+    <string name="change_password_title">Zmień hasło</string>
+    <string name="password_changed">Hasło zmienione</string>
+    <string name="wrong_re_password">Niepoprawnie powtórzone hasło</string>
+    <string name="all_fields_required">Wszystkie pola muszą być wypełnione</string>
+    <string name="email_field_required">Email jest wymagany</string>
+    <string name="name_field_required">Nazwa jest wymagana</string>
+    <string name="email_format_error">Zły format adresu email</string>
+    <string name="edit_user">Edytuj użytkownika</string>
+    <string name="user_updated">Użytkownik zaktualizowany</string>
+    <string name="create_account">Stwórz konto</string>
+
+    <!--###################################### CONNECTION #######################################-->
+    <string name="sign_in">Zaloguj</string>
+    <string name="sign_up">Zarejestruj</string>
+    <string name="logged_out">Wylogowano</string>
+    <string name="logout_info">Czy na pewno chcesz się wylogować?</string>
+    <string name="logout">Wyloguj</string>
+
+
+    <!--###################################### EVENT ############################################-->
+    <string name="events">Wydarzenia</string>
+    <string name="new_event">Nowe wydarzenie</string>
+    <string name="title">Tytuł</string>
+    <string name="description">Opis</string>
+    <string name="members">Uczestnicy</string>
+    <string name="organizer">Organizartor</string>
+    <string name="join">Dołącz</string>
+    <string name="leave">Opuść</string>
+    <string name="delete">Usuń</string>
+    <string name="pick_date">Wybierz datę</string>
+    <string name="set_time">Ustaw czas</string>
+    <string name="joined_event">Twoje wydarzenia</string>
+    <string name="left_event">Opuszczono wydarzenie</string>
+    <string name="deleted_event">Usunięto wydarzenie</string>
+    <string name="create_event">Stwórz nowe wydarzenie</string>
+    <string name="incoming_events">Nadchodzące wydarzenia</string>
+    <string name="set_location">Ustaw lokalizację</string>
+    <string name="select_day">Wybierz dzień</string>
+</resources>

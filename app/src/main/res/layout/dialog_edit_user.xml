@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:text="@string/change_name_title"
+        android:text="@string/edit_user"
         android:textColor="@color/dark_gray"
         android:textSize="18sp"
         android:textStyle="bold"/>

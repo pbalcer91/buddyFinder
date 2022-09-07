@@ -33,15 +33,14 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
     public static BottomSheetDialog bottomSheetDialog;
 
-    public static short prevFragmentIndex = 1;
-    private short nextFragmentIndex = 1;
+    public static short prevFragmentIndex = 2;
+    private short nextFragmentIndex = 2;
 
     public static BottomNavigationView bottomNavigation;
 
-    public static HomeFragment homeFragment;
-
-    @SuppressLint("StaticFieldLeak")
-    public static ProfileFragment profileFragment;
+    private HomeFragment homeFragment;
+    public static SettingsFragment settingsFragment;
+    private ProfileFragment profileFragment;
 
     public static EventsFragment eventsFragment;
 
@@ -110,6 +109,9 @@ public class MainActivity extends AppCompatActivity {
         profileFragment = new ProfileFragment();
         profileFragment.setArguments(fragmentBundle);
 
+        settingsFragment = new SettingsFragment();
+        settingsFragment.setArguments(fragmentBundle);
+
         eventsFragment = new EventsFragment();
         eventsFragment.setArguments(fragmentBundle);
 
@@ -125,15 +127,19 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.menu_item_home:
                     selectedFragment = homeFragment;
-                    nextFragmentIndex = 1;
+                    nextFragmentIndex = 2;
                     break;
                 case R.id.menu_item_profile:
                     selectedFragment = profileFragment;
+                    nextFragmentIndex = 1;
+                    break;
+                case R.id.menu_item_settings:
+                    selectedFragment = settingsFragment;
                     nextFragmentIndex = 0;
                     break;
                 case R.id.menu_item_events:
                     selectedFragment = eventsFragment;
-                    nextFragmentIndex = 2;
+                    nextFragmentIndex = 3;
                     break;
             }
 
