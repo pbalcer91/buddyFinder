@@ -36,16 +36,14 @@ import pl.com.wfiis.android.buddyfinder.models.User;
 public class DBServices {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore userRef;
-    private DatabaseReference userReference;
+   // private DatabaseReference userReference;
     //private DatabaseReference eventReference;
     private FirebaseFirestore eventReference;
     private DatabaseReference groupChatReference;
 
 
     public DBServices() {
-        userReference = FirebaseDatabase.getInstance().getReference("Users");
        eventReference = FirebaseFirestore.getInstance();
-        groupChatReference = FirebaseDatabase.getInstance().getReference("GroupChat");
     }
 
     public void registerUser(String email, String username, String password, Context context) {
@@ -175,10 +173,10 @@ public class DBServices {
 
 
         final User[] user = new User[1];
-        userReference.child(uid).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+        userRef.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(DataSnapshot dataSnapshot) {
-                user[0] = dataSnapshot.getValue(User.class);
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                user[0] = task.getResult().toObject(User.class);
             }
         });
         return user[0];
