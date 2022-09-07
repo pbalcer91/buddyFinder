@@ -44,7 +44,7 @@ public class DBServices {
 
     public DBServices() {
         userReference = FirebaseDatabase.getInstance().getReference("Users");
-       // eventReference = FirebaseDatabase.getInstance().getReference("Events");
+       eventReference = FirebaseFirestore.getInstance();
         groupChatReference = FirebaseDatabase.getInstance().getReference("GroupChat");
     }
 
@@ -322,5 +322,20 @@ public class DBServices {
                 });
     }
 
+    public void deleteEvent(String eventId) {
+        eventReference.collection("Events").document(eventId).delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error updating document", e);
+                    }
+                });
+    }
 
 }
