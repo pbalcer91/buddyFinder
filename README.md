@@ -1,1 +1,1 @@
-# buddyFinder
+# Buddy Finder

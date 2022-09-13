@@ -21,7 +21,7 @@
     <string name="not_logged_sign_in_info">Sign in and meet new buddies!</string>
     <string name="not_logged_sign_up_info">Or create new account</string>
     <string name="home_view_logged_title">Welcome to\nBuddy Finder</string>
-    <string name="empty_joined_events_list">Joined events list is empty</string>
+    <string name="empty_events_list">Events list is empty</string>
     <string name="empty_joined_events_list_info">You did not join any event yet</string>
     <string name="empty_joined_event_list_tip">Find one, or create your own</string>
     <string name="delete_event_info">Are you sure to delete this event?</string>
@@ -76,4 +76,7 @@
     <string name="incoming_events">Incoming events</string>
     <string name="set_location">Set location</string>
     <string name="select_day">Select day</string>
+    <string name="created">Created</string>
+    <string name="created_events">Created events</string>
+    <string name="empty_created_events_list_info">You did not create any events yet</string>
 </resources>

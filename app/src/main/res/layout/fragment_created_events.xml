@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
-        android:id="@+id/view_home_not_logged"
+        android:id="@+id/view_created_events_not_logged"
         android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -80,13 +80,13 @@
     </RelativeLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/view_home_logged"
-        android:visibility="invisible"
+        android:id="@+id/view_created_events_logged"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/home_header"
+            android:id="@+id/created_events_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="textStart"
                 android:textStyle="bold"
-                android:text="@string/home_view_logged_title"
+                android:text="@string/created_events"
                 android:typeface="monospace"
                 android:lineSpacingExtra="@dimen/spacing"
                 android:textSize="@dimen/text_title"
@@ -123,13 +123,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
-            android:id="@+id/layout_home_empty_joined_events"
-            app:layout_constraintTop_toBottomOf="@id/home_header"
+            android:id="@+id/layout_empty_created_events"
+            app:layout_constraintTop_toBottomOf="@id/created_events_header"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            tools:context=".views.HomeFragment"
             android:visibility="invisible"
             android:orientation="vertical"
             android:layout_marginTop="@dimen/section_margin"
@@ -150,7 +149,7 @@
                     android:textColor="@color/text"
                     android:textSize="@dimen/text_header"
                     android:textStyle="bold"
-                    android:layout_marginTop="@dimen/margin"
+                    android:layout_marginTop="@dimen/section_margin"
                     android:lineSpacingExtra="@dimen/padding"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
@@ -161,82 +160,71 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/text"
                     android:textSize="@dimen/text_regular"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:text="@string/empty_joined_events_list_info"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text"
-                    android:textSize="@dimen/text_regular"
-                    android:layout_marginBottom="@dimen/section_margin"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/empty_joined_event_list_tip"/>
+                    android:layout_marginBottom="@dimen/section_margin"
+                    android:text="@string/empty_created_events_list_info"/>
 
             </RelativeLayout>
 
             <Button
-                android:id="@+id/btn_home_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/component_regular_button"
-                android:text="@string/search"
-                android:textColor="@color/white"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/margin"/>
-
-            <Button
-                android:id="@+id/btn_home_create"
+                android:id="@+id/btn_empty_list_create"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/component_regular_button"
                 android:text="@string/create_event"
                 android:textColor="@color/white"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/margin"
-                android:layout_marginBottom="@dimen/padding"/>
+                android:layout_marginBottom="@dimen/margin"/>
 
         </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/layout_home_joined_events"
-                app:layout_constraintTop_toBottomOf="@id/home_header"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+        <LinearLayout
+            android:id="@+id/layout_created_events"
+            app:layout_constraintTop_toBottomOf="@id/created_events_header"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/section_margin"
+            android:layout_marginBottom="@dimen/margin"
+            android:paddingHorizontal="@dimen/margin">
+
+            <Button
+                android:id="@+id/btn_create_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/component_regular_button"
+                android:text="@string/create_event"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/created_events"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/text_header"
+                android:textColor="@color/black" />
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                tools:context=".views.HomeFragment"
-                android:visibility="invisible"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/section_margin"
-                android:layout_marginBottom="@dimen/margin"
-                android:paddingHorizontal="@dimen/margin">
+                android:layout_height="@dimen/divider"
+                android:background="@color/dark_gray"
+                android:layout_marginRight="@dimen/margin"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/incoming_events"
-                    android:textAlignment="textStart"
-                    android:textSize="@dimen/text_header"
-                    android:textColor="@color/black" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_created_events_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin"
+                android:scrollbars="vertical"
+                android:scrollbarThumbVertical="@color/dark_gray"
+                android:scrollbarSize="@dimen/border_big"/>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/divider"
-                    android:background="@color/dark_gray"
-                    android:layout_marginRight="@dimen/margin"/>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_joined_events_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin"
-                    android:scrollbars="vertical"
-                    android:scrollbarThumbVertical="@color/dark_gray"
-                    android:scrollbarSize="@dimen/border_big"/>
-
-            </LinearLayout>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>
