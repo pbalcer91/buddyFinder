@@ -21,7 +21,7 @@
     <string name="not_logged_sign_in_info">¡Inicia sesión y haz nuevos amigos!</string>
     <string name="not_logged_sign_up_info">O crea una cuenta nueva</string>
     <string name="home_view_logged_title">Bienvenido al\nBuddy Finder</string>
-    <string name="empty_joined_events_list">Tu lista de eventos está vacía</string>
+    <string name="empty_events_list">La lista de eventos está vacía</string>
     <string name="empty_joined_events_list_info">Aún no te has unido a ningún evento</string>
     <string name="empty_joined_event_list_tip">Únete a uno existente o crea el tuyo propio</string>
     <string name="delete_event_info">¿Está seguro de que desea eliminar el evento?</string>
@@ -76,4 +76,7 @@
     <string name="incoming_events">Próximos Eventos</string>
     <string name="set_location">Establecer la ubicación</string>
     <string name="select_day">Elige un día</string>
+    <string name="created">Creados</string>
+    <string name="created_events">Eventos creados</string>
+    <string name="empty_created_events_list_info">Aún no creaste ningún evento</string>
 </resources>

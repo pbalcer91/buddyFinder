@@ -102,10 +102,6 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
                                 Event newEvent = data.getParcelableExtra("newEvent");
                                 user.addCreatedEvent(newEvent);
                                 user.addJoinedEvent(newEvent);
-
-                                EventAdapter newCreatedEventAdapter = new EventAdapter(this.getContext(), user.getCreatedEvents(), this);
-                                //createdEventsListView.setAdapter(newCreatedEventAdapter);
-                                //createdEventsListView.setLayoutManager(new LinearLayoutManager(this.getContext()));
                             }
                         }
                     });
@@ -115,13 +111,12 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
 
         eventsListView.setVisibility(View.VISIBLE);
 
-        RecyclerView joinedEventsListView = view.findViewById(R.id.rv_joined_events_list);
+        RecyclerView joinedEvents = view.findViewById(R.id.rv_joined_events_list);
 
         EventAdapter joinedEventAdapter = new EventAdapter(this.getContext(), user.getJoinedEvents(), this);
-        EventAdapter createdEventAdapter = new EventAdapter(this.getContext(), user.getCreatedEvents(), this);
 
-        joinedEventsListView.setAdapter(joinedEventAdapter);
-        joinedEventsListView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        joinedEvents.setAdapter(joinedEventAdapter);
+        joinedEvents.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         return view;
     }

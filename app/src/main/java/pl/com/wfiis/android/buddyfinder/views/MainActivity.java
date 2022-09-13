@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private ProfileFragment profileFragment;
 
     public static EventsFragment eventsFragment;
+    private  CreatedEventsFragment createdEventsFragment;
 
     @Override
     public void onBackPressed() {
@@ -112,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
         settingsFragment = new SettingsFragment();
         settingsFragment.setArguments(fragmentBundle);
 
+        createdEventsFragment = new CreatedEventsFragment();
+        createdEventsFragment.setArguments(fragmentBundle);
+
         eventsFragment = new EventsFragment();
         eventsFragment.setArguments(fragmentBundle);
 
@@ -125,21 +129,25 @@ public class MainActivity extends AppCompatActivity {
             Fragment selectedFragment = null;
 
             switch (item.getItemId()) {
-                case R.id.menu_item_home:
-                    selectedFragment = homeFragment;
-                    nextFragmentIndex = 2;
+                case R.id.menu_item_settings:
+                    selectedFragment = settingsFragment;
+                    nextFragmentIndex = 0;
                     break;
                 case R.id.menu_item_profile:
                     selectedFragment = profileFragment;
                     nextFragmentIndex = 1;
                     break;
-                case R.id.menu_item_settings:
-                    selectedFragment = settingsFragment;
-                    nextFragmentIndex = 0;
+                case R.id.menu_item_home:
+                    selectedFragment = homeFragment;
+                    nextFragmentIndex = 2;
+                    break;
+                case R.id.menu_item_created_events:
+                    selectedFragment = createdEventsFragment;
+                    nextFragmentIndex = 3;
                     break;
                 case R.id.menu_item_events:
                     selectedFragment = eventsFragment;
-                    nextFragmentIndex = 3;
+                    nextFragmentIndex = 4;
                     break;
             }
 
