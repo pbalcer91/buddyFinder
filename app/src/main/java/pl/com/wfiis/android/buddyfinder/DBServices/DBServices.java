@@ -14,11 +14,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
@@ -31,19 +26,18 @@ import java.util.List;
 import java.util.Map;
 
 import pl.com.wfiis.android.buddyfinder.models.Event;
+import pl.com.wfiis.android.buddyfinder.models.Message;
 import pl.com.wfiis.android.buddyfinder.models.User;
 
 public class DBServices {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore userRef;
-   // private DatabaseReference userReference;
-    //private DatabaseReference eventReference;
-    private FirebaseFirestore eventReference;
-    private DatabaseReference groupChatReference;
+    private FirebaseFirestore firebaseRef;
+    
 
 
     public DBServices() {
-       eventReference = FirebaseFirestore.getInstance();
+       firebaseRef = FirebaseFirestore.getInstance();
     }
 
     public void registerUser(String email, String username, String password, Context context) {
@@ -185,7 +179,7 @@ public class DBServices {
     public List<Event> getEventsCreatedByUser(String uid){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         List <Event> list = new ArrayList<>();
-        Task<QuerySnapshot> query = eventReference.collection("Events").whereEqualTo("author",user.getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        Task<QuerySnapshot> query = firebaseRef.collection("Events").whereEqualTo("author",user.getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if(!queryDocumentSnapshots.isEmpty()){
@@ -202,7 +196,7 @@ public class DBServices {
     public List<Event> getEventsJoinedByUser(String uid){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         List <Event> list = new ArrayList<>();
-        Task<QuerySnapshot> query = eventReference.collection("Events").whereArrayContains("members",user.getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        Task<QuerySnapshot> query = firebaseRef.collection("Events").whereArrayContains("members",user.getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if(!queryDocumentSnapshots.isEmpty()){
@@ -229,7 +223,7 @@ public class DBServices {
         }
         map.put("members",event.getMembers());
 
-        eventReference.collection("Events").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        firebaseRef.collection("Events").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
@@ -244,7 +238,7 @@ public class DBServices {
     }
 
     public void updateEvent(String eventId, String valueName ,Object value){
-        DocumentReference eventRef = eventReference.collection("Events").document(eventId);
+        DocumentReference eventRef = firebaseRef.collection("Events").document(eventId);
         eventRef.update(valueName, value).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -260,7 +254,7 @@ public class DBServices {
     }
 
     public void addUserToEvent(String eventId, String uid){
-        DocumentReference eventRef = eventReference.collection("Events").document(eventId);
+        DocumentReference eventRef = firebaseRef.collection("Events").document(eventId);
         eventRef.update("members", FieldValue.arrayUnion(uid)).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -274,7 +268,7 @@ public class DBServices {
                     }
                 });
 
-        DocumentReference userRef = eventReference.collection("Users").document(uid);
+        DocumentReference userRef = firebaseRef.collection("Users").document(uid);
         userRef.update("joinedEvents", FieldValue.arrayUnion(eventId)).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -291,7 +285,7 @@ public class DBServices {
 
 
     public void deleteUserFromEvent(String eventId, String uid){
-        DocumentReference eventRef = eventReference.collection("Events").document(eventId);
+        DocumentReference eventRef = firebaseRef.collection("Events").document(eventId);
         eventRef.update("members", FieldValue.arrayRemove(uid)).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -305,7 +299,7 @@ public class DBServices {
                     }
                 });
 
-        DocumentReference userRef = eventReference.collection("Users").document(uid);
+        DocumentReference userRef = firebaseRef.collection("Users").document(uid);
         userRef.update("joinedEvents", FieldValue.arrayRemove(eventId)).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -321,7 +315,7 @@ public class DBServices {
     }
 
     public void deleteEvent(String eventId) {
-        eventReference.collection("Events").document(eventId).delete()
+        firebaseRef.collection("Events").document(eventId).delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -332,6 +326,42 @@ public class DBServices {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error updating document", e);
+                    }
+                });
+    }
+
+    public List<Message> getEventMessages(String id){
+        List<Message> list = new ArrayList<>();
+        Task<QuerySnapshot> query = firebaseRef.collection("GroupChat").whereArrayContains("groupId", id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if(!queryDocumentSnapshots.isEmpty()){
+                    for(DocumentSnapshot snapshot : queryDocumentSnapshots) {
+                        list.add(snapshot.toObject(Message.class));
+                    }
+                }
+            }
+        });
+        return list;
+    }
+
+    public void addMessage(Message message){
+        Map<String, Object> map = new HashMap<>();
+        map.put("eventId", message.getEventId());
+        map.put("senderId", message.getSenderId());
+        map.put("message", message.getMessage());
+        map.put("date", message.getDate());
+
+        firebaseRef.collection("GroupChat").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
                     }
                 });
     }
