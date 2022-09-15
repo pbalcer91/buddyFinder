@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //TODO: for logged user tests
-        currentUser = new User("John", "john@mail.com");
+//        currentUser = new User("John", "john@mail.com", "xyz");
 
         Bundle fragmentBundle = new Bundle();
         fragmentBundle.putParcelable("user", currentUser);

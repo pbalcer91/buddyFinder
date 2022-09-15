@@ -25,8 +25,6 @@ import pl.com.wfiis.android.buddyfinder.models.User;
 
 public class HomeFragment extends Fragment implements RecyclerViewInterface {
 
-    private User user;
-
     private ActivityResultLauncher<Intent> activityResultLauncher;
 
     public HomeFragment() {
@@ -35,11 +33,6 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            user = bundle.getParcelable("user");
-        }
     }
 
     @Override
@@ -53,7 +46,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         LinearLayout eventsListView = view.findViewById(R.id.layout_home_joined_events);
         LinearLayout emptyEventsListView = view.findViewById(R.id.layout_home_empty_joined_events);
 
-        if (user == null) {
+        if (MainActivity.currentUser == null) {
             homeViewNotLogged.setVisibility(View.VISIBLE);
 
             Button signIn = view.findViewById(R.id.btn_sign_in);
@@ -67,7 +60,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
 
         homeViewLogged.setVisibility(View.VISIBLE);
 
-        if (user.getJoinedEvents().size() == 0) {
+        if (MainActivity.currentUser.getJoinedEvents().size() == 0) {
             emptyEventsListView.setVisibility(View.VISIBLE);
 
             Button searchEventButton = view.findViewById(R.id.btn_home_search);
@@ -84,7 +77,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
             });
 
             createEventButton.setOnClickListener(tempView -> {
-                Event emptyEvent = new Event(getResources().getString(R.string.new_event), user);
+                Event emptyEvent = new Event(getResources().getString(R.string.new_event), MainActivity.currentUser);
 
                 Intent intent = new Intent(this.getContext(), EventCreatorDialog.class);
                 intent.putExtra("newEvent", emptyEvent);
@@ -100,8 +93,8 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
 
                             if (data != null) {
                                 Event newEvent = data.getParcelableExtra("newEvent");
-                                user.addCreatedEvent(newEvent);
-                                user.addJoinedEvent(newEvent);
+                                MainActivity.currentUser.addCreatedEvent(newEvent);
+                                MainActivity.currentUser.addJoinedEvent(newEvent);
                             }
                         }
                     });
@@ -113,7 +106,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
 
         RecyclerView joinedEvents = view.findViewById(R.id.rv_joined_events_list);
 
-        EventAdapter joinedEventAdapter = new EventAdapter(this.getContext(), user.getJoinedEvents(), this);
+        EventAdapter joinedEventAdapter = new EventAdapter(this.getContext(), MainActivity.currentUser.getJoinedEvents(), this);
 
         joinedEvents.setAdapter(joinedEventAdapter);
         joinedEvents.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -128,9 +121,9 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(this.getContext(), EventDetailsDialog.class);
-        intent.putExtra("currentUser", user);
-        intent.putExtra("event", user.getJoinedEvents().get(position));
-        intent.putExtra("date", user.getJoinedEvents().get(position).getDate().getTime());
+        intent.putExtra("currentUser", MainActivity.currentUser);
+        intent.putExtra("event", MainActivity.currentUser.getJoinedEvents().get(position));
+        intent.putExtra("date", MainActivity.currentUser.getJoinedEvents().get(position).getDate().getTime());
         activityResultLauncher.launch(intent);
     }
 }
