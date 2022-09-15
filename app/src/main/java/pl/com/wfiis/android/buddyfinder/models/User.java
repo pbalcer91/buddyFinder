@@ -9,9 +9,18 @@ public class User implements Parcelable {
     private int id;
     private String userName;
     private String email;
+    private String password;
     private final ArrayList<Event> createdEvents;
     private final ArrayList<Event> joinedEvents;
     //private Byte [] image;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getUserName() {
         return userName;
@@ -61,10 +70,11 @@ public class User implements Parcelable {
         createdEvents.remove(event);
     }
 
-    public User(String userName, String email) {
+    public User(String userName, String email, String password) {
         //TODO: generate id
         this.userName = userName;
         this.email = email;
+        this.password = password;
         this.createdEvents = new ArrayList<>();
         this.joinedEvents = new ArrayList<>();
     }
@@ -73,6 +83,7 @@ public class User implements Parcelable {
         id = source.readInt();
         userName = source.readString();
         email = source.readString();
+        password = source.readString();
         createdEvents = source.createTypedArrayList(Event.CREATOR);
         joinedEvents = source.createTypedArrayList(Event.CREATOR);
     }
@@ -87,6 +98,7 @@ public class User implements Parcelable {
         parcel.writeInt(id);
         parcel.writeString(userName);
         parcel.writeString(email);
+        parcel.writeString(password);
         parcel.writeTypedList(createdEvents);
         parcel.writeTypedList(joinedEvents);
     }

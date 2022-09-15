@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         db = FirebaseFirestore.getInstance();
 
+
         //TODO: for logged user tests
         currentUser = new User("John", "john@mail.com");
 
