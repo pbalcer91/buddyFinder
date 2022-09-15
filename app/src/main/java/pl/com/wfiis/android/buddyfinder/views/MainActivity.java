@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
@@ -57,10 +58,10 @@ public class MainActivity extends AppCompatActivity {
         Button rejectButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
 
         //TODO: implement login
-
         Objects.requireNonNull(acceptButton).setOnClickListener(
                 tempView -> {
                     Toast.makeText(context, "Sign in attempt", Toast.LENGTH_SHORT).show();
+                    context.startActivity(new Intent(context, LoginDialog.class));
                     MainActivity.bottomSheetDialog.cancel();
                 });
         Objects.requireNonNull(rejectButton).setOnClickListener(
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         //TODO: for logged user tests
-        currentUser = new User("John", "john@mail.com");
+       // currentUser = new User("John", "john@mail.com");
 
         Bundle fragmentBundle = new Bundle();
         fragmentBundle.putParcelable("user", currentUser);

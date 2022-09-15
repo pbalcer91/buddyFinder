@@ -46,6 +46,10 @@
             android:screenOrientation="portrait" />
         <activity android:name=".views.MapActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".views.LoginDialog"
+            android:screenOrientation="portrait" />
+        <activity android:name=".views.RegisterDialog"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
