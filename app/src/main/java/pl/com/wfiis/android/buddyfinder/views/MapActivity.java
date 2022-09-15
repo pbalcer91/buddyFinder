@@ -56,10 +56,7 @@ public class MapActivity extends AppCompatActivity {
     private boolean isLocationPermissionGranted = false;
     private GoogleMap mMap;
 
-    private ImageView backButton;
-    private TextView title;
     private ImageView saveLocationButton;
-    private ImageView currentLocationButton;
 
     private RelativeLayout searchRow;
     private EditText searchText;
@@ -74,10 +71,10 @@ public class MapActivity extends AppCompatActivity {
 
         event = getIntent().getParcelableExtra("event");
 
-        backButton = findViewById(R.id.btn_map_back);
+        ImageView backButton = findViewById(R.id.btn_map_back);
         backButton.setOnClickListener(event -> this.finish());
 
-        title = findViewById(R.id.tv_map_title);
+        TextView title = findViewById(R.id.tv_map_title);
         title.setText(event.getTitle());
 
         saveLocationButton = findViewById(R.id.btn_accept_location);
@@ -90,7 +87,7 @@ public class MapActivity extends AppCompatActivity {
             this.finish();
         });
 
-        currentLocationButton = findViewById(R.id.btn_current_location);
+        ImageView currentLocationButton = findViewById(R.id.btn_current_location);
         currentLocationButton.setOnClickListener(event -> getCurrentLocation());
 
         searchText = findViewById(R.id.et_search_map);

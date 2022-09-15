@@ -10,18 +10,19 @@ import java.util.Date;
 
 
 public class Event implements Parcelable {
-    private int id;
+    private final int id;
     private String title;
     private String description;
     private Date date;
     private Address location;
     final private User author;
-    private ArrayList<User> members;
+    private final ArrayList<User> members;
 
     public Event(String title, User author) {
         this.id = 0;
         this.author = author;
         this.members = new ArrayList<>();
+        addMember(author);
         this.title = title;
         this.date = Calendar.getInstance().getTime();
         this.location = null;
@@ -89,10 +90,7 @@ public class Event implements Parcelable {
         if (member == null)
             return (false);
 
-        if (!members.add(member))
-            return (false);
-
-        return (true);
+        return members.add(member);
     }
 
     public boolean removeMember(User member) {
@@ -102,18 +100,7 @@ public class Event implements Parcelable {
         if (members.isEmpty())
             return (false);
 
-        if (!members.remove(member))
-            return (false);
-
-        return (true);
-    }
-
-    public boolean removeAllMember() {
-        if (members.isEmpty())
-            return (false);
-
-        members.clear();
-        return (true);
+        return members.remove(member);
     }
 
     public int getId() {

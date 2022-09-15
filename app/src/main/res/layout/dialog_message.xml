@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottomSheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -7,8 +8,8 @@
     android:orientation="vertical">
 
     <View
-        android:layout_width="50dp"
-        android:layout_height="3dp"
+        android:layout_width="@dimen/dialog_bar_width"
+        android:layout_height="@dimen/dialog_bar_height"
         android:layout_gravity="center"
         android:background="@color/dark_gray"
         android:layout_marginBottom="@dimen/padding"/>
@@ -20,7 +21,7 @@
         android:gravity="start"
         android:textColor="@color/dark_gray"
         android:layout_marginTop="@dimen/padding"
-        android:textSize="16sp"/>
+        android:textSize="@dimen/text_message"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,16 +37,18 @@
             android:layout_height="wrap_content"
             android:background="@drawable/component_regular_button"
             android:textColor="@color/white"
-            android:layout_marginRight="@dimen/margin"/>
+            android:layout_marginRight="@dimen/margin"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/btn_dialog_reject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/component_flat_button"
-            android:textSize="12sp"
+            android:textSize="@dimen/text_info"
             android:textColor="@color/primary"
-            android:layout_marginLeft="@dimen/margin"/>
+            android:layout_marginLeft="@dimen/margin"
+            tools:ignore="ButtonStyle" />
 
 
 

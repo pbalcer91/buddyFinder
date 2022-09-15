@@ -5,7 +5,7 @@
             <solid android:color="@color/transparent"/>
 
             <corners
-                android:radius="15dp" />
+                android:radius="@dimen/radius" />
         </shape>
     </item>
 
@@ -14,7 +14,7 @@
             <solid android:color="@color/primary_10"/>
 
             <corners
-                android:radius="15dp" />
+                android:radius="@dimen/radius" />
         </shape>
     </item>
 

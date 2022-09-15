@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/view_created_events_not_logged"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/logo_background">
+
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="@dimen/screen_border_margin"
+            tools:ignore="UselessParent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_header"
+                android:textColor="@color/text"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin"
+                android:text="@string/not_logged_title"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_regular"
+                android:textColor="@color/text"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin"
+                android:layout_marginBottom="@dimen/padding"
+                android:text="@string/not_logged_sign_in_info"/>
+
+            <Button
+                android:id="@+id/btn_sign_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/component_regular_button"
+                android:text="@string/sign_in"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider"
+                android:background="@color/dark_gray"
+                android:layout_marginHorizontal="@dimen/margin"
+                android:layout_marginVertical="@dimen/margin"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_regular"
+                android:textColor="@color/text"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin"
+                android:layout_marginBottom="@dimen/padding"
+                android:text="@string/not_logged_sign_up_info"/>
+
+            <Button
+                android:id="@+id/btn_sign_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/component_flat_button"
+                android:text="@string/sign_up"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/padding"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/view_created_events_logged"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/created_events_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginBottom="@dimen/padding"
+            android:layout_marginTop="@dimen/padding">
+
+            <TextView
+                android:layout_width="0dp"
+                android:id="@+id/welcome_label"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:textStyle="bold"
+                android:text="@string/created_events"
+                android:typeface="monospace"
+                android:lineSpacingExtra="@dimen/spacing"
+                android:textSize="@dimen/text_title"
+                android:textColor="@color/primary"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginTop="@dimen/margin"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/home_logo"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/home_logo"
+                android:layout_width="@dimen/logo"
+                android:layout_height="@dimen/logo"
+                android:src="@drawable/logo"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_empty_created_events"
+            app:layout_constraintTop_toBottomOf="@id/created_events_header"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/section_margin"
+            android:paddingTop="@dimen/section_margin"
+            android:layout_marginBottom="@dimen/margin"
+            android:paddingHorizontal="@dimen/margin">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_box"
+                android:background="@drawable/component_text_box"
+                android:layout_marginTop="@dimen/section_margin"
+                android:layout_marginBottom="@dimen/margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/text_header"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/section_margin"
+                    android:lineSpacingExtra="@dimen/padding"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/empty_events_list"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/text_regular"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/section_margin"
+                    android:text="@string/empty_created_events_list_info"/>
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_empty_list_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/component_regular_button"
+                android:text="@string/create_event"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_created_events"
+            app:layout_constraintTop_toBottomOf="@id/created_events_header"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/section_margin"
+            android:layout_marginBottom="@dimen/margin"
+            android:paddingHorizontal="@dimen/margin">
+
+            <Button
+                android:id="@+id/btn_create_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/component_regular_button"
+                android:text="@string/create_event"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/created_events"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/text_header"
+                android:textColor="@color/black" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider"
+                android:background="@color/dark_gray"
+                android:layout_marginRight="@dimen/margin"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_created_events_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin"
+                android:scrollbars="vertical"
+                android:scrollbarThumbVertical="@color/dark_gray"
+                android:scrollbarSize="@dimen/border_big"/>
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

@@ -31,10 +31,11 @@
 
             <ImageView
                 android:id="@+id/btn_back"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
+                android:layout_width="@dimen/icon"
+                android:layout_height="@dimen/icon"
                 android:src="@drawable/ic_arrow_left_primary"
-                android:focusable="true" />
+                android:focusable="true"
+                tools:ignore="ContentDescription" />
 
         </LinearLayout>
 
@@ -43,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="New Event"
+            android:text="@string/new_event"
             android:textColor="@color/text"
             android:textSize="@dimen/text_header"
             android:textStyle="bold" />
@@ -69,7 +70,7 @@
                 android:layout_marginBottom="@dimen/margin"
                 android:layout_marginTop="@dimen/padding"
                 android:background="@drawable/component_edit_text"
-                android:hint="Event name"
+                android:hint="@string/title"
                 android:inputType="textCapSentences|text"
                 android:maxLength="50"
                 android:maxLines="1"
@@ -77,7 +78,8 @@
                 android:paddingVertical="@dimen/padding"
                 android:textColor="@color/text"
                 android:textColorHint="@color/text_hint"
-                android:textSize="18sp" />
+                android:textSize="@dimen/text_regular"
+                android:importantForAutofill="no" />
 
             <RelativeLayout
                 android:id="@+id/btn_event_create_date"
@@ -93,34 +95,36 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true">
+                    android:layout_centerVertical="true"
+                    tools:ignore="RelativeOverlap">
 
                     <ImageView
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
+                        android:layout_width="@dimen/icon"
+                        android:layout_height="@dimen/icon"
                         android:focusable="true"
                         android:src="@drawable/ic_calendar_primary"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/padding"/>
+                        android:layout_marginRight="@dimen/padding"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/tv_event_create_date"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Set date"
+                        android:text="@string/pick_date"
                         android:textColor="@color/primary"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/text_message"
                         android:gravity="center_vertical"/>
 
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_width="@dimen/icon_size"
-                    android:layout_height="@dimen/icon_size"
+                    android:layout_width="@dimen/icon"
+                    android:layout_height="@dimen/icon"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:focusable="true"
-                    android:src="@drawable/ic_arrow_right_primary" />
+                    android:src="@drawable/ic_arrow_right_primary"
+                    tools:ignore="ContentDescription" />
 
             </RelativeLayout>
 
@@ -138,34 +142,36 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true">
+                    android:layout_centerVertical="true"
+                    tools:ignore="RelativeOverlap">
 
                     <ImageView
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
+                        android:layout_width="@dimen/icon"
+                        android:layout_height="@dimen/icon"
                         android:focusable="true"
                         android:src="@drawable/ic_time_primary"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/padding"/>
+                        android:layout_marginRight="@dimen/padding"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/tv_event_create_time"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Set time"
+                        android:text="@string/set_time"
                         android:textColor="@color/primary"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/text_message"
                         android:gravity="center_vertical"/>
 
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_width="@dimen/icon_size"
-                    android:layout_height="@dimen/icon_size"
+                    android:layout_width="@dimen/icon"
+                    android:layout_height="@dimen/icon"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:focusable="true"
-                    android:src="@drawable/ic_arrow_right_primary" />
+                    android:src="@drawable/ic_arrow_right_primary"
+                    tools:ignore="ContentDescription" />
 
             </RelativeLayout>
 
@@ -183,33 +189,36 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true">
+                    android:layout_centerVertical="true"
+                    tools:ignore="RelativeOverlap">
 
                     <ImageView
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
+                        android:layout_width="@dimen/icon"
+                        android:layout_height="@dimen/icon"
                         android:focusable="true"
                         android:src="@drawable/ic_location_primary"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/padding"/>
+                        android:layout_marginRight="@dimen/padding"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/tv_event_create_location"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:textColor="@color/primary"
-                        android:textSize="14sp"
+                        android:text="@string/set_location"
+                        android:textSize="@dimen/text_message"
                         android:gravity="center_vertical"/>
 
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_width="@dimen/icon_size"
-                    android:layout_height="@dimen/icon_size"
+                    android:layout_width="@dimen/icon"
+                    android:layout_height="@dimen/icon"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:focusable="true"
-                    android:src="@drawable/ic_arrow_right_primary" />
+                    android:src="@drawable/ic_arrow_right_primary"
+                    tools:ignore="ContentDescription" />
 
             </RelativeLayout>
 
@@ -217,12 +226,11 @@
             <EditText
                 android:id="@+id/et_event_description"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_centerVertical="true"
+                android:layout_height="@dimen/edit_text_box"
                 android:layout_marginBottom="@dimen/margin"
                 android:background="@drawable/component_edit_text"
                 android:gravity="top"
-                android:hint="Event description"
+                android:hint="@string/description"
                 android:inputType="textCapSentences|textMultiLine"
                 android:maxLength="200"
                 android:paddingHorizontal="@dimen/margin"
@@ -230,7 +238,8 @@
                 android:scrollHorizontally="false"
                 android:textColor="@color/text"
                 android:textColorHint="@color/text_hint"
-                android:textSize="18sp" />
+                android:textSize="@dimen/text_regular"
+                android:importantForAutofill="no" />
         </LinearLayout>
     </ScrollView>
 
@@ -248,9 +257,5 @@
             android:layout_marginBottom="@dimen/margin"
             android:background="@drawable/component_regular_button"
             android:textColor="@color/white" />
-
-
-
-
     </RelativeLayout>
 </LinearLayout>

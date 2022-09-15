@@ -31,10 +31,11 @@
 
             <ImageView
                 android:id="@+id/btn_back"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
+                android:layout_width="@dimen/icon"
+                android:layout_height="@dimen/icon"
                 android:src="@drawable/ic_arrow_left_primary"
-                android:focusable="true" />
+                android:focusable="true"
+                tools:ignore="ContentDescription" />
 
         </LinearLayout>
 
@@ -42,12 +43,13 @@
             android:id="@+id/tv_event_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Event tittle"
+            android:text=""
             android:textColor="@color/text"
             android:textSize="@dimen/text_header"
             android:textStyle="bold"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            tools:ignore="RelativeOverlap" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -63,10 +65,11 @@
 
             <ImageView
                 android:id="@+id/btn_event_edit"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
+                android:layout_width="@dimen/icon"
+                android:layout_height="@dimen/icon"
                 android:focusable="true"
-                android:src="@drawable/ic_edit_primary" />
+                android:src="@drawable/ic_edit_primary"
+                tools:ignore="ContentDescription" />
 
         </LinearLayout>
 
@@ -100,20 +103,20 @@
                     android:layout_centerVertical="true">
 
                     <ImageView
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
+                        android:layout_width="@dimen/icon"
+                        android:layout_height="@dimen/icon"
                         android:focusable="true"
                         android:src="@drawable/ic_calendar"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/padding"/>
+                        android:layout_marginRight="@dimen/padding"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/tv_event_date"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="12/12/2012"
+                        android:text=""
                         android:textColor="@color/text"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/text_message"
                         android:gravity="center_vertical"/>
 
                 </LinearLayout>
@@ -122,23 +125,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true">
+                    android:layout_centerVertical="true"
+                    tools:ignore="RelativeOverlap">
 
                     <ImageView
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
+                        android:layout_width="@dimen/icon"
+                        android:layout_height="@dimen/icon"
                         android:focusable="true"
                         android:src="@drawable/ic_time"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/padding"/>
+                        android:layout_marginRight="@dimen/padding"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/tv_event_time"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="18:00"
+                        android:text=""
                         android:textColor="@color/text"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/text_message"
                         android:gravity="center_vertical"/>
                 </LinearLayout>
 
@@ -158,34 +162,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true">
+                    android:layout_centerVertical="true"
+                    tools:ignore="RelativeOverlap">
 
                     <ImageView
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
+                        android:layout_width="@dimen/icon"
+                        android:layout_height="@dimen/icon"
                         android:focusable="true"
                         android:src="@drawable/ic_location_primary"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/padding"/>
+                        android:layout_marginRight="@dimen/padding"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/tv_event_location"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Lodz, Dabrowskiego 48"
                         android:textColor="@color/primary"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/text_message"
                         android:gravity="center_vertical"/>
 
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_width="@dimen/icon_size"
-                    android:layout_height="@dimen/icon_size"
+                    android:layout_width="@dimen/icon"
+                    android:layout_height="@dimen/icon"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:focusable="true"
-                    android:src="@drawable/ic_arrow_right_primary" />
+                    android:src="@drawable/ic_arrow_right_primary"
+                    tools:ignore="ContentDescription" />
 
             </RelativeLayout>
 
@@ -199,7 +204,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="There will be event's description, where author can put some details about this event."
+                    android:text=""
                     android:textColor="@color/text"
                     android:textSize="@dimen/text_regular"/>
             </LinearLayout>
@@ -218,34 +223,36 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true">
+                    android:layout_centerVertical="true"
+                    tools:ignore="RelativeOverlap">
 
                     <ImageView
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
+                        android:layout_width="@dimen/icon"
+                        android:layout_height="@dimen/icon"
                         android:focusable="true"
                         android:src="@drawable/ic_members_primary"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/padding"/>
+                        android:layout_marginRight="@dimen/padding"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Members"
+                        android:text="@string/members"
                         android:textAllCaps="true"
                         android:textColor="@color/primary"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/text_message"
                         android:gravity="center_vertical"/>
 
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_width="@dimen/icon_size"
-                    android:layout_height="@dimen/icon_size"
+                    android:layout_width="@dimen/icon"
+                    android:layout_height="@dimen/icon"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:focusable="true"
-                    android:src="@drawable/ic_arrow_right_primary" />
+                    android:src="@drawable/ic_arrow_right_primary"
+                    tools:ignore="ContentDescription" />
             </RelativeLayout>
 
             <LinearLayout
@@ -257,26 +264,35 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Organizer: "
+                    android:text="@string/organizer"
                     android:textStyle="bold"
                     android:textColor="@color/text"
                     android:textSize="@dimen/text_regular"/>
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=": "
+                    android:textStyle="bold"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/text_regular"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
                     android:id="@+id/tv_event_details_organizer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="John"
+                    android:text=""
                     android:textColor="@color/text"
                     android:textSize="@dimen/text_regular"/>
-            </LinearLayout>\
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btn_event_action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/component_regular_button"
-                android:text="Join"
+                android:text="@string/join"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/margin"/>
 
@@ -296,14 +312,15 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/margin"
             android:background="@drawable/component_flat_button"
-            android:text="Delete"
+            android:text="@string/delete"
             android:textColor="@color/error" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true"
+            tools:ignore="RelativeOverlap">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btn_chat"
@@ -314,11 +331,8 @@
                 android:src="@drawable/ic_chat_primary"
                 app:background="@color/primary"
                 app:tint="@color/background"
-                />
+                tools:ignore="ContentDescription" />
 
         </LinearLayout>
-
-
-
     </RelativeLayout>
 </LinearLayout>

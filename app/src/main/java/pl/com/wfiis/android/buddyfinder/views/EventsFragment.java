@@ -23,7 +23,7 @@ import pl.com.wfiis.android.buddyfinder.models.User;
 
 public class EventsFragment extends Fragment implements RecyclerViewInterface {
 
-    private ArrayList<Event> events = new ArrayList<>();
+    private final ArrayList<Event> events = new ArrayList<>();
     private User user;
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
@@ -75,12 +75,6 @@ public class EventsFragment extends Fragment implements RecyclerViewInterface {
     }
 
     private void setupEventsList() {
-        for (int i = 0; i < 15; i++) {
-            if (i % 2 == 0)
-                events.add(new Event("Event numero " + i, new User("Smith", "some_email","passw")));
-            else
-                events.add(new Event("Event numero " + i, user));
-        }
         // TODO: implement setup eventsList from database
     }
 
@@ -88,6 +82,7 @@ public class EventsFragment extends Fragment implements RecyclerViewInterface {
     public void onItemClick(int position) {
         Intent intent = new Intent(this.getContext(), EventDetailsDialog.class);
         intent.putExtra("event", events.get(position));
+        intent.putExtra("date", events.get(position).getDate().getTime());
         activityResultLauncher.launch(intent);
     }
 }

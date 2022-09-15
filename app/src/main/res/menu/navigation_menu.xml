@@ -2,17 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/menu_item_settings"
+        android:title="@string/settings"
+        android:icon="@drawable/ic_settings" />
+
+    <item
         android:id="@+id/menu_item_profile"
-        android:title="Profile"
+        android:title="@string/profile"
         android:icon="@drawable/ic_person" />
 
     <item
         android:id="@+id/menu_item_home"
-        android:title="Home"
+        android:title="@string/home"
         android:icon="@drawable/ic_home" />
 
     <item
+        android:id="@+id/menu_item_created_events"
+        android:title="@string/created"
+        android:icon="@drawable/ic_create_event" />
+
+    <item
         android:id="@+id/menu_item_events"
-        android:title="Events"
+        android:title="@string/events"
         android:icon="@drawable/ic_events" />
 </menu>

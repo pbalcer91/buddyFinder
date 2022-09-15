@@ -23,7 +23,7 @@
         android:layout_height="@dimen/bar_height"
         android:layout_gravity="bottom"
         app:menu="@menu/navigation_menu"
-        android:background="#b8c2b6"
+        android:background="@color/navigation_background"
         app:itemIconTint="@drawable/bottom_navigation_colors"
         app:itemTextColor="@drawable/bottom_navigation_colors">
 

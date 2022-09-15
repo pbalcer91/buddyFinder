@@ -24,8 +24,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -38,18 +36,10 @@ public class EventCreatorDialog extends AppCompatActivity {
 
     ActivityResultLauncher<Intent> activityResultLauncher;
 
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    private SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-
-    private ImageView backButton;
-
-    private RelativeLayout dateButton;
     private TextView dateTextView;
 
-    private RelativeLayout timeButton;
     private TextView timeTextView;
 
-    private RelativeLayout locationButton;
     private TextView locationTextView;
 
     private EditText titleField;
@@ -57,14 +47,10 @@ public class EventCreatorDialog extends AppCompatActivity {
 
     private Button createButton;
 
-    private BottomSheetDialog bottomSheetDialog;
-
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
     private boolean isDateSelected = false;
     private boolean isTimeSelected = false;
-
-    private boolean editMode = false;
 
     public boolean isServicesOk() {
         int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
@@ -72,8 +58,8 @@ public class EventCreatorDialog extends AppCompatActivity {
         if (available == ConnectionResult.SUCCESS)
             return true;
         else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
-            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog((Activity) this, available, ERROR_DIALOG_REQUEST);
-            dialog.show();
+            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(this, available, ERROR_DIALOG_REQUEST);
+            Objects.requireNonNull(dialog).show();
         }
 
         return false;
@@ -96,8 +82,10 @@ public class EventCreatorDialog extends AppCompatActivity {
         setContentView(R.layout.dialog_event_creator);
 
         this.newEvent = getIntent().getParcelableExtra("newEvent");
+        this.newEvent.setDate(new Date());
+        this.newEvent.getDate().setTime(getIntent().getLongExtra("date", -1));
 
-        editMode = (this.newEvent.getLocation() != null);
+        boolean editMode = (this.newEvent.getLocation() != null);
 
         activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -113,33 +101,33 @@ public class EventCreatorDialog extends AppCompatActivity {
 
                             locationTextView.setText(newEvent.getLocation() != null ?
                                     newEvent.getLocation().getAddressLine(0)
-                                    : "Set location");
+                                    : getResources().getString(R.string.set_location));
                         }
                     }
                 });
 
-        backButton = this.findViewById(R.id.btn_back);
+        ImageView backButton = this.findViewById(R.id.btn_back);
         backButton.setOnClickListener(event -> this.finish());
 
-        locationButton = this.findViewById(R.id.btn_event_location);
+        RelativeLayout locationButton = this.findViewById(R.id.btn_event_location);
         locationButton.setOnClickListener(event -> showMap());
 
         locationTextView = this.findViewById(R.id.tv_event_create_location);
         locationTextView.setText(newEvent.getLocation() != null ?
                 newEvent.getLocation().getAddressLine(0)
-                : "Set location");
+                : getResources().getString(R.string.set_location));
 
-        dateButton = this.findViewById(R.id.btn_event_create_date);
+        RelativeLayout dateButton = this.findViewById(R.id.btn_event_create_date);
         dateButton.setOnClickListener(event -> showCalendarDialog(newEvent.getDate()));
 
         dateTextView = this.findViewById(R.id.tv_event_create_date);
-        dateTextView.setText(dateFormat.format(newEvent.getDate()));
+        dateTextView.setText(MainActivity.dateFormat.format(newEvent.getDate()));
 
-        timeButton = this.findViewById(R.id.btn_event_create_time);
+        RelativeLayout timeButton = this.findViewById(R.id.btn_event_create_time);
         timeButton.setOnClickListener(event -> showTimeDialog(newEvent.getDate()));
 
         timeTextView = this.findViewById(R.id.tv_event_create_time);
-        timeTextView.setText(timeFormat.format(newEvent.getDate()));
+        timeTextView.setText(MainActivity.timeFormat.format(newEvent.getDate()));
 
         titleField = this.findViewById(R.id.et_event_title);
         titleField.setText(newEvent.getTitle());
@@ -181,7 +169,7 @@ public class EventCreatorDialog extends AppCompatActivity {
         if (editMode)
             createButton.setText(R.string.confirm);
         else
-            createButton.setText("Create");
+            createButton.setText(R.string.create_event);
 
         createButton.setOnClickListener(event -> {
             Intent intent = new Intent();
@@ -205,32 +193,32 @@ public class EventCreatorDialog extends AppCompatActivity {
     }
 
     private void showCalendarDialog(Date selectedDate) {
-        bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheet);
-        bottomSheetDialog.setContentView(R.layout.dialog_date_picker);
+        MainActivity.bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheet);
+        MainActivity.bottomSheetDialog.setContentView(R.layout.dialog_date_picker);
 
-        bottomSheetDialog.setOnDismissListener(event -> validateCreator());
+        MainActivity.bottomSheetDialog.setOnDismissListener(event -> validateCreator());
 
         final Date newDate = selectedDate;
 
         Calendar calendarDate = Calendar.getInstance();
         calendarDate.setTime(selectedDate);
 
-        Button closeButton = bottomSheetDialog.findViewById(R.id.btn_calendar_close);
-        closeButton.setOnClickListener(event -> bottomSheetDialog.cancel());
+        Button closeButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_calendar_close);
+        Objects.requireNonNull(closeButton).setOnClickListener(event -> MainActivity.bottomSheetDialog.cancel());
 
-        Button acceptButton = bottomSheetDialog.findViewById(R.id.btn_calendar_accept);
-        acceptButton.setOnClickListener(event -> {
+        Button acceptButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_calendar_accept);
+        Objects.requireNonNull(acceptButton).setOnClickListener(event -> {
             newEvent.setDate(newDate);
-            dateTextView.setText(dateFormat.format(newEvent.getDate()));
+            dateTextView.setText(MainActivity.dateFormat.format(newEvent.getDate()));
 
             if (!isDateSelected)
                 isDateSelected = true;
 
-            bottomSheetDialog.dismiss();
+            MainActivity.bottomSheetDialog.dismiss();
         });
 
-        CalendarView calendar = bottomSheetDialog.findViewById(R.id.calendar_picker);
-        calendar.setDate(selectedDate.getTime(),false,true);
+        CalendarView calendar = MainActivity.bottomSheetDialog.findViewById(R.id.calendar_picker);
+        Objects.requireNonNull(calendar).setDate(selectedDate.getTime(),false,true);
 
         calendar.setOnDateChangeListener((calendarView, year, month, day) -> {
             calendarDate.set(year,
@@ -242,18 +230,18 @@ public class EventCreatorDialog extends AppCompatActivity {
             newDate.setTime(calendarDate.getTimeInMillis());
         });
 
-        bottomSheetDialog.show();
+        MainActivity.bottomSheetDialog.show();
     }
 
     private void showTimeDialog(Date selectedDate) {
-        bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheet);
-        bottomSheetDialog.setContentView(R.layout.dialog_time_picker);
+        MainActivity.bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheet);
+        MainActivity.bottomSheetDialog.setContentView(R.layout.dialog_time_picker);
 
-        bottomSheetDialog.setOnDismissListener(event -> validateCreator());
+        MainActivity.bottomSheetDialog.setOnDismissListener(event -> validateCreator());
 
         final Date newTime = selectedDate;
 
-        TimePicker timePicker = bottomSheetDialog.findViewById(R.id.time_picker);
+        TimePicker timePicker = MainActivity.bottomSheetDialog.findViewById(R.id.time_picker);
         Objects.requireNonNull(timePicker).setIs24HourView(true);
 
         Calendar calendarTime = Calendar.getInstance();
@@ -262,18 +250,18 @@ public class EventCreatorDialog extends AppCompatActivity {
         timePicker.setHour(calendarTime.get(Calendar.HOUR_OF_DAY));
         timePicker.setMinute(calendarTime.get(Calendar.MINUTE));
 
-        Button closeButton = bottomSheetDialog.findViewById(R.id.btn_time_close);
-        closeButton.setOnClickListener(event -> bottomSheetDialog.cancel());
+        Button closeButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_time_close);
+        Objects.requireNonNull(closeButton).setOnClickListener(event -> MainActivity.bottomSheetDialog.cancel());
 
-        Button acceptButton = bottomSheetDialog.findViewById(R.id.btn_time_accept);
-        acceptButton.setOnClickListener(event -> {
+        Button acceptButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_time_accept);
+        Objects.requireNonNull(acceptButton).setOnClickListener(event -> {
             newEvent.setDate(newTime);
-            timeTextView.setText(timeFormat.format(newEvent.getDate()));
+            timeTextView.setText(MainActivity.timeFormat.format(newEvent.getDate()));
 
             if (!isTimeSelected)
                 isTimeSelected = true;
 
-            bottomSheetDialog.dismiss();
+            MainActivity.bottomSheetDialog.dismiss();
         });
 
         timePicker.setOnTimeChangedListener((timePicker1, hour, minute) -> {
@@ -286,6 +274,6 @@ public class EventCreatorDialog extends AppCompatActivity {
             newTime.setTime(calendarTime.getTimeInMillis());
         });
 
-        bottomSheetDialog.show();
+        MainActivity.bottomSheetDialog.show();
     }
 }
