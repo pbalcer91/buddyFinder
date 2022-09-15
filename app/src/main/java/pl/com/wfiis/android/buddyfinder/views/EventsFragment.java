@@ -24,7 +24,6 @@ import pl.com.wfiis.android.buddyfinder.models.User;
 public class EventsFragment extends Fragment implements RecyclerViewInterface {
 
     private final ArrayList<Event> events = new ArrayList<>();
-    private User user;
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
 
@@ -34,11 +33,6 @@ public class EventsFragment extends Fragment implements RecyclerViewInterface {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            user = bundle.getParcelable("user");
-        }
     }
 
     @Override
@@ -64,8 +58,8 @@ public class EventsFragment extends Fragment implements RecyclerViewInterface {
 //                            Event newEvent = data.getParcelableExtra("newEvent");
 //                            user.addCreatedEvent(newEvent);
 
-                            EventAdapter newCreatedEventAdapter = new EventAdapter(this.getContext(), user.getCreatedEvents(), this);
-                            eventsList.setAdapter(newCreatedEventAdapter);
+                            EventAdapter newJoinedEventAdapter = new EventAdapter(this.getContext(), MainActivity.currentUser.getCreatedEvents(), this);
+                            eventsList.setAdapter(newJoinedEventAdapter);
                             eventsList.setLayoutManager(new LinearLayoutManager(this.getContext()));
                         }
                     }

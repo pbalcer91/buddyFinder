@@ -1,6 +1,5 @@
 package pl.com.wfiis.android.buddyfinder.views;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,11 +21,8 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 import pl.com.wfiis.android.buddyfinder.R;
-import pl.com.wfiis.android.buddyfinder.models.User;
 
 public class ProfileFragment extends Fragment {
-
-    private User user;
 
     private TextView userName;
     private TextView userEmail;
@@ -41,15 +37,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            user = bundle.getParcelable("user");
-        }
-        else{
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            startActivity(intent);
-        }
     }
 
     @Override
@@ -60,7 +47,7 @@ public class ProfileFragment extends Fragment {
         profileViewLogged = view.findViewById(R.id.view_profile_logged);
         profileViewNotLogged = view.findViewById(R.id.view_profile_not_logged);
 
-        if (user == null) {
+        if (MainActivity.currentUser == null) {
             profileViewNotLogged.setVisibility(View.VISIBLE);
 
             Button signIn = view.findViewById(R.id.btn_sign_in);
@@ -82,8 +69,8 @@ public class ProfileFragment extends Fragment {
         Button changePasswordButton = view.findViewById(R.id.btn_edit_password);
         Button logoutButton = view.findViewById(R.id.btn_logout);
 
-        userName.setText(user.getUserName());
-        userEmail.setText(user.getEmail());
+        userName.setText(MainActivity.currentUser.getUserName());
+        userEmail.setText(MainActivity.currentUser.getEmail());
 
         editUser.setOnClickListener(tempView -> showEditUserDialog());
         changePasswordButton.setOnClickListener(tempView -> showChangePasswordDialog());
@@ -97,10 +84,10 @@ public class ProfileFragment extends Fragment {
         MainActivity.bottomSheetDialog.setContentView(R.layout.dialog_edit_user);
 
         EditText newNameField = MainActivity.bottomSheetDialog.findViewById(R.id.et_new_name);
-        Objects.requireNonNull(newNameField).setText(user.getUserName());
+        Objects.requireNonNull(newNameField).setText(MainActivity.currentUser.getUserName());
 
         EditText newEmailField = MainActivity.bottomSheetDialog.findViewById(R.id.et_new_email);
-        Objects.requireNonNull(newEmailField).setText(user.getEmail());
+        Objects.requireNonNull(newEmailField).setText(MainActivity.currentUser.getEmail());
 
         Button acceptButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_accept);
         Button rejectButton = MainActivity.bottomSheetDialog.findViewById(R.id.btn_dialog_reject);
@@ -162,13 +149,13 @@ public class ProfileFragment extends Fragment {
             return;
         }
 
-        if (name.equals(user.getUserName()))
+        if (name.equals(MainActivity.currentUser.getUserName()))
             return;
 
         //TODO: change user name in database
 
-        user.setUserName(name);
-        userName.setText(user.getUserName());
+        MainActivity.currentUser.setUserName(name);
+        userName.setText(MainActivity.currentUser.getUserName());
 
         MainActivity.bottomSheetDialog.cancel();
     }
@@ -184,14 +171,14 @@ public class ProfileFragment extends Fragment {
             return;
         }
 
-        if (email.equals(user.getUserName()))
+        if (email.equals(MainActivity.currentUser.getUserName()))
             return;
 
         //TODO: change user email in database
         //TODO: check if email exists in database
 
-        user.setEmail(email);
-        userEmail.setText(user.getEmail());
+        MainActivity.currentUser.setEmail(email);
+        userEmail.setText(MainActivity.currentUser.getEmail());
         MainActivity.bottomSheetDialog.cancel();
     }
 
