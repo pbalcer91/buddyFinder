@@ -70,7 +70,7 @@
     <string name="delete">Usuń</string>
     <string name="pick_date">Wybierz datę</string>
     <string name="set_time">Ustaw czas</string>
-    <string name="joined_event">Twoje wydarzenia</string>
+    <string name="joined_event">Dołączono do wydarzenia</string>
     <string name="left_event">Opuszczono wydarzenie</string>
     <string name="deleted_event">Usunięto wydarzenie</string>
     <string name="create_event">Stwórz nowe wydarzenie</string>
