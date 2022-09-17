@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -189,6 +190,7 @@ public class EventCreatorDialog extends AppCompatActivity {
 
         Intent intent = new Intent(this, MapActivity.class);
         intent.putExtra("event", newEvent);
+        intent.putExtra("location", newEvent.getLocation());
         activityResultLauncher.launch(intent);
     }
 

@@ -18,19 +18,19 @@ public class Event implements Parcelable {
     final private User author;
     private final ArrayList<User> members;
 
-    public Event(String title, User author) {
+    public Event(User author) {
         this.id = 0;
         this.author = author;
         this.members = new ArrayList<>();
         addMember(author);
-        this.title = title;
+        this.title = "";
         this.date = Calendar.getInstance().getTime();
         this.location = null;
         this.description = "";
     }
 
     public Event(String title, User author, String description) {
-        this(title, author);
+        this(author);
         this.description = description;
     }
 

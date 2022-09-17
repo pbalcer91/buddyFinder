@@ -78,7 +78,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/btn_map_search_field"
+                android:id="@+id/btn_search_field"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/search_field_height"
                 android:background="@drawable/component_edit_text"
@@ -86,7 +86,7 @@
                 android:paddingVertical="@dimen/padding">
 
                 <EditText
-                    android:id="@+id/et_search_map"
+                    android:id="@+id/et_search"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
@@ -95,18 +95,18 @@
                     android:background="@null"
                     android:hint="@string/search"
                     android:imeOptions="actionSearch"
+                    android:importantForAutofill="no"
                     android:inputType="text"
                     android:textColor="@color/text"
                     android:textColorHint="@color/text_hint"
-                    android:textSize="@dimen/text_regular"
-                    android:importantForAutofill="no" />
+                    android:textSize="@dimen/text_regular" />
 
                 <ImageView
                     android:id="@+id/search_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginHorizontal="@dimen/padding"
                     android:src="@drawable/ic_search_primary"
                     tools:ignore="ContentDescription" />
@@ -122,13 +122,45 @@
             android:layout_marginTop="@dimen/padding"
             android:layout_marginBottom="@dimen/padding"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_events_list"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical"
-            android:scrollbarThumbVertical="@color/dark_gray"
-            android:scrollbarSize="@dimen/border_big" />
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/empty_label"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/avatar"
+                android:background="@drawable/component_text_box"
+                android:layout_marginTop="@dimen/section_margin"
+                android:layout_marginBottom="@dimen/margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/text_header"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/section_margin"
+                    android:lineSpacingExtra="@dimen/padding"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/empty_events_list"/>
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:visibility="invisible"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/rv_events_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical"
+                android:scrollbarThumbVertical="@color/dark_gray"
+                android:scrollbarSize="@dimen/border_big" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </LinearLayout>

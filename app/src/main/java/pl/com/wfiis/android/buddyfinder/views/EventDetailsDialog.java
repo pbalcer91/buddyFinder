@@ -86,7 +86,6 @@ public class EventDetailsDialog extends AppCompatActivity {
         RelativeLayout locationButton = this.findViewById(R.id.btn_event_location);
         locationButton.setOnClickListener(event -> showMap());
 
-
         date = findViewById(R.id.tv_event_date);
         date.setText(MainActivity.dateFormat.format(event.getDate()));
 
