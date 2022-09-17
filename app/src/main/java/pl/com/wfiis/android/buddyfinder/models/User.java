@@ -16,6 +16,7 @@ public class User implements Parcelable {
 
     public User(String userName, String email, String password) {
         //TODO: generate id
+        this.id = 1;
         this.userName = userName;
         this.email = email;
         this.password = password;
@@ -59,24 +60,48 @@ public class User implements Parcelable {
         return joinedEvents;
     }
 
+    public Event getJoinedEventById(int id) {
+        for (Event event : joinedEvents) {
+            if (event.getId() == id)
+                return event;
+        }
+
+        return null;
+    }
+
     public void addJoinedEvent(Event event) {
         joinedEvents.add(event);
     }
 
-    public void removeJoinedEvent(Event event) {
-        joinedEvents.remove(event);
+    public void removeJoinedEventById(int id) {
+        for (Event event : joinedEvents) {
+            if (event.getId() == id)
+                joinedEvents.remove(event);
+        }
     }
 
     public ArrayList<Event> getCreatedEvents() {
         return createdEvents;
     }
 
+    public Event getCreatedEventById(int id) {
+        for (Event event : createdEvents) {
+            if (event.getId() == id)
+                return event;
+        }
+
+        return null;
+    }
+
     public void addCreatedEvent(Event event) {
         createdEvents.add(event);
     }
 
-    public void removeCreatedEvent(Event event) {
-        createdEvents.remove(event);
+    public void removeCreatedEventById(int id) {
+        for (Event event : joinedEvents) {
+            if (event.getId() == id)
+                createdEvents.remove(event);
+        }
     }
 
     public User(Parcel source) {

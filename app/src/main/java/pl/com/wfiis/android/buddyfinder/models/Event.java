@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-
 public class Event implements Parcelable {
     private final int id;
     private String title;
@@ -29,7 +28,7 @@ public class Event implements Parcelable {
         this.description = "";
     }
 
-    public Event(String title, User author, String description) {
+    public Event(User author, String description) {
         this(author);
         this.description = description;
     }
@@ -86,6 +85,16 @@ public class Event implements Parcelable {
         return members;
     }
 
+    public boolean isMember(User user) {
+
+        for (User tempUser : members) {
+            if (user.getId() == tempUser.getId())
+                return true;
+        }
+
+        return false;
+    }
+
     public boolean addMember(User member) {
         if (member == null)
             return (false);
@@ -93,14 +102,17 @@ public class Event implements Parcelable {
         return members.add(member);
     }
 
-    public boolean removeMember(User member) {
-        if (member == null)
-            return (false);
-
+    public boolean removeMemberById(int id) {
         if (members.isEmpty())
             return (false);
 
-        return members.remove(member);
+        for (User user : members) {
+            if (user.getId() == id)
+                members.remove(user);
+            return (true);
+        }
+
+        return (false);
     }
 
     public int getId() {

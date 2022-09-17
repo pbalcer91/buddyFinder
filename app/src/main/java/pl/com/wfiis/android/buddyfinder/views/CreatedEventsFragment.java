@@ -53,10 +53,6 @@ public class CreatedEventsFragment extends Fragment implements RecyclerViewInter
                         Intent data = result.getData();
 
                         if (data != null) {
-                            Event newEvent = data.getParcelableExtra("newEvent");
-                            MainActivity.currentUser.addCreatedEvent(newEvent);
-                            MainActivity.currentUser.addJoinedEvent(newEvent);
-
                             EventAdapter newCreatedEventAdapter = new EventAdapter(this.getContext(), MainActivity.currentUser.getCreatedEvents(), this);
                             createdEvents.setAdapter(newCreatedEventAdapter);
                             createdEvents.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -107,8 +103,10 @@ public class CreatedEventsFragment extends Fragment implements RecyclerViewInter
             activityResultLauncher.launch(intent);
         });
 
-        EventAdapter createdEventAdapter = new EventAdapter(this.getContext(), MainActivity.currentUser.getCreatedEvents(), this);
+        if (createdEvents.getAdapter() != null)
+            return view;
 
+        EventAdapter createdEventAdapter = new EventAdapter(this.getContext(), MainActivity.currentUser.getCreatedEvents(), this);
         createdEvents.setAdapter(createdEventAdapter);
         createdEvents.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
@@ -122,6 +120,7 @@ public class CreatedEventsFragment extends Fragment implements RecyclerViewInter
         intent.putExtra("currentUser", MainActivity.currentUser);
         intent.putExtra("event", MainActivity.currentUser.getCreatedEvents().get(position));
         intent.putExtra("date", MainActivity.currentUser.getCreatedEvents().get(position).getDate().getTime());
+        intent.putExtra("location", MainActivity.currentUser.getCreatedEvents().get(position).getLocation());
         activityResultLauncher.launch(intent);
     }
 }

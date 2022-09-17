@@ -1,5 +1,6 @@
 package pl.com.wfiis.android.buddyfinder.views;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -35,6 +36,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,6 +61,8 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         }
 
         homeViewLogged.setVisibility(View.VISIBLE);
+
+        RecyclerView joinedEvents = view.findViewById(R.id.rv_joined_events_list);
 
         if (MainActivity.currentUser.getJoinedEvents().size() == 0) {
             emptyEventsListView.setVisibility(View.VISIBLE);
@@ -92,9 +96,9 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
                             Intent data = result.getData();
 
                             if (data != null) {
-                                Event newEvent = data.getParcelableExtra("newEvent");
-                                MainActivity.currentUser.addCreatedEvent(newEvent);
-                                MainActivity.currentUser.addJoinedEvent(newEvent);
+                                EventAdapter joinedEventAdapter = new EventAdapter(this.getContext(), MainActivity.currentUser.getJoinedEvents(), this);
+                                joinedEvents.setAdapter(joinedEventAdapter);
+                                joinedEvents.setLayoutManager(new LinearLayoutManager(this.getContext()));
                             }
                         }
                     });
@@ -104,9 +108,13 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
 
         eventsListView.setVisibility(View.VISIBLE);
 
-        RecyclerView joinedEvents = view.findViewById(R.id.rv_joined_events_list);
+        if (joinedEvents.getAdapter() != null) {
+            joinedEvents.getAdapter().notifyDataSetChanged();
+            return view;
+        }
 
         EventAdapter joinedEventAdapter = new EventAdapter(this.getContext(), MainActivity.currentUser.getJoinedEvents(), this);
+
 
         joinedEvents.setAdapter(joinedEventAdapter);
         joinedEvents.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -124,6 +132,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         intent.putExtra("currentUser", MainActivity.currentUser);
         intent.putExtra("event", MainActivity.currentUser.getJoinedEvents().get(position));
         intent.putExtra("date", MainActivity.currentUser.getJoinedEvents().get(position).getDate().getTime());
+        intent.putExtra("location", MainActivity.currentUser.getJoinedEvents().get(position).getLocation());
         activityResultLauncher.launch(intent);
     }
 }
