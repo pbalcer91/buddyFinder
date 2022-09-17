@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
             });
 
             createEventButton.setOnClickListener(tempView -> {
-                Event emptyEvent = new Event(getResources().getString(R.string.new_event), MainActivity.currentUser);
+                Event emptyEvent = new Event(MainActivity.currentUser);
 
                 Intent intent = new Intent(this.getContext(), EventCreatorDialog.class);
                 intent.putExtra("newEvent", emptyEvent);

@@ -84,7 +84,7 @@ public class CreatedEventsFragment extends Fragment implements RecyclerViewInter
             Button createFirstEventButton = view.findViewById(R.id.btn_empty_list_create);
 
             createFirstEventButton.setOnClickListener(tempView -> {
-                Event emptyEvent = new Event(getResources().getString(R.string.new_event), MainActivity.currentUser);
+                Event emptyEvent = new Event(MainActivity.currentUser);
 
                 Intent intent = new Intent(this.getContext(), EventCreatorDialog.class);
                 intent.putExtra("newEvent", emptyEvent);
@@ -99,7 +99,7 @@ public class CreatedEventsFragment extends Fragment implements RecyclerViewInter
 
         Button createEventButton = view.findViewById(R.id.btn_create_event);
         createEventButton.setOnClickListener(tempView -> {
-            Event emptyEvent = new Event(getResources().getString(R.string.new_event), MainActivity.currentUser);
+            Event emptyEvent = new Event(MainActivity.currentUser);
 
             Intent intent = new Intent(this.getContext(), EventCreatorDialog.class);
             intent.putExtra("newEvent", emptyEvent);

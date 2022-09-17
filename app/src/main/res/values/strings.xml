@@ -14,6 +14,7 @@
     <string name="english">English</string>
     <string name="polish">Polish</string>
     <string name="spanish">Spanish</string>
+    <string name="filter">Filter</string>
 
     <!--###################################### INFO #############################################-->
     <string name="events_view_title">Search for events</string>
@@ -79,4 +80,8 @@
     <string name="created">Created</string>
     <string name="created_events">Created events</string>
     <string name="empty_created_events_list_info">You did not create any events yet</string>
+
+    <string name="reset">Reset</string>
+    <string name="distance">Distance</string>
+    <string name="current_location">Current location</string>
 </resources>
