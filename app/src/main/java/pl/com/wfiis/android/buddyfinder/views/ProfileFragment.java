@@ -33,13 +33,13 @@ public class ProfileFragment extends Fragment {
     RelativeLayout profileViewNotLogged;
 
     public ProfileFragment() {
-
+        dbServices = new DBServices();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dbServices = new DBServices();
+
     }
 
     @Override
@@ -174,11 +174,23 @@ public class ProfileFragment extends Fragment {
             return;
         }
 
-        if (email.equals(MainActivity.currentUser.getUserName()))
+        if (email.equals(MainActivity.currentUser.getEmail()))
             return;
 
         //TODO: change user email in database
         //TODO: check if email exists in database
+        final boolean[] isEmailInDb = new boolean[1];
+        dbServices.isEmailInDB(email, new DBServices.CallbackIsEmailInDB(){
+            @Override
+            public void onCallbackIsEmailInDB(boolean result) {
+                isEmailInDb[0] = result;
+            }
+        });
+        if(!isEmailInDb[0]){
+            dbServices.updateUserData("email",email);
+        }
+        else
+            Toast.makeText(this.getContext(), "Exists account connected to this email", Toast.LENGTH_SHORT).show();
 
         MainActivity.currentUser.setEmail(email);
         userEmail.setText(MainActivity.currentUser.getEmail());

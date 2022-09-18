@@ -55,7 +55,7 @@ import pl.com.wfiis.android.buddyfinder.models.User;
 
 public class EventsFragment extends Fragment implements RecyclerViewInterface {
 
-    private final ArrayList<Event> events = new ArrayList<>();
+    private ArrayList<Event> events = new ArrayList<>();
 
     private float filteredDistance = 0;
     private String filteredTitle = "";
@@ -147,7 +147,7 @@ public class EventsFragment extends Fragment implements RecyclerViewInterface {
                 dbServices.getAllEvents(new CallbackEvents() {
                     @Override
                     public void onCallbackGetAllEvents(ArrayList<Event> dbList) {
-                            list = dbList;
+                            events = dbList;
                     }
 
 

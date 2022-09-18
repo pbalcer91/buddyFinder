@@ -15,7 +15,6 @@ public class User implements Parcelable {
     //private Byte [] image;
 
     public User(String userName, String email, String password) {
-        //TODO: generate id
         this.userName = userName;
         this.email = email;
         this.password = password;
@@ -76,8 +75,11 @@ public class User implements Parcelable {
         joinedEvents.add(event);
     }
 
-    public void removeJoinedEvent(Event event) {
-        joinedEvents.remove(event);
+    public void removeJoinedEventById(String id) {
+        for (Event event : joinedEvents) {
+            if (event.getId().equals(id))
+                joinedEvents.remove(event);
+        }
     }
 
     public ArrayList<Event> getCreatedEvents() {
@@ -96,8 +98,11 @@ public class User implements Parcelable {
         createdEvents.add(event);
     }
 
-    public void removeCreatedEvent(Event event) {
-        createdEvents.remove(event);
+    public void removeCreatedEventById(String id) {
+        for (Event event : joinedEvents) {
+            if (event.getId().equals(id))
+                createdEvents.remove(event);
+        }
     }
 
     public User(Parcel source) {

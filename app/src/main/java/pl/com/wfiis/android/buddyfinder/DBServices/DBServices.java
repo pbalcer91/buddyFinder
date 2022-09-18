@@ -104,16 +104,19 @@ public class DBServices implements Callback, CallbackEvents {
                     getEventsCreatedByUser(new CallbackCreatedEvents() {
                         @Override
                         public void onCallbackGetCreatedEvents(ArrayList<Event> list) {
-                            MainActivity.currentUser.setCreatedEvents(list);
+                            if (!list.isEmpty() && MainActivity.currentUser != null)
+                                MainActivity.currentUser.setCreatedEvents(list);
                         }
                     });
 
                     getEventsJoinedByUser(new CallbackJoinedEvents() {
                         @Override
                         public void onCallbackGetJoinedEvents(ArrayList<Event> list) {
-                            MainActivity.currentUser.setJoinedEvents(list);
+                            if (!list.isEmpty() && MainActivity.currentUser != null)
+                                MainActivity.currentUser.setJoinedEvents(list);
                         }
                     });
+
                     Toast.makeText(context, "Logged in Successfully", Toast.LENGTH_SHORT).show();
                     MainActivity.bottomSheetDialog.cancel();
                      MainActivity.showHomeViewSignIn();
@@ -188,8 +191,8 @@ public class DBServices implements Callback, CallbackEvents {
         }
     }
 
-    public void updateUserData(String uid, String valueName ,Object value) {
-        DocumentReference userRefe = firebaseRef.collection("Users").document(uid);
+    public void updateUserData(String valueName ,Object value) {
+        DocumentReference userRefe = firebaseRef.collection("Users").document(getUserId());
         userRefe.update(valueName, value).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -243,10 +246,7 @@ public class DBServices implements Callback, CallbackEvents {
     }
 
     public void getUser(String uid, Callback callback) {
-
         final User[] user = new User[1];
-
-
         firebaseRef.collection("Users").whereEqualTo("uid",uid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -292,15 +292,17 @@ public class DBServices implements Callback, CallbackEvents {
     public void getEventsCreatedByUser(CallbackCreatedEvents callback){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         ArrayList <Event> list = new ArrayList<>();
-        Task<QuerySnapshot> query = firebaseRef.collection("Events").whereEqualTo("author.id",user.getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        Task<QuerySnapshot> query = firebaseRef.collection("Events").whereEqualTo("author.id",user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(!queryDocumentSnapshots.isEmpty()){
-                for(DocumentSnapshot snapshot : queryDocumentSnapshots) {
-                    list.add(snapshot.toObject(Event.class));
-                  }
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                        for(DocumentSnapshot snapshot : task.getResult()) {
+                            if(snapshot.exists()){
+                            list.add(snapshot.toObject(Event.class));
+                        }
+                    }
+                    callback.onCallbackGetCreatedEvents(list);
                 }
-                callback.onCallbackGetCreatedEvents(list);
             }
         });
     }
@@ -504,16 +506,30 @@ public class DBServices implements Callback, CallbackEvents {
 
     }
 
+    public void isEmailInDB(String email, CallbackIsEmailInDB callbackIsEmailInDB) {
+        firebaseRef.collection("Users").whereEqualTo("email", email).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    callbackIsEmailInDB.onCallbackIsEmailInDB(task.getResult().isEmpty());
+                }
+            }
+        });
+    }
+          
     @Override
     public void onCallbackGetUser(User user) {
     }
     @Override
     public void onCallbackGetAllEvents(ArrayList<Event> list) {
     }
-    private interface CallbackJoinedEvents{
+    public interface CallbackJoinedEvents{
          void onCallbackGetJoinedEvents(ArrayList<Event>list);
     }
-    private interface CallbackCreatedEvents{
+    public interface CallbackCreatedEvents{
         void onCallbackGetCreatedEvents(ArrayList<Event>list);
+    }
+    public interface CallbackIsEmailInDB{
+        void onCallbackIsEmailInDB(boolean result);
     }
 }

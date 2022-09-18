@@ -18,6 +18,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+
+import pl.com.wfiis.android.buddyfinder.DBServices.DBServices;
 import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.adapters.EventAdapter;
 import pl.com.wfiis.android.buddyfinder.interfaces.RecyclerViewInterface;
@@ -27,8 +30,10 @@ import pl.com.wfiis.android.buddyfinder.models.User;
 public class HomeFragment extends Fragment implements RecyclerViewInterface {
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
+    private DBServices dbServices;
 
     public HomeFragment() {
+        dbServices = new DBServices();
     }
 
     @Override
@@ -59,6 +64,23 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
 
             return view;
         }
+
+        //TODO maybe delete later
+        dbServices.getEventsCreatedByUser(new DBServices.CallbackCreatedEvents() {
+            @Override
+            public void onCallbackGetCreatedEvents(ArrayList<Event> list) {
+                if (!list.isEmpty() && MainActivity.currentUser != null)
+                    MainActivity.currentUser.setCreatedEvents(list);
+            }
+        });
+
+        dbServices.getEventsJoinedByUser(new DBServices.CallbackJoinedEvents() {
+            @Override
+            public void onCallbackGetJoinedEvents(ArrayList<Event> list) {
+                if (!list.isEmpty() && MainActivity.currentUser != null)
+                    MainActivity.currentUser.setJoinedEvents(list);
+            }
+        });
 
         homeViewLogged.setVisibility(View.VISIBLE);
 
