@@ -14,7 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import pl.com.wfiis.android.buddyfinder.DBServices.Callback;
+import pl.com.wfiis.android.buddyfinder.DBServices.CallbackEvents;
+import pl.com.wfiis.android.buddyfinder.DBServices.DBServices;
 import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.adapters.EventAdapter;
 import pl.com.wfiis.android.buddyfinder.interfaces.RecyclerViewInterface;
@@ -26,8 +30,11 @@ public class EventsFragment extends Fragment implements RecyclerViewInterface {
     private final ArrayList<Event> events = new ArrayList<>();
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
+    private DBServices dbServices;
+    private static ArrayList<Event> list = new ArrayList<>();
 
     public EventsFragment() {
+        dbServices = new DBServices();
     }
 
     @Override
@@ -70,6 +77,15 @@ public class EventsFragment extends Fragment implements RecyclerViewInterface {
 
     private void setupEventsList() {
         // TODO: implement setup eventsList from database
+
+                dbServices.getAllEvents(new CallbackEvents() {
+                    @Override
+                    public void onCallbackGetAllEvents(ArrayList<Event> dbList) {
+                            list = dbList;
+                    }
+
+
+        });
     }
 
     @Override

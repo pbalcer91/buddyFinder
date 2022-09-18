@@ -20,12 +20,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import pl.com.wfiis.android.buddyfinder.DBServices.DBServices;
 import pl.com.wfiis.android.buddyfinder.R;
 
 public class ProfileFragment extends Fragment {
 
     private TextView userName;
     private TextView userEmail;
+    private DBServices dbServices;
 
     LinearLayout profileViewLogged;
     RelativeLayout profileViewNotLogged;
@@ -37,6 +39,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbServices = new DBServices();
     }
 
     @Override
@@ -232,7 +235,14 @@ public class ProfileFragment extends Fragment {
 
     private void logout() {
         //TODO: logout
+        dbServices.logoutUser();
+        MainActivity.currentUser = null;
         Toast.makeText(this.getContext(), R.string.logged_out, Toast.LENGTH_SHORT).show();
         MainActivity.bottomSheetDialog.cancel();
+        MainActivity.prevFragmentIndex = 1;
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragment_layout,
+                        MainActivity.homeFragment).commit();
+
     }
 }

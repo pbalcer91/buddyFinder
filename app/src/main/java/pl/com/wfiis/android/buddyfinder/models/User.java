@@ -6,12 +6,12 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 public class User implements Parcelable {
-    private int id;
+    private String uid;
     private String userName;
     private String email;
     private String password;
-    private final ArrayList<Event> createdEvents;
-    private final ArrayList<Event> joinedEvents;
+    private ArrayList<Event> createdEvents;
+    private ArrayList<Event> joinedEvents;
     //private Byte [] image;
 
     public User(String userName, String email, String password) {
@@ -19,6 +19,19 @@ public class User implements Parcelable {
         this.userName = userName;
         this.email = email;
         this.password = password;
+        this.createdEvents = new ArrayList<>();
+        this.joinedEvents = new ArrayList<>();
+    }
+
+    public User(String uid,String email, String password,String userName) {
+        this.uid = uid;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.createdEvents = new ArrayList<>();
+        this.joinedEvents = new ArrayList<>();
+    }
+    public User(){
         this.createdEvents = new ArrayList<>();
         this.joinedEvents = new ArrayList<>();
     }
@@ -47,12 +60,12 @@ public class User implements Parcelable {
         this.email = email;
     }
 
-    public int getId() {
-        return id;
+    public String getId() {
+        return uid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(String uid) {
+        this.uid = uid;
     }
 
     public ArrayList<Event> getJoinedEvents() {
@@ -71,6 +84,14 @@ public class User implements Parcelable {
         return createdEvents;
     }
 
+    public void setCreatedEvents(ArrayList<Event> createdEvents) {
+        this.createdEvents = createdEvents;
+    }
+
+    public void setJoinedEvents(ArrayList<Event> joinedEvents) {
+        this.joinedEvents = joinedEvents;
+    }
+
     public void addCreatedEvent(Event event) {
         createdEvents.add(event);
     }
@@ -80,7 +101,7 @@ public class User implements Parcelable {
     }
 
     public User(Parcel source) {
-        id = source.readInt();
+        uid = source.readString();
         userName = source.readString();
         email = source.readString();
         password = source.readString();
@@ -95,7 +116,7 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
+        parcel.writeString(uid);
         parcel.writeString(userName);
         parcel.writeString(email);
         parcel.writeString(password);
