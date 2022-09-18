@@ -20,8 +20,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import pl.com.wfiis.android.buddyfinder.DBServices.Callback;
 import pl.com.wfiis.android.buddyfinder.DBServices.DBServices;
 import pl.com.wfiis.android.buddyfinder.R;
+import pl.com.wfiis.android.buddyfinder.models.User;
 
 public class ProfileFragment extends Fragment {
 
@@ -186,7 +188,7 @@ public class ProfileFragment extends Fragment {
                 isEmailInDb[0] = result;
             }
         });
-        if(!isEmailInDb[0]){
+        if(isEmailInDb[0]){
             dbServices.updateUserData("email",email);
         }
         else
@@ -208,17 +210,25 @@ public class ProfileFragment extends Fragment {
             clearPasswordsFields();
             return;
         }
-
         //TODO: check old password and change password in database
+        EditText oldPasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.oldPasswordEdit);
+        EditText newPasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.newPasswordEdit);
 
-        Toast.makeText(this.getContext(), R.string.password_changed, Toast.LENGTH_SHORT).show();
-        MainActivity.bottomSheetDialog.cancel();
+        if(MainActivity.currentUser.getPassword().equals(oldPasswordField.getText().toString())){
+            dbServices.updateUserData("password",newPasswordField.getText().toString());
+            Toast.makeText(this.getContext(), R.string.password_changed, Toast.LENGTH_SHORT).show();
+            MainActivity.bottomSheetDialog.cancel();
+        }
+        else
+            Toast.makeText(this.getContext(), "Old password is incorrect", Toast.LENGTH_SHORT).show();
+
     }
 
     private void clearPasswordsFields() {
         EditText oldPasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.oldPasswordEdit);
         EditText newPasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.newPasswordEdit);
         EditText repeatNewPasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.repeatNewPasswordEdit);
+
 
         Objects.requireNonNull(oldPasswordField).setText("");
         Objects.requireNonNull(newPasswordField).setText("");
@@ -237,7 +247,7 @@ public class ProfileFragment extends Fragment {
             return (false);
         }
 
-        if (!newPasswordField.getText().equals(repeatNewPasswordField.getText())) {
+        if (!newPasswordField.getText().toString().equals(repeatNewPasswordField.getText().toString())) {
             Toast.makeText(this.getContext(), R.string.wrong_re_password, Toast.LENGTH_SHORT).show();
             return (false);
         }

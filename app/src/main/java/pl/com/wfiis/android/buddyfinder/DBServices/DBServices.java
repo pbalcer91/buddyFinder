@@ -191,25 +191,36 @@ public class DBServices implements Callback, CallbackEvents {
         }
     }
 
-    public void updateUserData(String valueName ,Object value) {
-        DocumentReference userRefe = firebaseRef.collection("Users").document(getUserId());
-        userRefe.update(valueName, value).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.d(TAG, "DocumentSnapshot successfully updated!");
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error updating document", e);
-                    }
-                });
-//
-//            userReference.child(user.getUid()).updateChildren(map);
-//        } else {
-//            //TODO USER IS NOT LOGGED
-//        }
+    public void updateUserData(String valueName ,String value) {
+         firebaseRef.collection("Users").whereEqualTo("uid",getUserId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                     @Override
+                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                         if(task.isSuccessful()) {
+                             for(QueryDocumentSnapshot document: task.getResult()){
+                                 firebaseRef.collection("Users").document(document.getId()).update(valueName,value);
+                             }
+                             if (valueName.equals("email")) {
+                                 firebaseAuth.getCurrentUser().updateEmail(value).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                     @Override
+                                     public void onComplete(@NonNull Task<Void> task) {
+                                         if (task.isSuccessful()) {
+                                             Log.d(TAG, "User email address updated.");
+                                         }
+                                     }
+                                 });
+                             } else if (valueName.equals("password")) {
+                                 firebaseAuth.getCurrentUser().updatePassword(value).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                     @Override
+                                     public void onComplete(@NonNull Task<Void> task) {
+                                         if (task.isSuccessful()) {
+                                             Log.d(TAG, "User password updated.");
+                                         }
+                                     }
+                                 });
+                             }
+                         }
+                 }
+    });
     }
 
     public void updatePassword(String newPassword, String uid){
