@@ -1,12 +1,17 @@
 package pl.com.wfiis.android.buddyfinder.views;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -28,6 +33,15 @@ import pl.com.wfiis.android.buddyfinder.models.User;
 public class MainActivity extends AppCompatActivity {
 
     public static final int RESULT_DATA_OK = 123;
+
+    public static final String[] permissions = { Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION };
+
+    public static final String FINE_LOCATION_PERMISSION = Manifest.permission.ACCESS_FINE_LOCATION;
+    public static final String COARSE_LOCATION_PERMISSION = Manifest.permission.ACCESS_COARSE_LOCATION;
+    public static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
+
+    public static boolean isLocationPermissionGranted = false;
 
     @SuppressLint("SimpleDateFormat")
     public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -57,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void showLoginDialog(Context context) {
-      //  dbServices.logoutUser();
         MainActivity.bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheet);
         MainActivity.bottomSheetDialog.setContentView(R.layout.dialog_login);
 
@@ -67,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
         EditText passwordField = MainActivity.bottomSheetDialog.findViewById(R.id.et_sing_in_password);
 
         //TODO: implement login
-
 
         Objects.requireNonNull(acceptButton).setOnClickListener(
                 tempView -> {
@@ -228,5 +240,35 @@ public class MainActivity extends AppCompatActivity {
     public static void successfulRegister(Context context){
         Toast.makeText(context, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
 
+    }
+
+    private void getLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                FINE_LOCATION_PERMISSION) == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                COARSE_LOCATION_PERMISSION) == PackageManager.PERMISSION_GRANTED) {
+            isLocationPermissionGranted = true;
+            return;
+        }
+
+        ActivityCompat.requestPermissions(this, permissions, LOCATION_PERMISSION_REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        isLocationPermissionGranted = false;
+
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0) {
+                for (int grantResult : grantResults) {
+                    if (grantResult != PackageManager.PERMISSION_GRANTED)
+                        return;
+                }
+
+                isLocationPermissionGranted = true;
+            }
+        }
     }
 }

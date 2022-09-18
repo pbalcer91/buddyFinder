@@ -43,8 +43,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
         holder.eventTitle.setText(eventModels.get(position).getTitle());
-//        holder.eventLocation.setText(eventModels.get(position).getLocation().getAddressLine(0));
-        holder.eventLocation.setText("Some address will be display here");
+        holder.eventLocation.setText(eventModels.get(position).getLocation().getAddressLine(0));
         holder.eventDate.setText(MainActivity.dateFormat.format(eventModels.get(position).getDate()));
         holder.eventTime.setText(MainActivity.timeFormat.format(eventModels.get(position).getDate()));
     }

@@ -33,6 +33,8 @@
         <entry key="app/src/main/res/drawable/component_label.xml" value="0.243" />
         <entry key="app/src/main/res/drawable/component_label_button.xml" value="0.33" />
         <entry key="app/src/main/res/drawable/component_list_item.xml" value="0.1965" />
+        <entry key="app/src/main/res/drawable/component_message.xml" value="0.172" />
+        <entry key="app/src/main/res/drawable/component_message_received.xml" value="0.172" />
         <entry key="app/src/main/res/drawable/component_regular_button.xml" value="0.243" />
         <entry key="app/src/main/res/drawable/component_spinner_category.xml" value="0.22" />
         <entry key="app/src/main/res/drawable/component_text_box.xml" value="0.199" />
@@ -67,7 +69,7 @@
         <entry key="app/src/main/res/layout/bottom_sheet.xml" value="0.253125" />
         <entry key="app/src/main/res/layout/content_add_offer.xml" value="0.3342391304347826" />
         <entry key="app/src/main/res/layout/dialog_change_password.xml" value="0.3619791666666667" />
-        <entry key="app/src/main/res/layout/dialog_chat.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/dialog_chat.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dialog_date_picker.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/dialog_edit_email.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/dialog_edit_name.xml" value="0.3619791666666667" />
@@ -76,6 +78,7 @@
         <entry key="app/src/main/res/layout/dialog_event_creator.xml" value="0.23645833333333333" />
         <entry key="app/src/main/res/layout/dialog_event_details.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/dialog_event_members.xml" value="0.3619791666666667" />
+        <entry key="app/src/main/res/layout/dialog_filter.xml" value="0.33" />
         <entry key="app/src/main/res/layout/dialog_language_selector.xml" value="0.23489583333333333" />
         <entry key="app/src/main/res/layout/dialog_login.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/dialog_logout.xml" value="0.3619791666666667" />
@@ -95,6 +98,8 @@
         <entry key="app/src/main/res/layout/item_category.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/item_event.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/item_member.xml" value="0.3619791666666667" />
+        <entry key="app/src/main/res/layout/message_received.xml" value="0.3619791666666667" />
+        <entry key="app/src/main/res/layout/message_sent.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/offer_row_item.xml" value="0.253125" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/menu/navigation_menu.xml" value="0.25" />

@@ -14,6 +14,7 @@
     <string name="english">Angielski</string>
     <string name="polish">Polski</string>
     <string name="spanish">Hiszpański</string>
+    <string name="filter">Filtruj</string>
 
     <!--###################################### INFO #############################################-->
     <string name="events_view_title">Szukaj wydarzeń</string>
@@ -69,7 +70,7 @@
     <string name="delete">Usuń</string>
     <string name="pick_date">Wybierz datę</string>
     <string name="set_time">Ustaw czas</string>
-    <string name="joined_event">Twoje wydarzenia</string>
+    <string name="joined_event">Dołączono do wydarzenia</string>
     <string name="left_event">Opuszczono wydarzenie</string>
     <string name="deleted_event">Usunięto wydarzenie</string>
     <string name="create_event">Stwórz nowe wydarzenie</string>
@@ -79,4 +80,8 @@
     <string name="created">Utworzone</string>
     <string name="created_events">Utworzone wydarzenia</string>
     <string name="empty_created_events_list_info">Nie utworzyłeś żadnego wydarzenia</string>
+
+    <string name="reset">Resetuj</string>
+    <string name="distance">Odległość</string>
+    <string name="current_location">Obecna lokalizacja</string>
 </resources>

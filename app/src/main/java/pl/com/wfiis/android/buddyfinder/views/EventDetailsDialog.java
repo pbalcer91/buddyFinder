@@ -2,6 +2,7 @@ package pl.com.wfiis.android.buddyfinder.views;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.location.Address;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +38,7 @@ public class EventDetailsDialog extends AppCompatActivity {
     private boolean isMember;
 
     private TextView title;
+    private TextView description;
 
     private TextView date;
     private TextView time;
@@ -69,15 +71,19 @@ public class EventDetailsDialog extends AppCompatActivity {
         this.event = getIntent().getParcelableExtra("event");
         this.event.setDate(new Date());
         this.event.getDate().setTime(getIntent().getLongExtra("date", -1));
+        this.event.setLocation(getIntent().getParcelableExtra("location"));
 
-        boolean isOrganizer = event.getAuthor().equals(MainActivity.currentUser);
-        isMember = event.getMembers().contains(MainActivity.currentUser);
+        boolean isOrganizer = event.getAuthor().getId() == MainActivity.currentUser.getId();
+        isMember = event.isMember(MainActivity.currentUser);
 
         ImageView backButton = this.findViewById(R.id.btn_back);
         backButton.setOnClickListener(event -> this.finish());
 
         title = this.findViewById(R.id.tv_event_title);
         title.setText(event.getTitle());
+
+        description = this.findViewById(R.id.tv_event_description);
+        description.setText(event.getDescription());
 
         ImageView editButton = this.findViewById(R.id.btn_event_edit);
         editButton.setOnClickListener(event -> showEditEventActivity());
@@ -86,7 +92,6 @@ public class EventDetailsDialog extends AppCompatActivity {
         RelativeLayout locationButton = this.findViewById(R.id.btn_event_location);
         locationButton.setOnClickListener(event -> showMap());
 
-
         date = findViewById(R.id.tv_event_date);
         date.setText(MainActivity.dateFormat.format(event.getDate()));
 
@@ -94,8 +99,7 @@ public class EventDetailsDialog extends AppCompatActivity {
         time.setText(MainActivity.timeFormat.format(event.getDate()));
 
         location = findViewById(R.id.tv_event_location);
-        location.setText("Some address");
-        //location.setText(event.getLocation().getAddressLine(0));
+        location.setText(event.getLocation().getAddressLine(0));
 
         RelativeLayout membersButton = this.findViewById(R.id.btn_event_members);
         membersButton.setOnClickListener(event -> showMembersDialog());
@@ -130,19 +134,27 @@ public class EventDetailsDialog extends AppCompatActivity {
 
                         if (data != null) {
                             event = data.getParcelableExtra("newEvent");
+                            Address eventLocation = data.getParcelableExtra("newEventLocation");
+
+                            Date eventDate = new Date();
+                            eventDate.setTime(getIntent().getLongExtra("newEventDate", -1));
 
                             title.setText(event.getTitle());
-                            date.setText(MainActivity.dateFormat.format(event.getDate()));
-                            time.setText(MainActivity.timeFormat.format(event.getDate()));
-                            location.setText(event.getLocation().getAddressLine(0));
+                            description.setText(event.getDescription());
+
+                            date.setText(MainActivity.dateFormat.format(eventDate));
+                            time.setText(MainActivity.timeFormat.format(eventDate));
+                            location.setText(eventLocation.getAddressLine(0));
                         }
                     }
                 });
     }
 
     private void showEditEventActivity() {
-        Intent intent = new Intent(this, EventDetailsDialog.class);
+        Intent intent = new Intent(this, EventCreatorDialog.class);
         intent.putExtra("newEvent", event);
+        intent.putExtra("date", event.getDate().getTime());
+        intent.putExtra("location", event.getLocation());
         activityResultLauncher.launch(intent);
     }
 
@@ -152,6 +164,7 @@ public class EventDetailsDialog extends AppCompatActivity {
 
         Intent intent = new Intent(this, MapActivity.class);
         intent.putExtra("event", event);
+        intent.putExtra("location", event.getLocation());
         this.startActivity(intent);
     }
 
@@ -231,14 +244,14 @@ public class EventDetailsDialog extends AppCompatActivity {
     }
 
     private void leaveEvent() {
-        if (!event.removeMember(MainActivity.currentUser)) {
+        if (!event.removeMemberById(MainActivity.currentUser.getId())) {
             Toast.makeText(this, R.string.operation_failed, Toast.LENGTH_SHORT).show();
             return;
         }
 
         actionButton.setOnClickListener(event -> joinEvent());
         actionButton.setText(R.string.join);
-        isMember = event.getMembers().contains(MainActivity.currentUser);
+        isMember = event.isMember(MainActivity.currentUser);
         chatButton.setVisibility(isMember ? View.VISIBLE : View.INVISIBLE);
 
         Toast.makeText(this, R.string.left_event, Toast.LENGTH_SHORT).show();
@@ -247,11 +260,11 @@ public class EventDetailsDialog extends AppCompatActivity {
 
     private void deleteEvent() {
         for (User member : event.getMembers()) {
-            event.removeMember(member);
-            member.removeJoinedEvent(event);
+            event.removeMemberById(member.getId());
+            member.removeJoinedEventById(event.getId());
 
-            if (member.equals(event.getAuthor()))
-                member.removeCreatedEvent(event);
+            if (member.getId() == event.getAuthor().getId())
+                member.removeCreatedEventById(event.getId());
         }
 
         //TODO: delete event from database

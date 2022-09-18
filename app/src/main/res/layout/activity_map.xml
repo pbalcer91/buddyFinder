@@ -88,21 +88,13 @@
         android:paddingHorizontal="@dimen/padding"
         android:paddingVertical="@dimen/padding">
 
-        <ImageView
-            android:id="@+id/search_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_search_primary"
-            tools:ignore="ContentDescription" />
-
         <EditText
             android:id="@+id/et_search_map"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_marginHorizontal="@dimen/padding"
-            android:layout_toRightOf="@+id/search_icon"
+            android:layout_toLeftOf="@+id/search_icon"
             android:background="@null"
             android:hint="@string/search"
             android:imeOptions="actionSearch"
@@ -112,9 +104,20 @@
             android:textSize="@dimen/text_regular"
             android:importantForAutofill="no" />
 
+        <ImageView
+            android:id="@+id/search_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginHorizontal="@dimen/padding"
+            android:src="@drawable/ic_search_primary"
+            tools:ignore="ContentDescription" />
+
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/current_location_wrapper"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -134,6 +137,31 @@
             android:layout_height="@dimen/icon"
             android:focusable="true"
             android:src="@drawable/ic_current_location_primary"
+            tools:ignore="ContentDescription" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/event_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/current_location_wrapper"
+        android:layout_marginTop="@dimen/padding"
+        android:layout_marginRight="@dimen/padding"
+        android:background="@drawable/component_edit_text"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/padding">
+
+        <ImageView
+            android:id="@+id/btn_event_location"
+            android:layout_width="@dimen/icon"
+            android:layout_height="@dimen/icon"
+            android:focusable="true"
+            android:src="@drawable/ic_location_primary"
             tools:ignore="ContentDescription" />
 
     </LinearLayout>

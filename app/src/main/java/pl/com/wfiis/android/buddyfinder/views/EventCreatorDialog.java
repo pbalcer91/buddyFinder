@@ -90,6 +90,10 @@ public class EventCreatorDialog extends AppCompatActivity {
         this.newEvent.setDate(new Date());
         this.newEvent.getDate().setTime(getIntent().getLongExtra("date", -1));
 
+        Address location = getIntent().getParcelableExtra("location");
+        if (location != null)
+            this.newEvent.setLocation(location);
+
         dbServices = new DBServices();
         boolean editMode = (this.newEvent.getLocation() != null);
 
@@ -178,9 +182,20 @@ public class EventCreatorDialog extends AppCompatActivity {
             createButton.setText(R.string.create_event);
 
         createButton.setOnClickListener(event -> {
+            newEvent.setTitle(titleField.getText().toString());
+
             Intent intent = new Intent();
             intent.putExtra("newEvent", newEvent);
+            intent.putExtra("newEventDate", newEvent.getDate().getTime());
+            intent.putExtra("newEventLocation", newEvent.getLocation());
             setResult(MainActivity.RESULT_DATA_OK, intent);
+
+            if (!editMode) {
+                MainActivity.currentUser.addCreatedEvent(newEvent);
+                MainActivity.currentUser.addJoinedEvent(newEvent);
+            }
+
+            //TODO: add event to database or edit
             //TODO: add event to database
             dbServices.getUser(dbServices.getUserId(), new Callback() {
                 @Override
@@ -202,6 +217,7 @@ public class EventCreatorDialog extends AppCompatActivity {
 
         Intent intent = new Intent(this, MapActivity.class);
         intent.putExtra("event", newEvent);
+        intent.putExtra("location", newEvent.getLocation());
         activityResultLauncher.launch(intent);
     }
 
