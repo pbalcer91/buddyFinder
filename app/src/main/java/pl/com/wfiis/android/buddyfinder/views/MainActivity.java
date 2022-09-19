@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentActivity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -64,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
     public static EventsFragment eventsFragment;
     private  CreatedEventsFragment createdEventsFragment;
 
+    public static SharedPreferences sharedPreferences;
+    public static SharedPreferences.Editor sharedPreferencesEditor;
+
     @Override
     public void onBackPressed() {
     }
@@ -94,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                         return;
                     }
 
-                    dbServices.SignInUser(email,password,context);
+                    dbServices.SignInUser(email, password, context);
 
                      //   showHomeViewSignIn();
                 });
@@ -166,13 +170,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         db = FirebaseFirestore.getInstance();
         dbServices = new DBServices();
-        dbServices.logoutUser();
 
-        //TODO: for logged user tests
-       // currentUser = new User("John", "john@mail.com");
-        if(dbServices.isUserSignedIn()){
-        //    currentUser = dbServices.getUser(dbServices.getUserId());
-        }
         Bundle fragmentBundle = new Bundle();
         fragmentBundle.putParcelable("user", currentUser);
 

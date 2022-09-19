@@ -1,11 +1,13 @@
 package pl.com.wfiis.android.buddyfinder.DBServices;
 
 import static android.content.ContentValues.TAG;
+import static android.content.Context.MODE_PRIVATE;
 
 import static androidx.core.content.PackageManagerCompat.LOG_TAG;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.telecom.Call;
 import android.util.Log;
 import android.widget.Toast;
@@ -53,13 +55,14 @@ public class DBServices implements Callback, CallbackEvents {
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    public void logoutUser(){
-
-//        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(context,gso);
-//        mGoogleSignInClient.signOut();
-//        GoogleApiClient googleApiClient =
+    public void logoutUser(Context context  ){
         firebaseAuth.signOut();
-      //  Auth.GoogleSignInApi.signOut(m);
+
+        MainActivity.sharedPreferences = context.getSharedPreferences("login", MODE_PRIVATE);
+        MainActivity.sharedPreferencesEditor = MainActivity.sharedPreferences.edit();
+        MainActivity.sharedPreferencesEditor.putString("email",  null);
+        MainActivity.sharedPreferencesEditor.putString("password",  null);
+        MainActivity.sharedPreferencesEditor.commit();
     }
 
     public boolean isUserSignedIn(){
@@ -97,6 +100,12 @@ public class DBServices implements Callback, CallbackEvents {
                             //TOOD it's better way to setID
                             MainActivity.currentUser = user;
                             MainActivity.currentUser.setId(getUserId());
+
+                            MainActivity.sharedPreferences = context.getSharedPreferences("login", MODE_PRIVATE);
+                            MainActivity.sharedPreferencesEditor = MainActivity.sharedPreferences.edit();
+                            MainActivity.sharedPreferencesEditor.putString("email",  MainActivity.currentUser.getEmail());
+                            MainActivity.sharedPreferencesEditor.putString("password",  MainActivity.currentUser.getPassword());
+                            MainActivity.sharedPreferencesEditor.commit();
                         }
                     });
 
@@ -118,8 +127,12 @@ public class DBServices implements Callback, CallbackEvents {
                     });
 
                     Toast.makeText(context, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-                    MainActivity.bottomSheetDialog.cancel();
-                     MainActivity.showHomeViewSignIn();
+
+                    if (MainActivity.bottomSheetDialog != null)
+                        MainActivity.bottomSheetDialog.dismiss();
+
+                    if (MainActivity.homeFragment != null)
+                        MainActivity.showHomeViewSignIn();
 
                 } else{
                     Toast.makeText(context, "Incorrect email or password", Toast.LENGTH_SHORT).show();

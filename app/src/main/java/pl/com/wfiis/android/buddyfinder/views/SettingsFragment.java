@@ -1,5 +1,7 @@
 package pl.com.wfiis.android.buddyfinder.views;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -63,6 +65,11 @@ public class SettingsFragment extends Fragment {
         configuration.setLocale(locale);
         //TODO: find new way
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+
+        MainActivity.sharedPreferences = requireContext().getSharedPreferences("language", MODE_PRIVATE);
+        MainActivity.sharedPreferencesEditor = MainActivity.sharedPreferences.edit();
+        MainActivity.sharedPreferencesEditor.putString("languageCode",  languageCode);
+        MainActivity.sharedPreferencesEditor.commit();
 
         MainActivity.bottomSheetDialog.dismiss();
         MainActivity.prevFragmentIndex = 0;
