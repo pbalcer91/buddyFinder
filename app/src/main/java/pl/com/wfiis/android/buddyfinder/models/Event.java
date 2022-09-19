@@ -9,16 +9,16 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Event implements Parcelable {
-    private final int id;
+    private String id;
     private String title;
     private String description;
     private Date date;
     private Address location;
-    final private User author;
-    private final ArrayList<User> members;
+    private User author;
+    private ArrayList<User> members;
 
     public Event(User author) {
-        this.id = 0;
+        this.id = "test";
         this.author = author;
         this.members = new ArrayList<>();
         addMember(author);
@@ -33,8 +33,11 @@ public class Event implements Parcelable {
         this.description = description;
     }
 
+    public Event() {
+    }
+
     protected Event(Parcel in) {
-        id = in.readInt();
+        id = in.readString();
         title = in.readString();
         description = in.readString();
         author = in.readParcelable(User.class.getClassLoader());
@@ -63,6 +66,10 @@ public class Event implements Parcelable {
 
     public User getAuthor() {
         return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public Date getDate() {
@@ -102,12 +109,12 @@ public class Event implements Parcelable {
         return members.add(member);
     }
 
-    public boolean removeMemberById(int id) {
+    public boolean removeMemberById(String id) {
         if (members.isEmpty())
             return (false);
 
         for (User user : members) {
-            if (user.getId() == id)
+            if (user.getId().equals(id))
                 members.remove(user);
             return (true);
         }
@@ -115,7 +122,7 @@ public class Event implements Parcelable {
         return (false);
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -134,7 +141,7 @@ public class Event implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
+        parcel.writeString(id);
         parcel.writeString(title);
         parcel.writeString(description);
         parcel.writeParcelable(author, i);

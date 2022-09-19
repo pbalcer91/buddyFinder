@@ -38,11 +38,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
+import pl.com.wfiis.android.buddyfinder.DBServices.Callback;
+import pl.com.wfiis.android.buddyfinder.DBServices.CallbackEvents;
+import pl.com.wfiis.android.buddyfinder.DBServices.DBServices;
 import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.adapters.EventAdapter;
 import pl.com.wfiis.android.buddyfinder.interfaces.RecyclerViewInterface;
@@ -51,7 +55,7 @@ import pl.com.wfiis.android.buddyfinder.models.User;
 
 public class EventsFragment extends Fragment implements RecyclerViewInterface {
 
-    private final ArrayList<Event> events = new ArrayList<>();
+    private ArrayList<Event> events = new ArrayList<>();
 
     private float filteredDistance = 0;
     private String filteredTitle = "";
@@ -63,8 +67,11 @@ public class EventsFragment extends Fragment implements RecyclerViewInterface {
     RelativeLayout emptyListLabel;
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
+    private DBServices dbServices;
+    private static ArrayList<Event> list = new ArrayList<>();
 
     public EventsFragment() {
+        dbServices = new DBServices();
     }
 
     @Override
@@ -136,6 +143,15 @@ public class EventsFragment extends Fragment implements RecyclerViewInterface {
 
     private void setupEventsList() {
         // TODO: implement setup eventsList from database
+
+                dbServices.getAllEvents(new CallbackEvents() {
+                    @Override
+                    public void onCallbackGetAllEvents(ArrayList<Event> dbList) {
+                            events = dbList;
+                    }
+
+
+        });
     }
 
     @Override

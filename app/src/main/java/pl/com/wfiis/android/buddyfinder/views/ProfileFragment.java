@@ -20,23 +20,28 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import pl.com.wfiis.android.buddyfinder.DBServices.Callback;
+import pl.com.wfiis.android.buddyfinder.DBServices.DBServices;
 import pl.com.wfiis.android.buddyfinder.R;
+import pl.com.wfiis.android.buddyfinder.models.User;
 
 public class ProfileFragment extends Fragment {
 
     private TextView userName;
     private TextView userEmail;
+    private DBServices dbServices;
 
     LinearLayout profileViewLogged;
     RelativeLayout profileViewNotLogged;
 
     public ProfileFragment() {
-
+        dbServices = new DBServices();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -171,11 +176,23 @@ public class ProfileFragment extends Fragment {
             return;
         }
 
-        if (email.equals(MainActivity.currentUser.getUserName()))
+        if (email.equals(MainActivity.currentUser.getEmail()))
             return;
 
         //TODO: change user email in database
         //TODO: check if email exists in database
+        final boolean[] isEmailInDb = new boolean[1];
+        dbServices.isEmailInDB(email, new DBServices.CallbackIsEmailInDB(){
+            @Override
+            public void onCallbackIsEmailInDB(boolean result) {
+                isEmailInDb[0] = result;
+            }
+        });
+        if(isEmailInDb[0]){
+            dbServices.updateUserData("email",email);
+        }
+        else
+            Toast.makeText(this.getContext(), "Exists account connected to this email", Toast.LENGTH_SHORT).show();
 
         MainActivity.currentUser.setEmail(email);
         userEmail.setText(MainActivity.currentUser.getEmail());
@@ -193,17 +210,25 @@ public class ProfileFragment extends Fragment {
             clearPasswordsFields();
             return;
         }
-
         //TODO: check old password and change password in database
+        EditText oldPasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.oldPasswordEdit);
+        EditText newPasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.newPasswordEdit);
 
-        Toast.makeText(this.getContext(), R.string.password_changed, Toast.LENGTH_SHORT).show();
-        MainActivity.bottomSheetDialog.cancel();
+        if(MainActivity.currentUser.getPassword().equals(oldPasswordField.getText().toString())){
+            dbServices.updateUserData("password",newPasswordField.getText().toString());
+            Toast.makeText(this.getContext(), R.string.password_changed, Toast.LENGTH_SHORT).show();
+            MainActivity.bottomSheetDialog.cancel();
+        }
+        else
+            Toast.makeText(this.getContext(), "Old password is incorrect", Toast.LENGTH_SHORT).show();
+
     }
 
     private void clearPasswordsFields() {
         EditText oldPasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.oldPasswordEdit);
         EditText newPasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.newPasswordEdit);
         EditText repeatNewPasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.repeatNewPasswordEdit);
+
 
         Objects.requireNonNull(oldPasswordField).setText("");
         Objects.requireNonNull(newPasswordField).setText("");
@@ -222,7 +247,7 @@ public class ProfileFragment extends Fragment {
             return (false);
         }
 
-        if (!newPasswordField.getText().equals(repeatNewPasswordField.getText())) {
+        if (!newPasswordField.getText().toString().equals(repeatNewPasswordField.getText().toString())) {
             Toast.makeText(this.getContext(), R.string.wrong_re_password, Toast.LENGTH_SHORT).show();
             return (false);
         }
@@ -232,7 +257,14 @@ public class ProfileFragment extends Fragment {
 
     private void logout() {
         //TODO: logout
+        dbServices.logoutUser();
+        MainActivity.currentUser = null;
         Toast.makeText(this.getContext(), R.string.logged_out, Toast.LENGTH_SHORT).show();
         MainActivity.bottomSheetDialog.cancel();
+        MainActivity.prevFragmentIndex = 1;
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragment_layout,
+                        MainActivity.homeFragment).commit();
+
     }
 }

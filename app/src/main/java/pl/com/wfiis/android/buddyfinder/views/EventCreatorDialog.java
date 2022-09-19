@@ -1,5 +1,6 @@
 package pl.com.wfiis.android.buddyfinder.views;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -27,8 +28,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
+import pl.com.wfiis.android.buddyfinder.DBServices.Callback;
+import pl.com.wfiis.android.buddyfinder.DBServices.DBServices;
 import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.models.Event;
+import pl.com.wfiis.android.buddyfinder.models.User;
 
 public class EventCreatorDialog extends AppCompatActivity {
     private Event newEvent;
@@ -45,6 +49,7 @@ public class EventCreatorDialog extends AppCompatActivity {
     private EditText descriptionField;
 
     private Button createButton;
+    private DBServices dbServices;
 
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
@@ -67,7 +72,8 @@ public class EventCreatorDialog extends AppCompatActivity {
     private void validateCreator() {
         if (titleField.getText().length() > 0
                 && newEvent.getDate().getTime() > Calendar.getInstance().getTimeInMillis()
-                && newEvent.getLocation() != null) {
+              //  && newEvent.getLocation() != null
+          ) {
             createButton.setEnabled(true);
             return;
         }
@@ -88,6 +94,7 @@ public class EventCreatorDialog extends AppCompatActivity {
         if (location != null)
             this.newEvent.setLocation(location);
 
+        dbServices = new DBServices();
         boolean editMode = (this.newEvent.getLocation() != null);
 
         activityResultLauncher = registerForActivityResult(
@@ -189,6 +196,14 @@ public class EventCreatorDialog extends AppCompatActivity {
             }
 
             //TODO: add event to database or edit
+            //TODO: add event to database
+            dbServices.getUser(dbServices.getUserId(), new Callback() {
+                @Override
+                public void onCallbackGetUser(User user) {
+                    newEvent.setAuthor(user);
+                }
+            });
+            dbServices.createEvent(newEvent);
 
             this.finish();
         });
