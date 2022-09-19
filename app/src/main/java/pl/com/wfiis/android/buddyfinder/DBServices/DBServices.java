@@ -125,7 +125,6 @@ public class DBServices implements Callback, CallbackEvents {
     }
 
     public void registerUser(String email, String username, String password, Context context) {
-        //TODO TALK ABOUT SEDING CONTEXT
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             // TODO User is signed in
@@ -145,6 +144,8 @@ public class DBServices implements Callback, CallbackEvents {
                                 map.put("username", username);
                                 map.put("email", email);
                                 map.put("password", password);
+                                map.put("createdEvents",new ArrayList<>());
+                                map.put("joinedEvents",new ArrayList<>());
 
                                 firebaseRef.collection("Users").add(map).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                             @Override
