@@ -1,5 +1,7 @@
 package pl.com.wfiis.android.buddyfinder.views;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -162,7 +164,7 @@ public class ProfileFragment extends Fragment {
         MainActivity.currentUser.setUserName(name);
         userName.setText(MainActivity.currentUser.getUserName());
 
-        dbServices.updateUserData("username", name);
+        dbServices.updateUserData("username", name, requireContext());
 
         MainActivity.bottomSheetDialog.cancel();
     }
@@ -191,11 +193,12 @@ public class ProfileFragment extends Fragment {
                 return;
             }
 
-            dbServices.updateUserData("email", email);
+            MainActivity.currentUser.setEmail(email);
+            userEmail.setText(MainActivity.currentUser.getEmail());
+
+            dbServices.updateUserData("email", email, requireContext());
         });
 
-        MainActivity.currentUser.setEmail(email);
-        userEmail.setText(MainActivity.currentUser.getEmail());
         MainActivity.bottomSheetDialog.cancel();
     }
 
@@ -215,7 +218,7 @@ public class ProfileFragment extends Fragment {
         EditText newPasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.newPasswordEdit);
 
         if(MainActivity.currentUser.getPassword().equals(oldPasswordField.getText().toString())){
-            dbServices.updateUserData("password",newPasswordField.getText().toString());
+            dbServices.updateUserData("password", newPasswordField.getText().toString(), requireContext());
             Toast.makeText(this.getContext(), R.string.password_changed, Toast.LENGTH_SHORT).show();
             MainActivity.bottomSheetDialog.cancel();
         }

@@ -81,8 +81,6 @@ public class MainActivity extends AppCompatActivity {
         EditText emailField = MainActivity.bottomSheetDialog.findViewById(R.id.et_sing_in_email);
         EditText passwordField = MainActivity.bottomSheetDialog.findViewById(R.id.et_sing_in_password);
 
-        //TODO: implement login
-
         Objects.requireNonNull(acceptButton).setOnClickListener(
                 tempView -> {
                     String email = emailField.getText().toString().trim();
