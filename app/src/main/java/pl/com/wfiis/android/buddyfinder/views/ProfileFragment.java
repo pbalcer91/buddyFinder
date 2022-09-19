@@ -256,13 +256,18 @@ public class ProfileFragment extends Fragment {
     }
 
     private void logout() {
-        //TODO: logout
-        dbServices.logoutUser();
+        dbServices.logoutUser(requireContext());
         MainActivity.currentUser = null;
+
         Toast.makeText(this.getContext(), R.string.logged_out, Toast.LENGTH_SHORT).show();
-        MainActivity.bottomSheetDialog.cancel();
+
+        MainActivity.bottomSheetDialog.dismiss();
+
         MainActivity.prevFragmentIndex = 1;
-        getParentFragmentManager().beginTransaction()
+        MainActivity.bottomNavigation.setSelectedItemId(R.id.menu_item_home);
+
+        getParentFragmentManager().beginTransaction().
+                setCustomAnimations(R.anim.animation_from_right, R.anim.animation_to_left)
                 .replace(R.id.fragment_layout,
                         MainActivity.homeFragment).commit();
 
