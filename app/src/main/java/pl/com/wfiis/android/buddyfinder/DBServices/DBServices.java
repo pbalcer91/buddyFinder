@@ -1,8 +1,14 @@
 package pl.com.wfiis.android.buddyfinder.DBServices;
 
 import static android.content.ContentValues.TAG;
+import static android.content.Context.MODE_PRIVATE;
+
+import static androidx.core.content.PackageManagerCompat.LOG_TAG;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.telecom.Call;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,6 +20,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthProvider;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -22,10 +29,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executor;
 
 import pl.com.wfiis.android.buddyfinder.models.Event;
 import pl.com.wfiis.android.buddyfinder.models.Message;
@@ -44,27 +53,19 @@ public class DBServices implements Callback, CallbackEvents {
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    public void logoutUser(){
+    public void logoutUser(Context context  ){
         firebaseAuth.signOut();
-    }
 
-    public boolean isUserSignedIn(){
-
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        if (user != null) {
-            return true;
-        }
-        return false;
+        MainActivity.sharedPreferences = context.getSharedPreferences("login", MODE_PRIVATE);
+        MainActivity.sharedPreferencesEditor = MainActivity.sharedPreferences.edit();
+        MainActivity.sharedPreferencesEditor.putString("email",  null);
+        MainActivity.sharedPreferencesEditor.putString("password",  null);
+        MainActivity.sharedPreferencesEditor.commit();
     }
 
     public void SignInUser(String email, String password,Context context){
         final int[] result = new int[1];
-        //TODO check
-//        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-//        if(currentUser != null){
-//            System.out.println("japierdole jak to wylogowac");
-//
-//        }
+
         FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
         mAuth.signInWithEmailAndPassword(email,password).addOnFailureListener(new OnFailureListener() {
@@ -80,9 +81,19 @@ public class DBServices implements Callback, CallbackEvents {
                      getUser(getUserId(), new Callback() {
                         @Override
                         public void onCallbackGetUser(User user) {
-                            //TOOD it's better way to setID
+                            if (user == null)
+                                return;
+
                             MainActivity.currentUser = user;
                             MainActivity.currentUser.setId(getUserId());
+
+                            Toast.makeText(context, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+
+                            MainActivity.sharedPreferences = context.getSharedPreferences("login", MODE_PRIVATE);
+                            MainActivity.sharedPreferencesEditor = MainActivity.sharedPreferences.edit();
+                            MainActivity.sharedPreferencesEditor.putString("email",  MainActivity.currentUser.getEmail());
+                            MainActivity.sharedPreferencesEditor.putString("password",  MainActivity.currentUser.getPassword());
+                            MainActivity.sharedPreferencesEditor.commit();
                         }
                     });
 
@@ -103,9 +114,11 @@ public class DBServices implements Callback, CallbackEvents {
                         }
                     });
 
-                    Toast.makeText(context, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-                    MainActivity.bottomSheetDialog.cancel();
-                     MainActivity.showHomeViewSignIn();
+                    if (MainActivity.bottomSheetDialog != null)
+                        MainActivity.bottomSheetDialog.dismiss();
+
+                    if (MainActivity.homeFragment != null)
+                        MainActivity.showHomeViewSignIn();
 
                 } else{
                     Toast.makeText(context, "Incorrect email or password", Toast.LENGTH_SHORT).show();
@@ -125,10 +138,6 @@ public class DBServices implements Callback, CallbackEvents {
     }
 
     public void registerUser(String email, String username, String password, Context context) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            // TODO User is signed in
-        } else {
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -144,8 +153,8 @@ public class DBServices implements Callback, CallbackEvents {
                                 map.put("username", username);
                                 map.put("email", email);
                                 map.put("password", password);
-                                map.put("createdEvents",new ArrayList<>());
-                                map.put("joinedEvents",new ArrayList<>());
+                                map.put("createdEvents",new ArrayList<Event>());
+                                map.put("joinedEvents",new ArrayList<Event>());
 
                                 firebaseRef.collection("Users").add(map).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                             @Override
@@ -171,12 +180,8 @@ public class DBServices implements Callback, CallbackEvents {
                             }
 
                     }
-
             });
-
-
         }
-    }
 
     public void updateUserData(String valueName ,String value) {
          firebaseRef.collection("Users").whereEqualTo("uid",getUserId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -255,6 +260,33 @@ public class DBServices implements Callback, CallbackEvents {
                     callback.onCallbackGetUser(user[0]);
             }}
         });
+
+
+//                .addOnCompleteListener(new ){
+//            @Override
+//            public void onC(QuerySnapshot queryDocumentSnapshots) {
+//                if(!queryDocumentSnapshots.isEmpty()){
+//                    for(DocumentSnapshot snapshot : queryDocumentSnapshots) {
+//                        if (snapshot.exists()) {
+//                            Log.d(TAG, snapshot.getId() + " => " + snapshot.getData());
+//                            user[0] = snapshot.toObject(User.class);
+//                        }
+//                        else {
+//                            Log.d(TAG, "xcbvbbb");
+//                        }
+//                    }
+//                }
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        System.out.println("err");
+//                    }
+//                });
+ //      return user[0];
+
+
+     //   return user[0];
     }
 
     public void getEventsCreatedByUser(CallbackCreatedEvents callback){
@@ -294,13 +326,6 @@ public class DBServices implements Callback, CallbackEvents {
 
 
     public void createEvent(Event event){
-        final User[] usr = new User[1];
-        getUser(getUserId(), new Callback() {
-            @Override
-            public void onCallbackGetUser(User user) {
-                usr[0] = user;
-            }
-        });
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Map<String, Object> map = new HashMap<>();
         map.put("title", event.getTitle());
@@ -308,9 +333,6 @@ public class DBServices implements Callback, CallbackEvents {
         map.put("location", event.getLocation());
         map.put("author", event.getAuthor());
         map.put("title", event.getTitle());
-        if(event.getMembers().isEmpty()){
-            event.addMember(usr[0]);
-        }
         map.put("members",event.getMembers());
 
         firebaseRef.collection("Events").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -343,7 +365,7 @@ public class DBServices implements Callback, CallbackEvents {
         });
     }
 
-    public void addUserToEvent(String eventId, String uid) {
+    public void addUserToEvent(String eventId, String uid){
         DocumentReference eventRef = firebaseRef.collection("Events").document(eventId);
         eventRef.update("members", FieldValue.arrayUnion(uid)).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

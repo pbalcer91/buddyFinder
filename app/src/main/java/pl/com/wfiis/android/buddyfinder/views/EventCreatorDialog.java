@@ -197,12 +197,7 @@ public class EventCreatorDialog extends AppCompatActivity {
 
             //TODO: add event to database or edit
             //TODO: add event to database
-            dbServices.getUser(dbServices.getUserId(), new Callback() {
-                @Override
-                public void onCallbackGetUser(User user) {
-                    newEvent.setAuthor(user);
-                }
-            });
+
             dbServices.createEvent(newEvent);
 
             this.finish();
