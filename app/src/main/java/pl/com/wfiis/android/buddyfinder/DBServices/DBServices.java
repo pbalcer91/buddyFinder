@@ -184,7 +184,7 @@ public class DBServices implements Callback, CallbackEvents {
             });
         }
 
-    public void updateUserData(String valueName ,String value) {
+    public void updateUserData(String valueName ,String value, Context context) {
          firebaseRef.collection("Users").whereEqualTo("uid",getUserId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                      @Override
                      public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -198,6 +198,12 @@ public class DBServices implements Callback, CallbackEvents {
                                      public void onComplete(@NonNull Task<Void> task) {
                                          if (task.isSuccessful()) {
                                              Log.d(TAG, "User email address updated.");
+
+                                             MainActivity.sharedPreferences = context.getSharedPreferences("login", MODE_PRIVATE);
+                                             MainActivity.sharedPreferencesEditor = MainActivity.sharedPreferences.edit();
+                                             MainActivity.sharedPreferencesEditor.putString("email",  value);
+                                             MainActivity.sharedPreferencesEditor.putString("password",  MainActivity.currentUser.getPassword());
+                                             MainActivity.sharedPreferencesEditor.commit();
                                          }
                                      }
                                  });
@@ -207,6 +213,12 @@ public class DBServices implements Callback, CallbackEvents {
                                      public void onComplete(@NonNull Task<Void> task) {
                                          if (task.isSuccessful()) {
                                              Log.d(TAG, "User password updated.");
+
+                                             MainActivity.sharedPreferences = context.getSharedPreferences("login", MODE_PRIVATE);
+                                             MainActivity.sharedPreferencesEditor = MainActivity.sharedPreferences.edit();
+                                             MainActivity.sharedPreferencesEditor.putString("email",  MainActivity.currentUser.getEmail());
+                                             MainActivity.sharedPreferencesEditor.putString("password",  value);
+                                             MainActivity.sharedPreferencesEditor.commit();
                                          }
                                      }
                                  });
@@ -255,6 +267,7 @@ public class DBServices implements Callback, CallbackEvents {
                         Log.d(TAG, snapshot.getId() + " => " + snapshot.getData());
                         user[0] = snapshot.toObject(User.class);
                         user[0].setUserName(snapshot.get("username").toString());
+                        user[0].setPassword(snapshot.get("password").toString());
                     }
             }
                 callback.onCallbackGetUser(user[0]);
