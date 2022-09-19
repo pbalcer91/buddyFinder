@@ -103,8 +103,6 @@ public class ProfileFragment extends Fragment {
                             .getText().toString());
                     changeUserEmail(Objects.requireNonNull(newEmailField)
                             .getText().toString());
-
-                    Toast.makeText(this.getContext(), R.string.user_updated, Toast.LENGTH_SHORT).show();
                 });
         Objects.requireNonNull(rejectButton).setOnClickListener(
                 tempView -> MainActivity.bottomSheetDialog.cancel());
@@ -154,13 +152,17 @@ public class ProfileFragment extends Fragment {
             return;
         }
 
-        if (name.equals(MainActivity.currentUser.getUserName()))
+        if (name.equals(MainActivity.currentUser.getUserName())) {
+            MainActivity.bottomSheetDialog.cancel();
             return;
+        }
 
-        //TODO: change user name in database
+        Toast.makeText(this.getContext(), R.string.user_updated, Toast.LENGTH_SHORT).show();
 
         MainActivity.currentUser.setUserName(name);
         userName.setText(MainActivity.currentUser.getUserName());
+
+        dbServices.updateUserData("username", name);
 
         MainActivity.bottomSheetDialog.cancel();
     }
@@ -176,23 +178,21 @@ public class ProfileFragment extends Fragment {
             return;
         }
 
-        if (email.equals(MainActivity.currentUser.getEmail()))
+        if (email.equals(MainActivity.currentUser.getEmail())) {
+            MainActivity.bottomSheetDialog.cancel();
             return;
-
-        //TODO: change user email in database
-        //TODO: check if email exists in database
-        final boolean[] isEmailInDb = new boolean[1];
-        dbServices.isEmailInDB(email, new DBServices.CallbackIsEmailInDB(){
-            @Override
-            public void onCallbackIsEmailInDB(boolean result) {
-                isEmailInDb[0] = result;
-            }
-        });
-        if(isEmailInDb[0]){
-            dbServices.updateUserData("email",email);
         }
-        else
-            Toast.makeText(this.getContext(), "Exists account connected to this email", Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(this.getContext(), R.string.user_updated, Toast.LENGTH_SHORT).show();
+
+        dbServices.isEmailInDB(email, result -> {
+            if (result) {
+                Toast.makeText(requireContext(), "Exists account connected to this email", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            dbServices.updateUserData("email", email);
+        });
 
         MainActivity.currentUser.setEmail(email);
         userEmail.setText(MainActivity.currentUser.getEmail());
@@ -210,7 +210,7 @@ public class ProfileFragment extends Fragment {
             clearPasswordsFields();
             return;
         }
-        //TODO: check old password and change password in database
+
         EditText oldPasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.oldPasswordEdit);
         EditText newPasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.newPasswordEdit);
 
