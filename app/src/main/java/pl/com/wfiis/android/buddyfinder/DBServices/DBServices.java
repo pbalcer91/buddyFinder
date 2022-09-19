@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
 
+import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.models.Event;
 import pl.com.wfiis.android.buddyfinder.models.Message;
 import pl.com.wfiis.android.buddyfinder.models.User;
@@ -245,19 +246,17 @@ public class DBServices implements Callback, CallbackEvents {
 
     public void getUser(String uid, Callback callback) {
         final User[] user = new User[1];
-        firebaseRef.collection("Users").whereEqualTo("uid",uid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for(QueryDocumentSnapshot snapshot : task.getResult()) {
-                        if (snapshot.exists()) {
-                            Log.d(TAG, snapshot.getId() + " => " + snapshot.getData());
-                            user[0] = snapshot.toObject(User.class);
-                        }
-                }
-                    callback.onCallbackGetUser(user[0]);
-            }}
-        });
+        firebaseRef.collection("Users").whereEqualTo("uid",uid).get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                for(QueryDocumentSnapshot snapshot : task.getResult()) {
+                    if (snapshot.exists()) {
+                        Log.d(TAG, snapshot.getId() + " => " + snapshot.getData());
+                        user[0] = snapshot.toObject(User.class);
+                        user[0].setUserName(snapshot.get("username").toString());
+                    }
+            }
+                callback.onCallbackGetUser(user[0]);
+        }});
 
 
 //                .addOnCompleteListener(new ){
@@ -496,7 +495,7 @@ public class DBServices implements Callback, CallbackEvents {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
-                    callbackIsEmailInDB.onCallbackIsEmailInDB(task.getResult().isEmpty());
+                    callbackIsEmailInDB.onCallbackIsEmailInDB(!task.getResult().isEmpty());
                 }
             }
         });
