@@ -186,7 +186,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/component_flat_button"
             android:text="@string/reject"
-            android:textSize="@dimen/text_regular"
+            android:textSize="@dimen/text_info"
             android:textColor="@color/primary"
             android:layout_gravity="center" />
 

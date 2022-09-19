@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentActivity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -25,7 +24,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
 
-import pl.com.wfiis.android.buddyfinder.DBServices.Callback;
 import pl.com.wfiis.android.buddyfinder.DBServices.DBServices;
 import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.models.User;
@@ -85,12 +83,20 @@ public class MainActivity extends AppCompatActivity {
                 tempView -> {
                     String email = emailField.getText().toString().trim();
                     String password = passwordField.getText().toString().trim();
+
+                    if(TextUtils.isEmpty(email)){
+                        emailField.setError(context.getResources().getString(R.string.email_field_required));
+                        return;
+                    }
+
+                    if(TextUtils.isEmpty(password)){
+                        passwordField.setError("Password is Required.");
+                        return;
+                    }
+
                     dbServices.SignInUser(email,password,context);
 
                      //   showHomeViewSignIn();
-
-
-
                 });
         Objects.requireNonNull(rejectButton).setOnClickListener(
                 tempView -> MainActivity.bottomSheetDialog.cancel());
@@ -107,18 +113,22 @@ public class MainActivity extends AppCompatActivity {
         EditText emailField = MainActivity.bottomSheetDialog.findViewById(R.id.et_sing_up_email);
         EditText passwordField = MainActivity.bottomSheetDialog.findViewById(R.id.et_sing_up_password);
         EditText usernameField = MainActivity.bottomSheetDialog.findViewById(R.id.et_sing_up_name);
-        EditText repasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.et_sing_up_re_password);
-
-        //TODO: implement register
+        EditText rePasswordField = MainActivity.bottomSheetDialog.findViewById(R.id.et_sing_up_re_password);
 
         Objects.requireNonNull(acceptButton).setOnClickListener(
                 tempView -> {
                     final String email = emailField.getText().toString().trim();
                     final String username = usernameField.getText().toString().trim();
                     String password = passwordField.getText().toString().trim();
+                    String rePassword = rePasswordField.getText().toString().trim();
+
+                    if(TextUtils.isEmpty(username)){
+                        usernameField.setError(context.getResources().getString(R.string.name_field_required));
+                        return;
+                    }
 
                     if(TextUtils.isEmpty(email)){
-                        emailField.setError("Email is Required.");
+                        emailField.setError(context.getResources().getString(R.string.email_field_required));
                         return;
                     }
 
@@ -128,12 +138,18 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     if(password.length() < 6){
-                        passwordField.setError("Password Must be >= 6 Characters");
+                        passwordField.setError("Password must be >= 6 Characters");
                         return;
                     }
+
+                    if(!password.equals(rePassword)){
+                        rePasswordField.setError(context.getResources().getString(R.string.wrong_re_password));
+                        return;
+                    }
+
                     dbServices.registerUser(email,username,password,context);
-                    //Toast.makeText(context, "Sign up attempt", Toast.LENGTH_SHORT).show();
-                    MainActivity.bottomSheetDialog.cancel();
+
+                    MainActivity.bottomSheetDialog.dismiss();
                 });
         Objects.requireNonNull(rejectButton).setOnClickListener(
                 tempView -> MainActivity.bottomSheetDialog.cancel());
