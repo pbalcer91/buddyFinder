@@ -40,8 +40,6 @@ import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.models.Event;
 import pl.com.wfiis.android.buddyfinder.models.Message;
 import pl.com.wfiis.android.buddyfinder.models.User;
-import pl.com.wfiis.android.buddyfinder.views.HomeFragment;
-import pl.com.wfiis.android.buddyfinder.views.LoginDialog;
 import pl.com.wfiis.android.buddyfinder.views.MainActivity;
 
 public class DBServices implements Callback, CallbackEvents {
@@ -130,6 +128,11 @@ public class DBServices implements Callback, CallbackEvents {
         });
     }
 
+    //TODO maybe
+    public void addUserUid(String uid){
+
+    }
+
     public String getUserId(){
         FirebaseUser user = firebaseAuth.getCurrentUser();
         return user.getUid();
@@ -151,6 +154,8 @@ public class DBServices implements Callback, CallbackEvents {
                                 map.put("username", username);
                                 map.put("email", email);
                                 map.put("password", password);
+                                map.put("createdEvents",new ArrayList<Event>());
+                                map.put("joinedEvents",new ArrayList<Event>());
 
                                 firebaseRef.collection("Users").add(map).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                             @Override
@@ -229,19 +234,16 @@ public class DBServices implements Callback, CallbackEvents {
     }
 
     private void deleteUser(String uid) {
-        firebaseRef.collection("Users").document(uid).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+        firebaseRef.collection("Users").whereEqualTo("uid",getUserId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {  //.delete()
             @Override
-            public void onSuccess(Void aVoid) {
-                Log.d(TAG, "DocumentSnapshot successfully deleted!");
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error deleting document", e);
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot document: task.getResult()) {
+                        firebaseRef.collection("Users").document(document.getId()).delete();
                     }
-                });
-
+                }
+            }
+        });
     }
 
     public void getUser(String uid, Callback callback) {
@@ -323,6 +325,7 @@ public class DBServices implements Callback, CallbackEvents {
 
 
     public void createEvent(Event event){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Map<String, Object> map = new HashMap<>();
         map.put("title", event.getTitle());
         map.put("description", event.getDescription());
@@ -376,19 +379,29 @@ public class DBServices implements Callback, CallbackEvents {
                     }
                 });
 
-        DocumentReference userRef = firebaseRef.collection("Users").document(uid);
-        userRef.update("joinedEvents", FieldValue.arrayUnion(eventId)).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+       firebaseRef.collection("Users").whereEqualTo("uid", getUserId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        firebaseRef.collection("Users").document(document.getId()).update("joinedEvents", FieldValue.arrayUnion(eventId)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful())
+                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error updating document", e);
+                            }
+                        });
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error updating document", e);
-                    }
-                });
+                }
+            }
+        });
+
+
     }
 
 
