@@ -2,11 +2,7 @@ package pl.com.wfiis.android.buddyfinder.DBServices;
 
 import static android.content.ContentValues.TAG;
 
-import static androidx.core.content.PackageManagerCompat.LOG_TAG;
-
 import android.content.Context;
-import android.content.Intent;
-import android.telecom.Call;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -18,7 +14,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthProvider;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -27,18 +22,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executor;
 
 import pl.com.wfiis.android.buddyfinder.models.Event;
 import pl.com.wfiis.android.buddyfinder.models.Message;
 import pl.com.wfiis.android.buddyfinder.models.User;
-import pl.com.wfiis.android.buddyfinder.views.HomeFragment;
-import pl.com.wfiis.android.buddyfinder.views.LoginDialog;
 import pl.com.wfiis.android.buddyfinder.views.MainActivity;
 
 public class DBServices implements Callback, CallbackEvents {
@@ -54,12 +45,7 @@ public class DBServices implements Callback, CallbackEvents {
     }
 
     public void logoutUser(){
-
-//        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(context,gso);
-//        mGoogleSignInClient.signOut();
-//        GoogleApiClient googleApiClient =
         firebaseAuth.signOut();
-      //  Auth.GoogleSignInApi.signOut(m);
     }
 
     public boolean isUserSignedIn(){
@@ -241,19 +227,16 @@ public class DBServices implements Callback, CallbackEvents {
     }
 
     private void deleteUser(String uid) {
-        firebaseRef.collection("Users").document(uid).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+        firebaseRef.collection("Users").whereEqualTo("uid",getUserId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {  //.delete()
             @Override
-            public void onSuccess(Void aVoid) {
-                Log.d(TAG, "DocumentSnapshot successfully deleted!");
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error deleting document", e);
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot document: task.getResult()) {
+                        firebaseRef.collection("Users").document(document.getId()).delete();
                     }
-                });
-
+                }
+            }
+        });
     }
 
     public void getUser(String uid, Callback callback) {
@@ -271,33 +254,6 @@ public class DBServices implements Callback, CallbackEvents {
                     callback.onCallbackGetUser(user[0]);
             }}
         });
-
-
-//                .addOnCompleteListener(new ){
-//            @Override
-//            public void onC(QuerySnapshot queryDocumentSnapshots) {
-//                if(!queryDocumentSnapshots.isEmpty()){
-//                    for(DocumentSnapshot snapshot : queryDocumentSnapshots) {
-//                        if (snapshot.exists()) {
-//                            Log.d(TAG, snapshot.getId() + " => " + snapshot.getData());
-//                            user[0] = snapshot.toObject(User.class);
-//                        }
-//                        else {
-//                            Log.d(TAG, "xcbvbbb");
-//                        }
-//                    }
-//                }
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        System.out.println("err");
-//                    }
-//                });
- //      return user[0];
-
-
-     //   return user[0];
     }
 
     public void getEventsCreatedByUser(CallbackCreatedEvents callback){
@@ -337,26 +293,24 @@ public class DBServices implements Callback, CallbackEvents {
 
 
     public void createEvent(Event event){
+        final User[] usr = new User[1];
+        getUser(getUserId(), new Callback() {
+            @Override
+            public void onCallbackGetUser(User user) {
+                usr[0] = user;
+            }
+        });
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-
         Map<String, Object> map = new HashMap<>();
         map.put("title", event.getTitle());
         map.put("description", event.getDescription());
         map.put("location", event.getLocation());
         map.put("author", event.getAuthor());
         map.put("title", event.getTitle());
-
-        //TODO FIX IT
-//        if(event.getMembers().isEmpty()){
-//            event.addMember(getUser(user.getUid(), new Callback() {
-//                @Override
-//                public void onCallbackGetUser(User user) {
-//                    return user;
-//                }
-//            }));
-//        }
-//        map.put("members",event.getMembers());
+        if(event.getMembers().isEmpty()){
+            event.addMember(usr[0]);
+        }
+        map.put("members",event.getMembers());
 
         firebaseRef.collection("Events").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -388,7 +342,7 @@ public class DBServices implements Callback, CallbackEvents {
         });
     }
 
-    public void addUserToEvent(String eventId, String uid){
+    public void addUserToEvent(String eventId, String uid) {
         DocumentReference eventRef = firebaseRef.collection("Events").document(eventId);
         eventRef.update("members", FieldValue.arrayUnion(uid)).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -403,19 +357,29 @@ public class DBServices implements Callback, CallbackEvents {
                     }
                 });
 
-        DocumentReference userRef = firebaseRef.collection("Users").document(uid);
-        userRef.update("joinedEvents", FieldValue.arrayUnion(eventId)).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+       firebaseRef.collection("Users").whereEqualTo("uid", getUserId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        firebaseRef.collection("Users").document(document.getId()).update("joinedEvents", FieldValue.arrayUnion(eventId)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful())
+                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error updating document", e);
+                            }
+                        });
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error updating document", e);
-                    }
-                });
+                }
+            }
+        });
+
+
     }
 
 

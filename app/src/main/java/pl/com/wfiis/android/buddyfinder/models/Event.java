@@ -4,11 +4,14 @@ import android.location.Address;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.firestore.DocumentId;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 public class Event implements Parcelable {
+    @DocumentId
     private String id;
     private String title;
     private String description;
@@ -95,7 +98,7 @@ public class Event implements Parcelable {
     public boolean isMember(User user) {
 
         for (User tempUser : members) {
-            if (user.getId() == tempUser.getId())
+            if (user.getId().equals(tempUser.getId()))
                 return true;
         }
 
