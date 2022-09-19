@@ -65,23 +65,9 @@ public class DBServices implements Callback, CallbackEvents {
         MainActivity.sharedPreferencesEditor.commit();
     }
 
-    public boolean isUserSignedIn(){
-
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        if (user != null) {
-            return true;
-        }
-        return false;
-    }
-
     public void SignInUser(String email, String password,Context context){
         final int[] result = new int[1];
-        //TODO check
-//        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-//        if(currentUser != null){
-//            System.out.println("japierdole jak to wylogowac");
-//
-//        }
+
         FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
         mAuth.signInWithEmailAndPassword(email,password).addOnFailureListener(new OnFailureListener() {
@@ -97,9 +83,13 @@ public class DBServices implements Callback, CallbackEvents {
                      getUser(getUserId(), new Callback() {
                         @Override
                         public void onCallbackGetUser(User user) {
-                            //TOOD it's better way to setID
+                            if (user == null)
+                                return;
+
                             MainActivity.currentUser = user;
                             MainActivity.currentUser.setId(getUserId());
+
+                            Toast.makeText(context, "Logged in Successfully", Toast.LENGTH_SHORT).show();
 
                             MainActivity.sharedPreferences = context.getSharedPreferences("login", MODE_PRIVATE);
                             MainActivity.sharedPreferencesEditor = MainActivity.sharedPreferences.edit();
@@ -126,8 +116,6 @@ public class DBServices implements Callback, CallbackEvents {
                         }
                     });
 
-                    Toast.makeText(context, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-
                     if (MainActivity.bottomSheetDialog != null)
                         MainActivity.bottomSheetDialog.dismiss();
 
@@ -141,22 +129,12 @@ public class DBServices implements Callback, CallbackEvents {
         });
     }
 
-    //TODO maybe
-    public void addUserUid(String uid){
-
-    }
-
     public String getUserId(){
         FirebaseUser user = firebaseAuth.getCurrentUser();
         return user.getUid();
     }
 
     public void registerUser(String email, String username, String password, Context context) {
-        //TODO TALK ABOUT SEDING CONTEXT
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            // TODO User is signed in
-        } else {
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -197,12 +175,8 @@ public class DBServices implements Callback, CallbackEvents {
                             }
 
                     }
-
             });
-
-
         }
-    }
 
     public void updateUserData(String valueName ,String value) {
          firebaseRef.collection("Users").whereEqualTo("uid",getUserId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -350,26 +324,13 @@ public class DBServices implements Callback, CallbackEvents {
 
 
     public void createEvent(Event event){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-
         Map<String, Object> map = new HashMap<>();
         map.put("title", event.getTitle());
         map.put("description", event.getDescription());
         map.put("location", event.getLocation());
         map.put("author", event.getAuthor());
         map.put("title", event.getTitle());
-
-        //TODO FIX IT
-//        if(event.getMembers().isEmpty()){
-//            event.addMember(getUser(user.getUid(), new Callback() {
-//                @Override
-//                public void onCallbackGetUser(User user) {
-//                    return user;
-//                }
-//            }));
-//        }
-//        map.put("members",event.getMembers());
+        map.put("members",event.getMembers());
 
         firebaseRef.collection("Events").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

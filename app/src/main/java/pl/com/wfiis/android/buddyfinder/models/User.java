@@ -12,7 +12,6 @@ public class User implements Parcelable {
     private String password;
     private ArrayList<Event> createdEvents;
     private ArrayList<Event> joinedEvents;
-    //private Byte [] image;
 
     public User(String userName, String email, String password) {
         this.userName = userName;
