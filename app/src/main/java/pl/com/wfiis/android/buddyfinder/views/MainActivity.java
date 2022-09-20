@@ -225,11 +225,11 @@ public class MainActivity extends AppCompatActivity {
             if (prevFragmentIndex > nextFragmentIndex)
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.animation_from_left, R.anim.animation_to_right)
                         .replace(R.id.fragment_layout,
-                                selectedFragment).commit();
+                                selectedFragment).setReorderingAllowed(false).commit();
             else
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.animation_from_right, R.anim.animation_to_left)
                         .replace(R.id.fragment_layout,
-                                selectedFragment).commit();
+                                selectedFragment).setReorderingAllowed(false).commit();
 
 
             prevFragmentIndex = nextFragmentIndex;
@@ -244,8 +244,8 @@ public class MainActivity extends AppCompatActivity {
         fragmentBundle.putParcelable("user", usr);
         FragmentActivity manager =  MainActivity.homeFragment.getActivity();
         //TODO reload view
-        manager.getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_layout, homeFragment).commit();
+        manager.getSupportFragmentManager().beginTransaction().
+                replace(R.id.fragment_layout, homeFragment).setReorderingAllowed(false).commit();
 
     }
 

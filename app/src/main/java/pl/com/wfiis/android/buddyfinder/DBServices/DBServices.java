@@ -323,17 +323,28 @@ public class DBServices implements Callback, CallbackEvents {
     public void getEventsJoinedByUser(CallbackJoinedEvents callback){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         ArrayList <Event> list = new ArrayList<>();
-        Task<QuerySnapshot> query = firebaseRef.collection("Events").whereArrayContains("members",user.getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(!queryDocumentSnapshots.isEmpty()){
-                    for(DocumentSnapshot snapshot : queryDocumentSnapshots) {
-                        list.add(snapshot.toObject(Event.class));
+        Task<QuerySnapshot> query = firebaseRef.collection("Events").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        ArrayList<Event> eventList = new ArrayList<>();
+                        ArrayList<User> usersList = new ArrayList<>();
+                        if(task.isSuccessful()){
+                            for(DocumentSnapshot snapshot : task.getResult()) {
+                                if(snapshot.exists()){
+                                    eventList.add(snapshot.toObject(Event.class));
+                                }
+                            }
+                            for (Event event: eventList){
+                                usersList = event.getMembers();
+                                for(User user: usersList){
+                                    if(user.getId().equals(getUserId()))
+                                        list.add(event);
+                                }
+                            }
+                            callback.onCallbackGetJoinedEvents(list);
+                        }
                     }
-                }
-                callback.onCallbackGetJoinedEvents(list);
-            }
-    });
+                });
     }
 
 
@@ -342,6 +353,7 @@ public class DBServices implements Callback, CallbackEvents {
         Map<String, Object> map = new HashMap<>();
         map.put("title", event.getTitle());
         map.put("description", event.getDescription());
+        map.put("date", event.getDate());
         map.put("location", event.getLocation());
         map.put("author", event.getAuthor());
         map.put("title", event.getTitle());
@@ -352,6 +364,7 @@ public class DBServices implements Callback, CallbackEvents {
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
                     }
+
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
