@@ -17,8 +17,26 @@ public class Event implements Parcelable {
     private String description;
     private Date date;
     private Address location;
+    private double latitude;
+    private double longitude;
     private User author;
     private ArrayList<User> members;
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 
     public Event(User author) {
         this.id = "test";
@@ -27,6 +45,8 @@ public class Event implements Parcelable {
         addMember(author);
         this.title = "";
         this.date = Calendar.getInstance().getTime();
+        this.latitude = 0.0;
+        this.longitude = 0.0;
         this.location = null;
         this.description = "";
     }
@@ -89,6 +109,12 @@ public class Event implements Parcelable {
 
     public void setLocation(Address location) {
         this.location = location;
+
+        if (this.location == null)
+            return;
+
+        this.setLatitude(location.getLatitude());
+        this.setLongitude(location.getLongitude());
     }
 
     public ArrayList<User> getMembers() {

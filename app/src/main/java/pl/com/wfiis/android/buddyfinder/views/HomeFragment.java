@@ -65,26 +65,28 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
             return view;
         }
 
-        //TODO maybe delete later
-        dbServices.getEventsCreatedByUser(new DBServices.CallbackCreatedEvents() {
-            @Override
-            public void onCallbackGetCreatedEvents(ArrayList<Event> list) {
-                if (!list.isEmpty() && MainActivity.currentUser != null)
-                    MainActivity.currentUser.setCreatedEvents(list);
-            }
-        });
-
-        dbServices.getEventsJoinedByUser(new DBServices.CallbackJoinedEvents() {
-            @Override
-            public void onCallbackGetJoinedEvents(ArrayList<Event> list) {
-                if (!list.isEmpty() && MainActivity.currentUser != null)
-                    MainActivity.currentUser.setJoinedEvents(list);
-            }
-        });
-
         homeViewLogged.setVisibility(View.VISIBLE);
 
         RecyclerView joinedEvents = view.findViewById(R.id.rv_joined_events_list);
+
+        activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == MainActivity.RESULT_DATA_OK) {
+                        Intent data = result.getData();
+
+                        if (data != null) {
+                            EventAdapter joinedEventAdapter = new EventAdapter(this.getContext(), MainActivity.currentUser.getJoinedEvents(), this);
+                            joinedEvents.setAdapter(joinedEventAdapter);
+                            joinedEvents.setLayoutManager(new LinearLayoutManager(this.getContext()));
+                        }
+                    }
+                });
+
+        dbServices.getEventsJoinedByUser(list -> {
+            if (!list.isEmpty() && MainActivity.currentUser != null)
+                MainActivity.currentUser.setJoinedEvents(list);
+        });
 
         if (MainActivity.currentUser.getJoinedEvents().size() == 0) {
             emptyEventsListView.setVisibility(View.VISIBLE);
@@ -110,20 +112,6 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
                 intent.putExtra("date", emptyEvent.getDate().getTime());
                 activityResultLauncher.launch(intent);
             });
-
-            activityResultLauncher = registerForActivityResult(
-                    new ActivityResultContracts.StartActivityForResult(),
-                    result -> {
-                        if (result.getResultCode() == MainActivity.RESULT_DATA_OK) {
-                            Intent data = result.getData();
-
-                            if (data != null) {
-                                EventAdapter joinedEventAdapter = new EventAdapter(this.getContext(), MainActivity.currentUser.getJoinedEvents(), this);
-                                joinedEvents.setAdapter(joinedEventAdapter);
-                                joinedEvents.setLayoutManager(new LinearLayoutManager(this.getContext()));
-                            }
-                        }
-                    });
 
             return view;
         }

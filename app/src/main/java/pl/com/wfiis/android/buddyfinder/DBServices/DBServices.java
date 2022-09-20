@@ -272,33 +272,6 @@ public class DBServices implements Callback, CallbackEvents {
             }
                 callback.onCallbackGetUser(user[0]);
         }});
-
-
-//                .addOnCompleteListener(new ){
-//            @Override
-//            public void onC(QuerySnapshot queryDocumentSnapshots) {
-//                if(!queryDocumentSnapshots.isEmpty()){
-//                    for(DocumentSnapshot snapshot : queryDocumentSnapshots) {
-//                        if (snapshot.exists()) {
-//                            Log.d(TAG, snapshot.getId() + " => " + snapshot.getData());
-//                            user[0] = snapshot.toObject(User.class);
-//                        }
-//                        else {
-//                            Log.d(TAG, "xcbvbbb");
-//                        }
-//                    }
-//                }
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        System.out.println("err");
-//                    }
-//                });
- //      return user[0];
-
-
-     //   return user[0];
     }
 
     public void getEventsCreatedByUser(CallbackCreatedEvents callback){
@@ -323,28 +296,39 @@ public class DBServices implements Callback, CallbackEvents {
     public void getEventsJoinedByUser(CallbackJoinedEvents callback){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         ArrayList <Event> list = new ArrayList<>();
-        Task<QuerySnapshot> query = firebaseRef.collection("Events").whereArrayContains("members",user.getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        Task<QuerySnapshot> query = firebaseRef.collection("Events").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(!queryDocumentSnapshots.isEmpty()){
-                    for(DocumentSnapshot snapshot : queryDocumentSnapshots) {
-                        list.add(snapshot.toObject(Event.class));
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                ArrayList<Event> eventList = new ArrayList<>();
+                ArrayList<User> usersList = new ArrayList<>();
+                if(task.isSuccessful()){
+                    for(DocumentSnapshot snapshot : task.getResult()) {
+                        if(snapshot.exists()){
+                            eventList.add(snapshot.toObject(Event.class));
+                        }
                     }
+                    for (Event event: eventList){
+                        usersList = event.getMembers();
+                        for(User user: usersList){
+                            if(user.getId().equals(getUserId()))
+                                list.add(event);
+                        }
+                    }
+                    callback.onCallbackGetJoinedEvents(list);
                 }
-                callback.onCallbackGetJoinedEvents(list);
             }
-    });
+        });
     }
 
 
     public void createEvent(Event event){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Map<String, Object> map = new HashMap<>();
         map.put("title", event.getTitle());
         map.put("description", event.getDescription());
-        map.put("location", event.getLocation());
+        map.put("latitude", event.getLatitude());
+        map.put("longitude", event.getLongitude());
+        map.put("date", event.getDate());
         map.put("author", event.getAuthor());
-        map.put("title", event.getTitle());
         map.put("members",event.getMembers());
 
         firebaseRef.collection("Events").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

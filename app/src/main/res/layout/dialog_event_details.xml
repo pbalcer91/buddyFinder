@@ -328,6 +328,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin"
                 android:layout_marginRight="@dimen/padding"
+                android:visibility="invisible"
                 android:src="@drawable/ic_chat_primary"
                 app:background="@color/primary"
                 app:tint="@color/background"

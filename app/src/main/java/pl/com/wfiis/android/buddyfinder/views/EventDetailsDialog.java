@@ -73,7 +73,7 @@ public class EventDetailsDialog extends AppCompatActivity {
         this.event.getDate().setTime(getIntent().getLongExtra("date", -1));
         this.event.setLocation(getIntent().getParcelableExtra("location"));
 
-        boolean isOrganizer = event.getAuthor().getId() == MainActivity.currentUser.getId();
+        boolean isOrganizer = event.getAuthor().getId().equals(MainActivity.currentUser.getId());
         isMember = event.isMember(MainActivity.currentUser);
 
         ImageView backButton = this.findViewById(R.id.btn_back);
@@ -99,7 +99,7 @@ public class EventDetailsDialog extends AppCompatActivity {
         time.setText(MainActivity.timeFormat.format(event.getDate()));
 
         location = findViewById(R.id.tv_event_location);
-        location.setText(event.getLocation().getAddressLine(0));
+        //location.setText(event.getLocation().getAddressLine(0));
 
         RelativeLayout membersButton = this.findViewById(R.id.btn_event_members);
         membersButton.setOnClickListener(event -> showMembersDialog());
@@ -263,7 +263,7 @@ public class EventDetailsDialog extends AppCompatActivity {
             event.removeMemberById(member.getId());
             member.removeJoinedEventById(event.getId());
 
-            if (member.getId() == event.getAuthor().getId())
+            if (member.getId().equals(event.getAuthor().getId()))
                 member.removeCreatedEventById(event.getId());
         }
 

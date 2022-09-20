@@ -1,6 +1,9 @@
 package pl.com.wfiis.android.buddyfinder.adapters;
 
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +12,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import pl.com.wfiis.android.buddyfinder.R;
 import pl.com.wfiis.android.buddyfinder.interfaces.RecyclerViewInterface;
 import pl.com.wfiis.android.buddyfinder.models.Event;
 import pl.com.wfiis.android.buddyfinder.views.MainActivity;
+import pl.com.wfiis.android.buddyfinder.views.MapActivity;
 
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
@@ -43,8 +50,21 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
         holder.eventTitle.setText(eventModels.get(position).getTitle());
-        //TODO fix nullpointer
-  //      holder.eventLocation.setText(eventModels.get(position).getLocation().getAddressLine(0));
+
+        Geocoder geocoder = new Geocoder(context);
+        List<Address> list = new ArrayList<>();
+
+        try {
+            list = geocoder.getFromLocation( eventModels.get(position).getLatitude(),  eventModels.get(position).getLongitude(), 1);
+        } catch (IOException e) {
+
+        }
+
+        if (list.size() > 0) {
+            eventModels.get(position).setLocation(list.get(0));
+            holder.eventLocation.setText(list.get(0).getAddressLine(0));
+        }
+
         holder.eventDate.setText(MainActivity.dateFormat.format(eventModels.get(position).getDate()));
         holder.eventTime.setText(MainActivity.timeFormat.format(eventModels.get(position).getDate()));
     }
