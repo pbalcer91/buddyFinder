@@ -159,6 +159,8 @@ public class EventsFragment extends Fragment implements RecyclerViewInterface {
         Intent intent = new Intent(this.getContext(), EventDetailsDialog.class);
         intent.putExtra("event", events.get(position));
         intent.putExtra("date", events.get(position).getDate().getTime());
+        intent.putExtra("latitude", events.get(position).getLatitude());
+        intent.putExtra("longitude", events.get(position).getLongitude());
         activityResultLauncher.launch(intent);
     }
 

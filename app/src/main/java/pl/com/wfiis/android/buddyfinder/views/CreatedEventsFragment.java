@@ -120,7 +120,8 @@ public class CreatedEventsFragment extends Fragment implements RecyclerViewInter
         intent.putExtra("currentUser", MainActivity.currentUser);
         intent.putExtra("event", MainActivity.currentUser.getCreatedEvents().get(position));
         intent.putExtra("date", MainActivity.currentUser.getCreatedEvents().get(position).getDate().getTime());
-        intent.putExtra("location", MainActivity.currentUser.getCreatedEvents().get(position).getLocation());
+        intent.putExtra("latitude", MainActivity.currentUser.getCreatedEvents().get(position).getLatitude());
+        intent.putExtra("longitude", MainActivity.currentUser.getCreatedEvents().get(position).getLongitude());
         activityResultLauncher.launch(intent);
     }
 }

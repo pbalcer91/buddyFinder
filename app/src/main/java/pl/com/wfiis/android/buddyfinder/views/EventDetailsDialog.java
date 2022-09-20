@@ -3,6 +3,7 @@ package pl.com.wfiis.android.buddyfinder.views;
 import android.app.Dialog;
 import android.content.Intent;
 import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +23,10 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import pl.com.wfiis.android.buddyfinder.R;
@@ -71,7 +75,21 @@ public class EventDetailsDialog extends AppCompatActivity {
         this.event = getIntent().getParcelableExtra("event");
         this.event.setDate(new Date());
         this.event.getDate().setTime(getIntent().getLongExtra("date", -1));
-        this.event.setLocation(getIntent().getParcelableExtra("location"));
+        this.event.setLongitude(getIntent().getDoubleExtra("longitude", 0));
+        this.event.setLatitude(getIntent().getDoubleExtra("latitude", 0));
+
+        Geocoder geocoder = new Geocoder(this);
+        List<Address> list = new ArrayList<>();
+
+        try {
+            list = geocoder.getFromLocation(event.getLatitude(), event.getLongitude(), 1);
+        } catch (IOException e) {
+
+        }
+
+        if (list.size() > 0) {
+            event.setLocation(list.get(0));
+        }
 
         boolean isOrganizer = event.getAuthor().getId().equals(MainActivity.currentUser.getId());
         isMember = event.isMember(MainActivity.currentUser);
@@ -99,7 +117,7 @@ public class EventDetailsDialog extends AppCompatActivity {
         time.setText(MainActivity.timeFormat.format(event.getDate()));
 
         location = findViewById(R.id.tv_event_location);
-        //location.setText(event.getLocation().getAddressLine(0));
+        location.setText(event.getLocation().getAddressLine(0));
 
         RelativeLayout membersButton = this.findViewById(R.id.btn_event_members);
         membersButton.setOnClickListener(event -> showMembersDialog());

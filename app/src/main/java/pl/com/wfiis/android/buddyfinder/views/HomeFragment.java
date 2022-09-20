@@ -142,7 +142,8 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         intent.putExtra("currentUser", MainActivity.currentUser);
         intent.putExtra("event", MainActivity.currentUser.getJoinedEvents().get(position));
         intent.putExtra("date", MainActivity.currentUser.getJoinedEvents().get(position).getDate().getTime());
-        intent.putExtra("location", MainActivity.currentUser.getJoinedEvents().get(position).getLocation());
+        intent.putExtra("latitude", MainActivity.currentUser.getJoinedEvents().get(position).getLatitude());
+        intent.putExtra("longitude", MainActivity.currentUser.getJoinedEvents().get(position).getLongitude());
         activityResultLauncher.launch(intent);
     }
 }
